@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>태양광 발전량 예측 — 연구 계획</title>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f6f3;
+    --surface: #ffffff;
+    --border: #e8e5de;
+    --text-primary: #1a1a1a;
+    --text-secondary: #6b6b6b;
+    --text-muted: #9b9b9b;
+    --accent-blue: #2f80ed;
+    --accent-teal: #0f9d74;
+    --accent-amber: #e89d26;
+    --accent-purple: #7c5cbf;
+    --accent-coral: #d85a30;
+    --tag-blue-bg: #e8f1fd;
+    --tag-blue-text: #1a5db5;
+    --tag-teal-bg: #e1f5ee;
+    --tag-teal-text: #0a6b50;
+    --tag-amber-bg: #fdf0d8;
+    --tag-amber-text: #8a5c0a;
+    --tag-purple-bg: #f0ecfb;
+    --tag-purple-text: #5b3fa0;
+    --tag-gray-bg: #f1f0ec;
+    --tag-gray-text: #5a5a5a;
+    --now-bg: #e8f8f2;
+    --now-border: #0f9d74;
+    --now-text: #0a6b50;
+  }
+
+  body {
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── 상단 헤더 ── */
+  .page-header {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 64px 40px 0;
+  }
+  .page-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent-teal);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .page-eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent-teal);
+  }
+  h1 {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+  }
+  .page-desc {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+  }
+  .meta-row {
+    display: flex;
+    gap: 24px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .meta-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .meta-value {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .badge-now {
+    background: var(--now-bg);
+    color: var(--now-text);
+    border: 1px solid #a8dfc9;
+  }
+  .badge-now::before {
+    content: '▶';
+    font-size: 9px;
+  }
+
+  /* ── 콘텐츠 영역 ── */
+  .content {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  /* ── 섹션 ── */
+  .section {
+    margin-bottom: 40px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .section-number {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .num-blue   { background: var(--tag-blue-bg);   color: var(--tag-blue-text); }
+  .num-teal   { background: var(--tag-teal-bg);   color: var(--tag-teal-text); }
+  .num-amber  { background: var(--tag-amber-bg);  color: var(--tag-amber-text); }
+  .num-purple { background: var(--tag-purple-bg); color: var(--tag-purple-text); }
+  .num-coral  { background: #faecea;              color: var(--accent-coral); }
+  .num-gray   { background: var(--tag-gray-bg);   color: var(--tag-gray-text); }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── 현재 단계 강조 ── */
+  .current-stage {
+    border: 1.5px solid var(--now-border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .current-stage-header {
+    background: var(--now-border);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .current-stage-header span {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: 0.02em;
+  }
+  .current-stage-body {
+    background: var(--now-bg);
+    padding: 20px;
+  }
+
+  /* ── 카드 그리드 ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    transition: box-shadow 0.15s, transform 0.15s;
+  }
+  .card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    transform: translateY(-1px);
+  }
+  .card-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .card-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .card-teal  { border-top: 3px solid var(--accent-teal); }
+  .card-blue  { border-top: 3px solid var(--accent-blue); }
+  .card-amber { border-top: 3px solid var(--accent-amber); }
+  .card-purple{ border-top: 3px solid var(--accent-purple); }
+
+  /* ── 태그 ── */
+  .tag {
+    display: inline-flex;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin: 2px 2px 2px 0;
+  }
+  .tag-blue   { background: var(--tag-blue-bg);   color: var(--tag-blue-text); }
+  .tag-teal   { background: var(--tag-teal-bg);   color: var(--tag-teal-text); }
+  .tag-amber  { background: var(--tag-amber-bg);  color: var(--tag-amber-text); }
+  .tag-purple { background: var(--tag-purple-bg); color: var(--tag-purple-text); }
+  .tag-gray   { background: var(--tag-gray-bg);   color: var(--tag-gray-text); }
+
+  /* ── 테이블 ── */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    margin-top: 12px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  thead tr {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--text-primary);
+  }
+  tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: var(--bg); }
+  .dot-required::before {
+    content: '★ ';
+    color: var(--accent-teal);
+    font-size: 10px;
+  }
+
+  /* ── 플로우 구조 ── */
+  .flow-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 12px;
+  }
+  .flow-step {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+  .flow-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40px;
+    flex-shrink: 0;
+  }
+  .flow-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--surface);
+    flex-shrink: 0;
+    margin-top: 18px;
+    z-index: 1;
+  }
+  .flow-dot.active {
+    background: var(--accent-teal);
+    border-color: var(--accent-teal);
+    box-shadow: 0 0 0 4px var(--now-bg);
+  }
+  .flow-connector {
+    width: 2px;
+    flex: 1;
+    background: var(--border);
+    min-height: 20px;
+  }
+  .flow-body {
+    flex: 1;
+    padding: 12px 0 12px 0;
+  }
+  .flow-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 0;
+  }
+  .flow-card.active {
+    border-color: var(--now-border);
+    background: var(--now-bg);
+  }
+  .flow-card-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .flow-card-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .flow-card.dimmed {
+    opacity: 0.45;
+  }
+
+  /* ── 체크리스트 ── */
+  .checklist {
+    list-style: none;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .checklist li .check-icon {
+    width: 18px; height: 18px;
+    border-radius: 4px;
+    border: 1.5px solid var(--border);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .checklist li.done .check-icon {
+    background: var(--accent-teal);
+    border-color: var(--accent-teal);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-size: 11px;
+  }
+  .checklist li span { line-height: 1.5; }
+
+  /* ── 구분선 ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  /* ── 인사이트 박스 ── */
+  .insight {
+    background: var(--surface);
+    border-left: 3px solid var(--accent-teal);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+  .insight strong { color: var(--text-primary); font-weight: 600; }
+
+  /* ── 반응형 ── */
+  @media (max-width: 600px) {
+    .page-header, .content { padding-left: 20px; padding-right: 20px; }
+    h1 { font-size: 26px; }
+    .card-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<div class="page-header">
+  <div class="page-eyebrow">Research Plan</div>
+  <h1>태양광 발전량 예측<br>연구 계획</h1>
+  <p class="page-desc">실데이터 기반 태양광 발전량 예측 시스템 구축을 위한 전체 구조와 절차 정리</p>
+  <div class="meta-row">
+    <div class="meta-item">
+      <span class="meta-label">프로젝트</span>
+      <span class="meta-value">US_EMS (울산 에너지 자급자족)</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">현재 단계</span>
+      <span class="meta-value"><span class="badge badge-now">원천데이터 수집 조사 중</span></span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">목표</span>
+      <span class="meta-value">단기 1~24h 예측 → EMS 연동</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">벤치마크</span>
+      <span class="meta-value">국내 실서비스 기준 (해줌·대연씨앤아이)</span>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- ══════════════════════════════
+    1. 왜 필요한가
+  ══════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number num-gray">01</div>
+      <div class="section-title">왜 태양광 발전량 예측이 필요한가</div>
+    </div>
+    <div class="insight">
+      <strong>전력은 생산 = 소비가 실시간으로 맞아야 한다.</strong> 화력발전은 켜고 끌 수 있지만, 태양광은 햇빛이 있을 때만 나온다. 태양광이 늘어날수록 전력망 변동성이 커지고, 언제 얼마나 나올지 알아야 나머지 발전과 ESS를 조율할 수 있다.
+    </div>
+    <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="card card-teal">
+        <div class="card-title">전력망 안정</div>
+        <div class="card-desc">발전량 예측으로 나머지 발전소 출력 조절 가능</div>
+      </div>
+      <div class="card card-amber">
+        <div class="card-title">비용 최적화</div>
+        <div class="card-desc">ESS 충방전 사전 계획, 외부 전력 구매 최소화</div>
+      </div>
+      <div class="card card-purple">
+        <div class="card-title">정산 수익</div>
+        <div class="card-desc">전력거래소 예측제도 — 오차율 8% 이내 정산금</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════
+    2. 전체 구조 — 3개 큰 덩어리
+  ══════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number num-blue">02</div>
+      <div class="section-title">전체 구조 — 무엇이 필요한가</div>
+    </div>
+    <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">
+      태양광 발전량 예측 시스템은 세 개의 큰 덩어리로 구성된다. 지금은 <strong>A. 데이터</strong> 영역을 조사하는 단계다.
+    </p>
+    <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="card card-teal" style="border: 1.5px solid var(--now-border); background: var(--now-bg);">
+        <div class="card-title" style="color: var(--now-text);">A. 데이터 <span class="badge badge-now" style="font-size:10px;">지금 여기</span></div>
+        <div class="card-desc">어떤 자료가 필요한가<br>수집 가능 여부·우선순위 파악</div>
+      </div>
+      <div class="card card-purple" style="opacity:0.4;">
+        <div class="card-title">B. 모델·방법론</div>
+        <div class="card-desc">어떻게 예측할 것인가<br>전처리·피처·모델·검증</div>
+      </div>
+      <div class="card card-blue" style="opacity:0.4;">
+        <div class="card-title">C. 운영·연동</div>
+        <div class="card-desc">어디에 쓸 것인가<br>EMS·ESS·전력거래소</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════
+    3. 전체 플로우
+  ══════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number num-teal">03</div>
+      <div class="section-title">전체 절차 플로우</div>
+    </div>
+    <div class="flow-container">
+
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-body">
+          <div class="flow-card dimmed">
+            <div class="flow-card-title">① 목표 정의</div>
+            <div class="flow-card-desc">예측 horizon · 정확도 목표 · 활용처 확정</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot active"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-body">
+          <div class="flow-card active">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <div class="flow-card-title" style="color: var(--now-text);">② 원천데이터 수집</div>
+              <span class="badge badge-now">현재 진행 중</span>
+            </div>
+            <div class="flow-card-desc" style="color: var(--now-text); opacity:0.8;">어떤 데이터가 필요한지 종류·항목·우선순위 파악</div>
+            <div style="margin-top:10px; display:flex; flex-wrap:wrap; gap:4px;">
+              <span class="tag tag-teal">발전소 실측</span>
+              <span class="tag tag-teal">기상 데이터</span>
+              <span class="tag tag-teal">설비 고유정보</span>
+              <span class="tag tag-teal">천문·계산값</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-body">
+          <div class="flow-card dimmed">
+            <div class="flow-card-title">③ 전처리</div>
+            <div class="flow-card-desc">결측치 · 이상치 · 시계열 정렬 · 정규화</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-body">
+          <div class="flow-card dimmed">
+            <div class="flow-card-title">④ 피처 엔지니어링</div>
+            <div class="flow-card-desc">시간 파생 · Lag · Rolling · pvlib 계산값</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-body">
+          <div class="flow-card dimmed">
+            <div class="flow-card-title">⑤ 모델 학습 및 예측</div>
+            <div class="flow-card-desc">XGBoost · LSTM · 하이브리드 · 성능 평가</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+          <div class="flow-connector"></div>
+        </div>
+        <div class="flow-body">
+          <div class="flow-card dimmed">
+            <div class="flow-card-title">⑥ 운영 연동</div>
+            <div class="flow-card-desc">EMS · ESS 제어 · 전력거래소 제출</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-line">
+          <div class="flow-dot"></div>
+        </div>
+        <div class="flow-body">
+          <div class="flow-card dimmed">
+            <div class="flow-card-title">⑦ 피드백 → 재학습</div>
+            <div class="flow-card-desc">실측 vs 예측 비교 · 오차 분석 · 주기 재학습</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════
+    4. 현재 단계 — 데이터 조사
+  ══════════════════════════════ -->
+  <div class="current-stage">
+    <div class="current-stage-header">
+      <span>▶ 현재 단계 — A. 데이터 : 어떤 자료가 필요한가</span>
+    </div>
+    <div class="current-stage-body">
+      <p style="font-size:14px; color:var(--now-text); margin-bottom:16px;">
+        태양광 발전량 예측에 필요한 데이터는 크게 3가지다. 이게 원천데이터의 전부다.
+      </p>
+      <div class="card-grid">
+        <div class="card card-teal">
+          <div class="card-title">① 발전소가 실제로 얼마나 발전했나</div>
+          <div class="card-desc">예측 모델의 <strong>정답값 (타겟)</strong>. 시간대별 실제 발전량. 이게 없으면 학습 자체 불가.</div>
+        </div>
+        <div class="card card-teal">
+          <div class="card-title">② 하늘 상태</div>
+          <div class="card-desc">일사량, 구름 양, 기온, 풍속, 습도. <strong>과거 실측값</strong>(학습용) + <strong>미래 예보값</strong>(예측 시 입력) 둘 다 필요.</div>
+        </div>
+        <div class="card card-teal">
+          <div class="card-title">③ 발전소 고유 특성</div>
+          <div class="card-desc">설비 용량, 패널 기울기·방향, 위치, 모듈 온도 특성. <strong>정적 데이터</strong> — 한 번만 수집.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════
+    5. 데이터 세부 항목
+  ══════════════════════════════ -->
+  <div class="section" style="margin-top:32px;">
+    <div class="section-header">
+      <div class="section-number num-teal">A</div>
+      <div class="section-title">데이터 세부 항목 정의</div>
+    </div>
+
+    <!-- A-1 -->
+    <h3 style="font-size:15px; font-weight:600; margin:20px 0 8px;">A-1. 발전소 실측 데이터 — 정답값</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>항목</th>
+            <th>단위</th>
+            <th>설명</th>
+            <th>필수 여부</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>ac_power</code></td><td>kW</td><td>인버터 AC 출력 — <strong>예측 타겟값</strong></td><td><span class="tag tag-teal">필수</span></td></tr>
+          <tr><td><code>dc_power</code></td><td>kW</td><td>DC 입력 전력</td><td><span class="tag tag-teal">필수</span></td></tr>
+          <tr><td><code>daily_yield</code></td><td>kWh</td><td>일 누적 발전량</td><td><span class="tag tag-teal">필수</span></td></tr>
+          <tr><td><code>module_temp</code></td><td>°C</td><td>모듈 표면 온도 — 성능에 직접 영향</td><td><span class="tag tag-amber">권장</span></td></tr>
+          <tr><td><code>inverter_status</code></td><td>—</td><td>정상/알람/정지 — 이상치 탐지용</td><td><span class="tag tag-amber">권장</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- A-2 -->
+    <h3 style="font-size:15px; font-weight:600; margin:24px 0 8px;">A-2. 기상 데이터 — 핵심 입력값</h3>
+    <div class="insight">
+      <strong>학습용 (과거 실측)</strong>과 <strong>예측용 (미래 예보)</strong> 두 종류가 모두 필요하다. 학습은 실측값으로, 실제 예측할 때는 수치예보값을 입력으로 쓴다.
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>항목</th>
+            <th>단위</th>
+            <th>설명</th>
+            <th>필수 여부</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>GHI</code> 전천일사량</td><td>W/m²</td><td>수평면 전체 일사량 — <strong>제일 중요</strong></td><td><span class="tag tag-teal">필수</span></td></tr>
+          <tr><td><code>temp_air</code> 기온</td><td>°C</td><td>외기온도 — 모듈 온도 추정에 필요</td><td><span class="tag tag-teal">필수</span></td></tr>
+          <tr><td><code>cloud_cover</code> 전운량</td><td>0~10</td><td>구름 양 — 일사량 예측 보조</td><td><span class="tag tag-teal">필수</span></td></tr>
+          <tr><td><code>wind_speed</code> 풍속</td><td>m/s</td><td>패널 냉각 효과</td><td><span class="tag tag-amber">권장</span></td></tr>
+          <tr><td><code>humidity</code> 습도</td><td>%</td><td>대기 투과율에 영향</td><td><span class="tag tag-amber">권장</span></td></tr>
+          <tr><td><code>DNI</code> 직달일사량</td><td>W/m²</td><td>직접 태양광 성분</td><td><span class="tag tag-gray">선택</span></td></tr>
+          <tr><td><code>DHI</code> 산란일사량</td><td>W/m²</td><td>하늘 산란 성분</td><td><span class="tag tag-gray">선택</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- A-3 -->
+    <h3 style="font-size:15px; font-weight:600; margin:24px 0 8px;">A-3. 설비 고유정보 — 정적 데이터</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>항목</th>
+            <th>단위</th>
+            <th>설명</th>
+            <th>필수 여부</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>설비 용량</td><td>kW / MW</td><td>최대 발전 가능 용량</td><td><span class="tag tag-teal">필수</span></td></tr>
+          <tr><td>발전소 위경도</td><td>deg</td><td>태양 위치 계산의 기준</td><td><span class="tag tag-teal">필수</span></td></tr>
+          <tr><td>패널 경사각</td><td>deg</td><td>수평 대비 패널 기울기</td><td><span class="tag tag-teal">필수</span></td></tr>
+          <tr><td>패널 방위각</td><td>deg</td><td>정남향=180°, 동향=90°</td><td><span class="tag tag-teal">필수</span></td></tr>
+          <tr><td>출력온도계수</td><td>%/°C</td><td>보통 -0.4~-0.5, 온도 상승 시 출력 저하</td><td><span class="tag tag-amber">권장</span></td></tr>
+          <tr><td>어레이 타입</td><td>—</td><td>고정식 / 단축추적 / 양축추적</td><td><span class="tag tag-amber">권장</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- A-4 -->
+    <h3 style="font-size:15px; font-weight:600; margin:24px 0 8px;">A-4. 천문·계산값 — 코드로 생성 가능</h3>
+    <div class="insight">
+      외부 API 없이 <strong>위경도 + 시간</strong>만 있으면 계산 가능. Python <code>pvlib</code> 라이브러리 사용.
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">태양 고도각</div>
+        <div class="card-desc">태양이 지평선에서 얼마나 높은지 (deg)</div>
+      </div>
+      <div class="card">
+        <div class="card-title">태양 방위각</div>
+        <div class="card-desc">태양의 동서남북 방향 (deg)</div>
+      </div>
+      <div class="card">
+        <div class="card-title">POA 일사량</div>
+        <div class="card-desc">패널 면 기준 실제 받는 일사량 (W/m²)</div>
+      </div>
+      <div class="card">
+        <div class="card-title">클리어스카이</div>
+        <div class="card-desc">맑은 날 이론 발전량 — 기준값으로 활용</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════
+    6. 국내 탑 플레이어 벤치마크
+  ══════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number num-amber">05</div>
+      <div class="section-title">국내 탑 플레이어 벤치마크</div>
+    </div>
+    <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">
+      국내 실서비스 기업들이 실제로 쓰는 데이터 구성. 우리가 따라가야 할 기준선.
+    </p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>회사</th>
+            <th>핵심 데이터</th>
+            <th>차별점</th>
+            <th>정확도</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>해줌</strong></td>
+            <td>인버터 실측 + 위성 영상 + 수치예보</td>
+            <td>위성으로 구름 이동 실시간 추적</td>
+            <td><span class="tag tag-teal">오차율 최저</span></td>
+          </tr>
+          <tr>
+            <td><strong>대연씨앤아이</strong></td>
+            <td>RTU 인버터 + 국내외 기상정보 + 주변 발전소</td>
+            <td>해외 NWP(ECMWF) 보조 활용</td>
+            <td><span class="tag tag-teal">95%</span></td>
+          </tr>
+          <tr>
+            <td><strong>식스티헤르츠</strong></td>
+            <td>위성 영상 + 기상 예보·관측</td>
+            <td>현장 센서 없이 위치만으로 예측</td>
+            <td><span class="tag tag-amber">서비스 제공</span></td>
+          </tr>
+          <tr>
+            <td><strong>동서발전</strong></td>
+            <td>SCADA + 기상청 Open API</td>
+            <td>2년 155만 건 학습 데이터</td>
+            <td><span class="tag tag-teal">92.7%</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="insight" style="margin-top:16px;">
+      <strong>공통 결론:</strong> 기상 데이터만 쓴 모델보다 설비 데이터(모듈 온도 등)를 추가한 모델이 명확히 더 좋다. <strong>기상 + 설비 두 가지를 합쳐야</strong> 한다.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════
+    7. 다음 할 것
+  ══════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-number num-coral">→</div>
+      <div class="section-title">다음 단계로 넘어가기 전 확인할 것</div>
+    </div>
+    <ul class="checklist">
+      <li>
+        <div class="check-icon"></div>
+        <span>발전소 실측 데이터 — 수집 가능 항목과 수집 주기 확인</span>
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        <span>기상청 API Hub — GHI(일사량) 직접 제공 여부 확인 (계정: system@rmsgroup.co.kr)</span>
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        <span>발전소 메타 정보 — 위경도, 패널 경사각, 설비 용량 확보</span>
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        <span>역사 데이터 범위 확인 — 최소 1년치 이상 있는지</span>
+      </li>
+      <li>
+        <div class="check-icon"></div>
+        <span>수집 주기 결정 — 15분 / 1시간 간격 중 선택</span>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+</body>
+</html>
