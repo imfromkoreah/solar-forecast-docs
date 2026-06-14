@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>태양광 발전량 예측 — 자료 연구</title>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f7f6f3;--surface:#fff;--border:#e8e5de;
+  --tp:#1a1a1a;--ts:#6b6b6b;--tm:#9b9b9b;
+  --teal:#0f9d74;--blue:#2f80ed;--amber:#e89d26;--purple:#7c5cbf;--coral:#d85a30;
+  --teal-bg:#e1f5ee;--teal-t:#0a6b50;
+  --blue-bg:#e8f1fd;--blue-t:#1a5db5;
+  --amber-bg:#fdf0d8;--amber-t:#8a5c0a;
+  --purple-bg:#f0ecfb;--purple-t:#5b3fa0;
+  --coral-bg:#faecea;--coral-t:#a83220;
+  --gray-bg:#f1f0ec;--gray-t:#5a5a5a;
+  --now-bg:#e8f8f2;--now-b:#0f9d74;--now-t:#0a6b50;
+}
+body{font-family:'Pretendard',-apple-system,sans-serif;background:var(--bg);color:var(--tp);font-size:15px;line-height:1.7}
+.wrap{max-width:900px;margin:0 auto;padding:0 40px}
+@media(max-width:600px){.wrap{padding:0 20px}}
+.page-header{padding:64px 0 0}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--teal);letter-spacing:.07em;text-transform:uppercase;margin-bottom:16px}
+.eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal)}
+h1{font-size:38px;font-weight:700;line-height:1.2;letter-spacing:-.025em;margin-bottom:12px}
+.page-desc{font-size:16px;color:var(--ts);margin-bottom:32px}
+.meta-row{display:flex;gap:28px;flex-wrap:wrap;padding:20px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:56px}
+.meta-item{display:flex;flex-direction:column;gap:3px}
+.meta-label{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--tm)}
+.meta-value{font-size:14px;font-weight:500}
+.content{padding:0 0 100px}
+.divider{height:1px;background:var(--border);margin:48px 0}
+.sec-header{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.sec-num{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.sec-title{font-size:22px;font-weight:700;letter-spacing:-.01em}
+.sec-sub{font-size:14px;color:var(--ts);margin-bottom:20px;padding-left:42px}
+.n-gray{background:var(--gray-bg);color:var(--gray-t)}
+.n-teal{background:var(--teal-bg);color:var(--teal-t)}
+.n-blue{background:var(--blue-bg);color:var(--blue-t)}
+.n-amber{background:var(--amber-bg);color:var(--amber-t)}
+.n-purple{background:var(--purple-bg);color:var(--purple-t)}
+.n-coral{background:var(--coral-bg);color:var(--coral-t)}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:500;padding:3px 10px;border-radius:20px}
+.badge-now{background:var(--now-bg);color:var(--now-t);border:1px solid #a8dfc9}
+.badge-now::before{content:'▶';font-size:9px}
+.tag{display:inline-flex;font-size:11px;font-weight:500;padding:2px 8px;border-radius:4px;margin:2px 2px 2px 0}
+.t-teal{background:var(--teal-bg);color:var(--teal-t)}
+.t-blue{background:var(--blue-bg);color:var(--blue-t)}
+.t-amber{background:var(--amber-bg);color:var(--amber-t)}
+.t-purple{background:var(--purple-bg);color:var(--purple-t)}
+.t-coral{background:var(--coral-bg);color:var(--coral-t)}
+.t-gray{background:var(--gray-bg);color:var(--gray-t)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:700px){.g3,.g4{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px;transition:box-shadow .15s,transform .15s}
+.card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-1px)}
+.card-title{font-size:14px;font-weight:600;margin-bottom:6px}
+.card-desc{font-size:13px;color:var(--ts);line-height:1.6}
+.ct{border-top:3px solid var(--teal)}.cb{border-top:3px solid var(--blue)}
+.ca{border-top:3px solid var(--amber)}.cp{border-top:3px solid var(--purple)}
+.cc{border-top:3px solid var(--coral)}
+.card.dim{opacity:.38}.card.now-card{border:1.5px solid var(--now-b);background:var(--now-bg)}
+.insight{background:var(--surface);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0;font-size:14px;color:var(--ts);line-height:1.7}
+.insight strong{color:var(--tp);font-weight:600}
+.ib{border-left-color:var(--blue)}.ia{border-left-color:var(--amber)}
+.ip{border-left-color:var(--purple);background:var(--purple-bg)}.ic{border-left-color:var(--coral)}
+.tw{overflow-x:auto;border-radius:10px;border:1px solid var(--border);margin:14px 0}
+table{width:100%;border-collapse:collapse;font-size:14px}
+thead tr{background:var(--bg);border-bottom:1px solid var(--border)}
+th{padding:10px 16px;text-align:left;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--tm);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg)}
+code{font-family:'Menlo',monospace;font-size:12px;background:var(--gray-bg);padding:1px 5px;border-radius:3px}
+.flow{display:flex;flex-direction:column}
+.f-row{display:flex;align-items:stretch}
+.f-spine{display:flex;flex-direction:column;align-items:center;width:44px;flex-shrink:0}
+.f-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--border);background:var(--surface);flex-shrink:0;margin-top:20px;z-index:1}
+.f-dot.on{background:var(--teal);border-color:var(--teal);box-shadow:0 0 0 4px var(--now-bg)}
+.f-line{width:2px;flex:1;background:var(--border);min-height:16px}
+.f-body{flex:1;padding:10px 0}
+.f-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px}
+.f-card.on{border-color:var(--now-b);background:var(--now-bg)}
+.f-card.dim{opacity:.38}
+.f-title{font-size:15px;font-weight:600;margin-bottom:4px}
+.f-sub{font-size:13px;color:var(--ts)}
+.now-block{border:1.5px solid var(--now-b);border-radius:12px;overflow:hidden;margin:0}
+.now-header{background:var(--now-b);padding:10px 20px}
+.now-header span{font-size:13px;font-weight:600;color:#fff}
+.now-body{background:var(--now-bg);padding:24px}
+.layer{border-radius:12px;padding:20px;margin-bottom:14px}
+.l-basic{background:#f0faf5;border:1.5px solid #a8dfc9}
+.l-mid{background:#fef9ee;border:1.5px solid #f0cc7a}
+.l-adv{background:#f5f0fb;border:1.5px solid #c4aeed}
+.layer-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px}
+.company-card{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--border);border-radius:10px;padding:20px;margin-bottom:14px}
+.company-card.ht{border-left-color:var(--teal)}.company-card.ha{border-left-color:var(--amber)}
+.company-card.hp{border-left-color:var(--purple)}.company-card.hg{border-left-color:var(--gray-t)}
+.company-card.hb{border-left-color:var(--blue)}
+.c-name{font-size:16px;font-weight:700;margin-bottom:4px}
+.c-desc{font-size:13px;color:var(--ts);margin-bottom:12px;line-height:1.65}
+.c-data{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.formula-box{background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:20px 24px;margin:14px 0;text-align:center}
+.formula{font-size:15px;font-weight:600;color:var(--tp);line-height:2.2}
+.formula-sub{font-size:12px;color:var(--tm);margin-top:6px}
+.checklist{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.checklist li{display:flex;align-items:flex-start;gap:12px;font-size:14px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px}
+.check-box{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--border);flex-shrink:0;margin-top:1px}
+.sub-badge{padding:2px 10px;border-radius:4px;font-size:12px;font-weight:600}
+/* 차트 */
+.chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin:16px 0}
+.chart-title{font-size:14px;font-weight:600;margin-bottom:4px}
+.chart-sub{font-size:12px;color:var(--tm);margin-bottom:16px}
+/* API 테이블 강조 */
+.api-row-main{background:var(--teal-bg)!important}
+.api-row-sub{background:var(--amber-bg)!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="eyebrow">Research Plan · Solar Forecast</div>
+  <h1>태양광 발전량 예측<br>연구 계획</h1>
+  <p class="page-desc">전체 절차 → 벤치마크 → 필요한 자료 — 실데이터 기반 태양광 발전량 예측 시스템 구축 전체 구조</p>
+  <div class="meta-row">
+    <div class="meta-item"><span class="meta-label">프로젝트</span><span class="meta-value">울산 에너지 자급자족</span></div>
+    <div class="meta-item"><span class="meta-label">현재 단계</span><span class="meta-value"><span class="badge badge-now">원천데이터 조사 중</span></span></div>
+    <div class="meta-item"><span class="meta-label">예측 목표</span><span class="meta-value">단기 1~24h → EMS 연동</span></div>
+    <div class="meta-item"><span class="meta-label">벤치마크</span><span class="meta-value">국내 실서비스 기준</span></div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ────────── 01. 큰 그림 ────────── -->
+<div class="sec-header">
+  <div class="sec-num n-gray">01</div>
+  <div class="sec-title">왜 필요하고 무엇이 필요한가</div>
+</div>
+
+<p class="sec-sub">태양광 발전량 예측이라는 목표 아래 세 개의 큰 덩어리가 존재한다. 현재는 A. 데이터 영역을 조사하는 단계.</p>
+<div class="g3">
+  <div class="card now-card ct">
+    <div class="card-title" style="color:var(--now-t)">A. 데이터</div>
+    <div class="card-desc">어떤 자료가 필요한가<br>종류·항목·수집 가능 여부 파악</div>
+    <div style="margin-top:10px"><span class="badge badge-now">지금 여기</span></div>
+  </div>
+  <div class="card dim cp">
+    <div class="card-title">B. 모델·방법론</div>
+    <div class="card-desc">어떻게 예측할 것인가<br>전처리·피처·학습·검증</div>
+  </div>
+  <div class="card dim cb">
+    <div class="card-title">C. 운영·연동</div>
+    <div class="card-desc">어디에 쓸 것인가<br>EMS·ESS·전력거래소</div>
+  </div>
+</div>
+
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-top:20px">
+  <div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--tm);margin-bottom:12px">제도 배경 — 전력거래소</div>
+  <div style="font-size:16px;font-weight:700;margin-bottom:10px">재생에너지 발전량 예측제도</div>
+  <div style="font-size:14px;color:var(--ts);line-height:1.9">
+    하루 전에 발전량을 예측해서 전력거래소에 제출하고, <strong style="color:var(--tp)">당일 오차율 8% 이내</strong>면 정산금을 받는 제도 — 예측 정확도가 곧 수익이다.
+  </div>
+  <div style="margin-top:16px;padding:14px 18px;background:var(--teal-bg);border-radius:8px;font-size:14px;color:var(--teal-t)">
+    하루 전 제출 → 당일 오차율 <strong>8% 이내</strong> → 정산금 수령
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ────────── 02. 전체 절차 ────────── -->
+<div class="sec-header">
+  <div class="sec-num n-teal">02</div>
+  <div class="sec-title">전체 절차 플로우</div>
+</div>
+<p class="sec-sub">7단계 흐름. 현재는 ② 원천데이터 수집 단계.</p>
+<div class="flow">
+  <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">① 목표 정의</div><div class="f-sub">예측 horizon · 정확도 목표 · 활용처 확정</div></div></div></div>
+  <div class="f-row">
+    <div class="f-spine"><div class="f-dot on"></div><div class="f-line"></div></div>
+    <div class="f-body">
+      <div class="f-card on">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <div class="f-title" style="color:var(--now-t)">② 원천데이터 수집</div>
+          <span class="badge badge-now">현재 진행 중</span>
+        </div>
+        <div class="f-sub" style="color:var(--now-t);opacity:.85">어떤 데이터가 필요한지 종류·항목·수집 가능 여부 파악</div>
+        <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:4px">
+          <span class="tag t-teal">발전소 실측</span><span class="tag t-teal">기상 실측·예보</span><span class="tag t-teal">설비 고유정보</span><span class="tag t-teal">천문 계산값</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">③ 전처리</div><div class="f-sub">결측치 · 이상치 제거 · 시계열 정렬 · 정규화</div></div></div></div>
+  <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">④ 피처 엔지니어링</div><div class="f-sub">시간 파생(sin/cos) · Lag · Rolling · pvlib 계산값 생성</div></div></div></div>
+  <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">⑤ 모델 학습 및 예측</div><div class="f-sub">XGBoost · LSTM · CNN-LSTM · Multi Input Model · walk-forward 검증</div></div></div></div>
+  <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">⑥ 운영 연동</div><div class="f-sub">EMS 스케줄링 · ESS 충방전 제어 · 전력거래소 예측 제출</div></div></div></div>
+  <div class="f-row"><div class="f-spine"><div class="f-dot"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">⑦ 피드백 → 재학습</div><div class="f-sub">실측 vs 예측 비교 · 오차 분석 · 주기적 모델 갱신</div></div></div></div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ────────── 03. 태양광 예측이란 ────────── -->
+<div class="sec-header">
+  <div class="sec-num n-blue">03</div>
+  <div class="sec-title">태양광 발전 예측이란 — 실데이터로 보기</div>
+</div>
+<p class="sec-sub">실제 발전 데이터가 어떻게 생겼는지, 예측값과 실측값이 어떻게 비교되는지 시각적으로 확인.</p>
+
+<!-- 차트 1: 하루 발전 패턴 -->
+<div class="chart-wrap">
+  <div class="chart-title">① 하루 발전 패턴 — 맑은 날 vs 흐린 날</div>
+  <div class="chart-sub">같은 날 같은 발전소에서 날씨에 따라 발전량이 얼마나 달라지는지. X축: 시간, Y축: 발전량(kW)</div>
+  <canvas id="chart1" height="120"></canvas>
+</div>
+
+<!-- 차트 2: 예측값 vs 실측값 -->
+<div class="chart-wrap">
+  <div class="chart-title">② 예측값 vs 실측값 비교</div>
+  <div class="chart-sub">모델이 뱉은 예측선(점선)과 실제 인버터 발전량(실선). 오차가 생기는 구간이 어디인지 확인. 목표 오차율 8% 이내.</div>
+  <canvas id="chart2" height="120"></canvas>
+</div>
+
+<!-- 차트 3: GHI vs 발전량 상관관계 -->
+<div class="chart-wrap">
+  <div class="chart-title">③ 일사량(GHI) vs 발전량 상관관계</div>
+  <div class="chart-sub">GHI가 올라가면 발전량도 올라간다. 이 관계가 모델이 학습하는 핵심 패턴.</div>
+  <canvas id="chart3" height="120"></canvas>
+</div>
+
+<div class="insight ia" style="margin-top:8px">
+  <strong>핵심:</strong> 태양광 예측 = "내일 일사량이 얼마일지" 예측 → "그 일사량에서 우리 발전소는 몇 kW 나올지" 계산. 두 단계가 연결된 구조다.
+</div>
+
+<div class="divider"></div>
+
+<!-- ────────── 04. 국내 벤치마크 ────────── -->
+<div class="sec-header">
+  <div class="sec-num n-amber">04</div>
+  <div class="sec-title">국내 실서비스 벤치마크</div>
+</div>
+<p class="sec-sub">실제로 돌아가고 있는 국내 회사들이 어떤 데이터로 어떻게 예측하는지.</p>
+
+<div class="company-card ht">
+  <details open>
+    <summary style="display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;outline:none">
+      <span style="font-size:13px;color:var(--tm)">▶</span>
+      <div><div class="c-name">① 해줌 (Haezoom)</div><a href="https://haezoom.com" target="_blank" style="font-size:12px;color:var(--tm);text-decoration:none;display:block;margin-top:2px">haezoom.com ↗</a></div>
+      <span class="tag t-teal">VPP 탑</span><span class="tag t-teal">오차율 최저 (전력거래소 공인)</span>
+    </summary>
+    <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+      <div class="c-desc">전국 2,800여 개 자체 시공 발전소 실측 데이터 누적 + 실시간 인공위성 영상으로 구름 이동 추적이 핵심 차별점. 수치예보 모델과 결합해 1h~72h 예측 제공.</div>
+      <div class="c-data"><span class="tag t-teal">인버터 실측 발전량</span><span class="tag t-teal">인공위성 영상 (천리안 2호)</span><span class="tag t-teal">수치예보 NWP (KIM)</span><span class="tag t-teal">발전소 위치·설비정보</span></div>
+    </div>
+  </details>
+</div>
+
+<div class="company-card ha">
+  <details open>
+    <summary style="display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;outline:none">
+      <span style="font-size:13px;color:var(--tm)">▶</span>
+      <div><div class="c-name">② 대연씨앤아이 (솔레몬 EMS)</div><a href="https://www.dycni.com" target="_blank" style="font-size:12px;color:var(--tm);text-decoration:none;display:block;margin-top:2px">dycni.com ↗</a></div>
+      <span class="tag t-amber">국내 O&M 1위</span><span class="tag t-amber">정확도 95%</span>
+    </summary>
+    <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+      <div class="c-desc">RTU로 인버터 현장 데이터 직접 수집. <strong>인버터 제조사별 프로토콜 표준화 → 멀티벤더 데이터 통합</strong>이 핵심 기술. 15년치 2,000개+ 발전소 누적 DB 기반 딥러닝.</div>
+      <div class="c-data"><span class="tag t-amber">RTU 인버터 (전압·전류·출력)</span><span class="tag t-amber">국내 기상청 API</span><span class="tag t-amber">해외 NWP (ECMWF 보조)</span><span class="tag t-amber">주변 발전소 비교</span><span class="tag t-amber">온도·전압 현장 센서</span></div>
+    </div>
+  </details>
+</div>
+
+<div class="company-card hp">
+  <details open>
+    <summary style="display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;outline:none">
+      <span style="font-size:13px;color:var(--tm)">▶</span>
+      <div><div class="c-name">③ 식스티헤르츠 (60Hz)</div><a href="https://60hz.io" target="_blank" style="font-size:12px;color:var(--tm);text-decoration:none;display:block;margin-top:2px">60hz.io ↗</a></div>
+      <span class="tag t-purple">기상 데이터 API 전문</span>
+    </summary>
+    <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+      <div class="c-desc">연간 180TB 기상 빅데이터 처리. <strong>현장 센서 없이 발전소 위치 + 기상 데이터만으로 예측 가능</strong>한 것이 특징. 위성 영상 기반 자체 구름 이동 예측 알고리즘.</div>
+      <div class="c-data"><span class="tag t-purple">천리안 2호 위성 영상 (실시간)</span><span class="tag t-purple">기상청 관측·예보</span><span class="tag t-purple">발전소 위치 정보</span><span class="tag t-purple">전국 7만 개 발전소 위치 DB</span></div>
+    </div>
+  </details>
+</div>
+
+<div class="company-card hg">
+  <details open>
+    <summary style="display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;outline:none">
+      <span style="font-size:13px;color:var(--tm)">▶</span>
+      <div><div class="c-name">④ HEPI / 그리드위즈</div><a href="https://gridwiz.com" target="_blank" style="font-size:12px;color:var(--tm);text-decoration:none;display:block;margin-top:2px">gridwiz.com ↗</a></div>
+      <span class="tag t-gray">VPP 운영사</span>
+    </summary>
+    <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+      <div class="c-desc">인버터·PCS·배터리 등 설비 단위 데이터 수집 + 인근 발전소 비교 + 기상 분석 + 장애 예측 결합. 소규모 전력중개 시장 연계 운영.</div>
+      <div class="c-data"><span class="tag t-gray">인버터·PCS·배터리 설비 데이터</span><span class="tag t-gray">인근 발전소 비교</span><span class="tag t-gray">기상 예측 정보</span></div>
+    </div>
+  </details>
+</div>
+
+<div class="company-card hb">
+  <details open>
+    <summary style="display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;outline:none">
+      <span style="font-size:13px;color:var(--tm)">▶</span>
+      <div><div class="c-name">⑤ 기상청 날씨마루</div><a href="https://bd.kma.go.kr" target="_blank" style="font-size:12px;color:var(--tm);text-decoration:none;display:block;margin-top:2px">bd.kma.go.kr ↗</a></div>
+      <span class="tag t-blue">공공 인프라</span>
+    </summary>
+    <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+      <div class="c-desc">국립기상과학원 100m 고해상도 수치예보 기반. 전국 시군구 단위 48시간 발전량 예측 제공. 물리 기반 공식 직접 사용.</div>
+      <div class="formula-box" style="margin:12px 0">
+        <div class="formula">발전량 = 설비용량 × 일사강도 × [1 + 출력온도계수 × (모듈표면온도 − 25)]</div>
+        <div class="formula-sub">기상 데이터(일사강도·모듈표면온도) + 비기상 데이터(설비용량·출력온도계수) 결합</div>
+      </div>
+      <div class="c-data"><span class="tag t-blue">100m 수치예보 (일사강도·기온·풍속)</span><span class="tag t-blue">설비용량·발전량 실적 통계</span><span class="tag t-blue">출력온도계수</span></div>
+    </div>
+  </details>
+</div>
+
+<div class="divider"></div>
+
+<!-- ────────── 05. 데이터 계층 ────────── -->
+<div class="sec-header">
+  <div class="sec-num n-teal">05</div>
+  <div class="sec-title">데이터 계층 구조</div>
+</div>
+<p class="sec-sub">국내 탑 플레이어들이 쓰는 데이터를 정확도 기여도 기준으로 3계층으로 분류.</p>
+<div class="layer l-basic">
+  <div class="layer-label" style="color:var(--teal-t)">기본층 — 모든 회사 공통 / 없으면 시작 불가</div>
+  <div class="g3">
+    <div class="card ct"><div class="card-title">인버터 실측 발전량</div><div class="card-desc">AC/DC 출력, 일누적 발전량. 예측 모델의 <strong>정답값(타겟)</strong>. 이게 없으면 학습 자체 불가.</div></div>
+    <div class="card ct"><div class="card-title">기상청 수치예보</div><div class="card-desc">일사강도·기온·운량·풍속 예보. 예측 시 핵심 입력값. 학습용(실측) + 예측용(예보) 둘 다 필요.</div></div>
+    <div class="card ct"><div class="card-title">설비 고유 정보</div><div class="card-desc">용량·경사각·방위각·위경도. 정적 데이터. 같은 햇빛도 발전소마다 다르게 나오는 이유.</div></div>
+  </div>
+</div>
+<div class="layer l-mid">
+  <div class="layer-label" style="color:var(--amber-t)">중간층 — 정확도를 올리는 핵심 데이터</div>
+  <div class="g2">
+    <div class="card ca"><div class="card-title">현장 센서 데이터</div><div class="card-desc">현장 일사량 센서(GHI), 모듈 표면 온도 센서. 기상청 관측값보다 발전소 실제 환경에 정확히 대응.</div></div>
+    <div class="card ca"><div class="card-title">주변 발전소 비교 데이터</div><div class="card-desc">인근 발전소 실측 발전량. 구름 이동 방향 예측과 공간적 상관관계 활용. 단기(1~6h) 정확도 향상.</div></div>
+  </div>
+</div>
+<div class="layer l-adv">
+  <div class="layer-label" style="color:var(--purple-t)">고급층 — 95%+ 달성하는 차별화 데이터</div>
+  <div class="g3">
+    <div class="card cp"><div class="card-title">위성 영상</div><div class="card-desc">천리안 2호 실시간 위성 영상. 구름 이동 추적으로 단기 예측 정확도 대폭 향상.</div></div>
+    <div class="card cp"><div class="card-title">전천카메라 + 패널 이미지</div><div class="card-desc">하늘 직접 촬영 + 패널 오염 탐지. 오염 위치 정확도 71.9%, 유형 분류 98% (국내 연구 기준).</div></div>
+    <div class="card cp"><div class="card-title">해외 NWP + 미세먼지</div><div class="card-desc">ECMWF 보조 + 미세먼지 관측·예보. 대기 투과율에 직접 영향.</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ────────── 발전량 저하 요인 ────────── -->
+<div class="sec-header">
+  <div class="sec-num n-coral">05-1</div>
+  <div class="sec-title">발전량 저하 요인 — 예측 정확도를 떨어뜨리는 것들</div>
+</div>
+<p class="sec-sub">예측 모델이 아무리 좋아도 이 요인들이 반영되지 않으면 오차가 생긴다. 데이터 수집 단계에서 함께 고려해야 한다.</p>
+
+<div class="g3" style="margin-bottom:14px">
+  <div class="card cc">
+    <div class="card-title">① 패널 오염</div>
+    <div class="card-desc">먼지·새 배설물·낙엽 등으로 출력 <strong>5~25% 저하</strong>. 카메라 이미지 기반 AI로 오염 위치 식별(71.9%)·유형 분류(98%) 가능. Data Augmentation 기법 적용.</div>
+    <div style="margin-top:10px"><span class="tag t-coral">비정형 데이터</span><span class="tag t-coral">이미지 AI 탐지</span></div>
+  </div>
+  <div class="card cc">
+    <div class="card-title">② 음영</div>
+    <div class="card-desc">인근 건물·나무·구조물에 의한 부분 음영. 시간대·계절별로 달라져서 예측이 어렵다. 스트링 전압·전류 데이터로 감지 가능.</div>
+    <div style="margin-top:10px"><span class="tag t-coral">string_voltage 이상</span><span class="tag t-coral">도메인 룰 탐지</span></div>
+  </div>
+  <div class="card cc">
+    <div class="card-title">③ 모듈 열화</div>
+    <div class="card-desc">패널 노후로 인한 점진적 출력 저하. 연 0.5~1% 수준. 장기 데이터에서 추세 분석으로 보정 필요.</div>
+    <div style="margin-top:10px"><span class="tag t-gray">장기 트렌드</span><span class="tag t-gray">PR 성능비 모니터링</span></div>
+  </div>
+</div>
+
+<div class="g3">
+  <div class="card ca">
+    <div class="card-title">④ 미세먼지</div>
+    <div class="card-desc">대기 투과율 저하로 GHI 자체가 줄어든다. 에어코리아 PM2.5·PM10 관측·예보 데이터로 보정 가능. 국내 연구과제에서 별도 테이블로 수집.</div>
+    <div style="margin-top:10px"><span class="tag t-amber">PM2.5 · PM10</span><span class="tag t-amber">에어코리아 API</span></div>
+  </div>
+  <div class="card ca">
+    <div class="card-title">⑤ 인버터 고장</div>
+    <div class="card-desc">갑작스러운 출력 0. inverter_status 이상 구간은 이상치로 처리해서 학습 제외. 고장일은 날 전체 제외.</div>
+    <div style="margin-top:10px"><span class="tag t-amber">is_valid 플래그</span><span class="tag t-amber">학습 제외 처리</span></div>
+  </div>
+  <div class="card ca">
+    <div class="card-title">⑥ 기상 예보 오차</div>
+    <div class="card-desc">수치예보 모델 자체의 일사량 예측 오차. 국내 단기예보는 일사량 직접 미제공. 해외 NWP 보조 + 위성 영상으로 보완.</div>
+    <div style="margin-top:10px"><span class="tag t-amber">해외 NWP 보조</span><span class="tag t-amber">위성 영상 보완</span></div>
+  </div>
+</div>
+
+<div class="insight ic" style="margin-top:16px">
+  <strong>데이터 수집 관점에서:</strong> 패널 오염·음영은 <strong>이미지 + 스트링 전압 데이터</strong>로, 미세먼지는 <strong>에어코리아 API</strong>로, 기상 예보 오차는 <strong>해외 NWP + 위성</strong>으로 각각 대응한다. 이 요인들을 데이터로 확보하는 것 자체가 예측 정확도 향상의 핵심이다.
+</div>
+
+<div class="divider"></div>
+
+<!-- ────────── 06. 원천데이터 상세 ────────── -->
+<div class="sec-header">
+  <div class="sec-num n-teal">06</div>
+  <div class="sec-title">원천데이터 — 필요한 자료 상세 정의</div>
+</div>
+<p class="sec-sub">현재 조사 중인 단계. 가장 기본이 되는 3가지 원천데이터.</p>
+
+<div class="now-block">
+  <div class="now-header"><span>▶ 현재 조사 중 — 원천데이터 종류·항목·우선순위</span></div>
+  <div class="now-body">
+
+    <div class="insight" style="margin-top:0">
+      원천데이터는 <strong>① 발전소 실측 / ② 기상 데이터 / ③ 설비 고유정보</strong> 3가지.<br>①이 없으면 학습 불가, ②가 없으면 예측 불가, ③이 없으면 발전소별 특성 반영 불가.
+    </div>
+
+    <!-- A-1 발전소 실측 -->
+    <h3 style="font-size:15px;font-weight:700;margin:24px 0 10px;display:flex;align-items:center;gap:8px">
+      <span class="sub-badge" style="background:var(--teal-bg);color:var(--teal-t)">① 발전소 실측 데이터</span>
+      <span style="font-size:13px;color:var(--tm);font-weight:400">— 예측 모델의 정답값(타겟)</span>
+    </h3>
+    <div class="insight">
+      국내 디지털트윈 연구과제 기준: <strong>2년간 155만 9천 건</strong> 수집. 발전소당 시간 단위로 적재. 설비이용률 기준 이상 구간만 학습에 사용.
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>항목</th><th>단위</th><th>설명</th><th>중요도</th></tr></thead>
+        <tbody>
+          <tr><td><code>ac_power</code></td><td>kW</td><td>인버터 AC 출력 — <strong>예측 타겟값</strong></td><td><span class="tag t-teal">필수</span></td></tr>
+          <tr><td><code>dc_power</code></td><td>kW</td><td>DC 입력 전력 — AC 변환 효율 파악</td><td><span class="tag t-teal">필수</span></td></tr>
+          <tr><td><code>daily_yield</code></td><td>kWh</td><td>일 누적 발전량</td><td><span class="tag t-teal">필수</span></td></tr>
+          <tr><td><code>module_temp</code></td><td>°C</td><td>모듈 표면 온도. 없으면 외기온도로 추정</td><td><span class="tag t-amber">권장</span></td></tr>
+          <tr><td><code>inverter_status</code></td><td>—</td><td>정상/알람/정지 — 이상치 탐지·품질관리용</td><td><span class="tag t-amber">권장</span></td></tr>
+          <tr><td><code>string_voltage / current</code></td><td>V / A</td><td>스트링별 전압·전류 — 부분 음영·이상 감지용</td><td><span class="tag t-gray">선택</span></td></tr>
+          <tr><td>패널 이미지 (카메라)</td><td>—</td><td>패널 오염 탐지용 비정형 데이터. Data Augmentation 기법 적용</td><td><span class="tag t-gray">선택</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- A-2 기상 데이터 -->
+    <h3 style="font-size:15px;font-weight:700;margin:24px 0 10px;display:flex;align-items:center;gap:8px">
+      <span class="sub-badge" style="background:var(--blue-bg);color:var(--blue-t)">② 기상 데이터 — API별 상세</span>
+      <span style="font-size:13px;color:var(--tm);font-weight:400">— 실측 + 예보 둘 다 필요</span>
+    </h3>
+    <div class="insight ib">
+      <strong>핵심:</strong> 학습 시에는 <strong>과거 실측값(기상청 ASOS)</strong>을, 실제 예측 시에는 <strong>수치예보값(NWP)</strong>을 입력으로 쓴다.<br>
+      국내 디지털트윈 연구과제는 <strong>국내 기상청 API(관측) + 해외 기상 API(예보) + 미세먼지 API</strong> 3종을 모두 수집했다.
+    </div>
+
+    <!-- API 상세 테이블 -->
+    <div style="font-size:13px;font-weight:600;color:var(--tp);margin:16px 0 8px">기상청 Open API (apihub.kma.go.kr) — 관측 실측값</div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>API 종류</th><th>수집 항목</th><th>주기</th><th>용도</th></tr></thead>
+        <tbody>
+          <tr class="api-row-main"><td><strong>ASOS 종관기상관측</strong></td><td>GHI 전천일사량 · 기온 · 풍속 · 전운량 · 습도 · 기압 · 강수</td><td>1시간</td><td><span class="tag t-teal">학습용 핵심</span></td></tr>
+          <tr><td>AWS 자동기상관측</td><td>기온 · 풍속 · 강수 (소규모 지점)</td><td>10분</td><td><span class="tag t-amber">보조</span></td></tr>
+          <tr><td>단기예보</td><td>하늘상태 · 기온 · 강수확률 · 풍속 예보</td><td>3시간 / 1일 3회</td><td><span class="tag t-teal">예측 입력</span></td></tr>
+          <tr><td>초단기예보</td><td>하늘상태 · 기온 · 강수 (6시간 이내)</td><td>10분 갱신</td><td><span class="tag t-teal">단기 예측</span></td></tr>
+          <tr><td>중기예보</td><td>기온 · 강수 · 하늘상태 (3~10일)</td><td>1일 2회</td><td><span class="tag t-gray">장기 참고</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="font-size:13px;font-weight:600;color:var(--tp);margin:16px 0 8px">해외 기상 API — 수치예보(NWP) 예보값</div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>API 종류</th><th>수집 항목</th><th>주기</th><th>용도</th></tr></thead>
+        <tbody>
+          <tr class="api-row-main"><td><strong>해외 기상 API (ECMWF 계열)</strong></td><td>일사강도 GHI · 기온 · 풍속 · 운량 (48h 예보)</td><td>48시간 예보</td><td><span class="tag t-teal">예측 입력 핵심</span></td></tr>
+          <tr><td>태양 복사 예보 (pre_sun48hour)</td><td>일사량 예보 전용</td><td>48시간</td><td><span class="tag t-teal">일사량 예측</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="font-size:13px;font-weight:600;color:var(--tp);margin:16px 0 8px">미세먼지 API — 대기 투과율 영향</div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>API 종류</th><th>수집 항목</th><th>주기</th><th>용도</th></tr></thead>
+        <tbody>
+          <tr><td>환경부 에어코리아 (dust_hour)</td><td>PM2.5 · PM10 실측</td><td>1시간</td><td><span class="tag t-amber">보조 입력</span></td></tr>
+          <tr><td>미세먼지 예보 (pre_dust_48hour)</td><td>PM2.5 · PM10 예보</td><td>48시간</td><td><span class="tag t-amber">예측 보조</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight ia">
+      <strong>실제 연구과제 DB 구성 (참고):</strong> weather_hour(기상청 관측 52,157건) · pre_48hour(해외예보 48,770건) · pre_sun48hour(일사량예보 47,758건) · dust_hour(미세먼지 52,157건) · pre_dust_48hour(미세먼지예보 48,694건) — 총 5개 테이블로 분리 적재.
+    </div>
+
+    <!-- A-2 항목 테이블 -->
+    <div style="font-size:13px;font-weight:600;color:var(--tp);margin:16px 0 8px">수집 항목 전체 목록</div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>항목</th><th>단위</th><th>설명</th><th>중요도</th></tr></thead>
+        <tbody>
+          <tr><td><code>GHI</code> 전천일사량</td><td>W/m²</td><td><strong>제일 중요.</strong> DNI·DHI는 여기서 계산 추출</td><td><span class="tag t-teal">필수</span></td></tr>
+          <tr><td><code>temp_air</code> 기온</td><td>°C</td><td>모듈 표면온도 추정에 사용</td><td><span class="tag t-teal">필수</span></td></tr>
+          <tr><td><code>cloud_cover</code> 전운량</td><td>0~10</td><td>일사량 예측 보조 변수</td><td><span class="tag t-teal">필수</span></td></tr>
+          <tr><td><code>wind_speed</code> 풍속</td><td>m/s</td><td>패널 냉각 효과</td><td><span class="tag t-amber">권장</span></td></tr>
+          <tr><td><code>humidity</code> 습도</td><td>%</td><td>대기 투과율·이슬 영향</td><td><span class="tag t-amber">권장</span></td></tr>
+          <tr><td><code>pm25 / pm10</code> 미세먼지</td><td>μg/m³</td><td>대기 투과율 저하 → 발전량 감소</td><td><span class="tag t-amber">권장</span></td></tr>
+          <tr><td><code>DNI</code> 직달일사량</td><td>W/m²</td><td>GHI에서 직산분리 계산 파생</td><td><span class="tag t-gray">파생</span></td></tr>
+          <tr><td><code>DHI</code> 산란일사량</td><td>W/m²</td><td>GHI에서 직산분리 계산 파생</td><td><span class="tag t-gray">파생</span></td></tr>
+          <tr><td><code>POA</code> 패널면 일사량</td><td>W/m²</td><td>패널 경사각·방위각 기준. pvlib 계산</td><td><span class="tag t-gray">파생</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- A-3 설비 -->
+    <h3 style="font-size:15px;font-weight:700;margin:24px 0 10px;display:flex;align-items:center;gap:8px">
+      <span class="sub-badge" style="background:var(--amber-bg);color:var(--amber-t)">③ 설비 고유정보</span>
+      <span style="font-size:13px;color:var(--tm);font-weight:400">— 정적 데이터, 한 번만 수집</span>
+    </h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>항목</th><th>단위</th><th>설명</th><th>중요도</th></tr></thead>
+        <tbody>
+          <tr><td>설비 용량</td><td>kW</td><td>최대 발전 가능 용량. 발전량 공식 기준값</td><td><span class="tag t-teal">필수</span></td></tr>
+          <tr><td>발전소 위경도</td><td>deg</td><td>태양 위치 계산 기준. pvlib 입력값. <strong>발전소 선정 기준: 울산 + VPP 대상 전국 분산</strong></td><td><span class="tag t-teal">필수</span></td></tr>
+          <tr><td>패널 경사각</td><td>deg</td><td>수평 대비 기울기. POA 계산에 필요</td><td><span class="tag t-teal">필수</span></td></tr>
+          <tr><td>패널 방위각</td><td>deg</td><td>정남향=180°. POA 계산에 필요</td><td><span class="tag t-teal">필수</span></td></tr>
+          <tr><td>출력온도계수</td><td>%/°C</td><td>온도 1°C 상승 시 출력 저하율. 보통 -0.4~-0.5</td><td><span class="tag t-amber">권장</span></td></tr>
+          <tr><td>어레이 타입</td><td>—</td><td>고정식 / 단축추적 / 양축추적. 발전 패턴 완전히 달라짐</td><td><span class="tag t-amber">권장</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- A-4 천문 -->
+    <h3 style="font-size:15px;font-weight:700;margin:24px 0 10px;display:flex;align-items:center;gap:8px">
+      <span class="sub-badge" style="background:var(--purple-bg);color:var(--purple-t)">④ 천문·계산값</span>
+      <span style="font-size:13px;color:var(--tm);font-weight:400">— 코드로 생성, 외부 API 불필요</span>
+    </h3>
+    <div class="insight ip">
+      <strong>위경도 + timestamp</strong>만 있으면 Python <code>pvlib</code> 라이브러리로 즉시 계산 가능. 비용 0원.
+    </div>
+    <div class="g4">
+      <div class="card cp"><div class="card-title">태양 고도각</div><div class="card-desc">지평선 기준 태양 높이 (deg)</div></div>
+      <div class="card cp"><div class="card-title">태양 방위각</div><div class="card-desc">태양의 동서남북 방향 (deg)</div></div>
+      <div class="card cp"><div class="card-title">일출·일몰 시각</div><div class="card-desc">야간 데이터 처리 기준점</div></div>
+      <div class="card cp"><div class="card-title">클리어스카이</div><div class="card-desc">맑은 날 이론 발전량 — 날씨 영향 분리용</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ────────── 07. 학습 데이터셋 구조 ────────── -->
+<div class="sec-header">
+  <div class="sec-num n-purple">07</div>
+  <div class="sec-title">학습 데이터셋 구조</div>
+</div>
+<p class="sec-sub">원천데이터 → 전처리·가공 → 학습 데이터셋 3단계로 만들어진다.</p>
+
+<div class="flow">
+  <div class="f-row">
+    <div class="f-spine"><div class="f-dot on"></div><div class="f-line"></div></div>
+    <div class="f-body">
+      <div class="f-card on">
+        <div class="f-title" style="color:var(--now-t)">STEP 1. 원천데이터 수집·적재</div>
+        <div class="f-sub" style="color:var(--now-t);opacity:.85;margin-bottom:10px">인버터 실측 + 기상청 API + 해외 기상 API + 미세먼지 API를 시간 단위로 DB에 적재. 발전소 인근 시군구 단위 매핑.</div>
+        <div class="g2" style="margin-top:8px">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px">
+            <div style="font-size:12px;font-weight:600;color:var(--teal-t);margin-bottom:6px">발전소 실측 (인버터)</div>
+            <div style="font-size:12px;color:var(--ts);line-height:1.7">AC/DC 출력 · 일누적 발전량<br>모듈 온도 · 인버터 상태<br>수집 주기: 1시간 단위</div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px">
+            <div style="font-size:12px;font-weight:600;color:var(--blue-t);margin-bottom:6px">기상 데이터 (3종 API)</div>
+            <div style="font-size:12px;color:var(--ts);line-height:1.7">기상청 ASOS (관측) · 해외 NWP (예보)<br>미세먼지 관측·예보<br>발전소 인근 시군구 기준 매핑</div>
+          </div>
+        </div>
+        <div style="margin-top:10px;display:flex;gap:4px;flex-wrap:wrap">
+          <span class="tag t-teal">1시간 단위 적재</span><span class="tag t-teal">timestamp 기준 JOIN</span><span class="tag t-teal">최소 1년치 이상</span><span class="tag t-teal">5개 테이블 분리 관리</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="f-row">
+    <div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div>
+    <div class="f-body">
+      <div class="f-card">
+        <div class="f-title">STEP 2. 전처리 + 피처 가공</div>
+        <div class="f-sub" style="margin-bottom:10px">결측치 보간, timestamp 기준 JOIN, 파생 컬럼 생성.</div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap">
+          <span class="tag t-gray">결측치 보간</span><span class="tag t-gray">이상치 3σ 처리</span><span class="tag t-gray">lag_1h · lag_24h</span><span class="tag t-gray">rolling_mean_6h</span><span class="tag t-gray">sin/cos 시간 인코딩</span><span class="tag t-gray">발전량 스케일링 (0~1)</span>
+        </div>
+        <div class="insight" style="margin-top:12px;margin-bottom:0">
+          <strong>발전소별 vs 통합 모델:</strong> 데이터 수집 기간이 긴 발전소는 맞춤형 모델이 더 정확. 신규 발전소(2년 이하)는 전체 발전소 데이터를 스케일링 후 통합 모델 적용. VPP 운영 시 통합 모델 필수.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="f-row">
+    <div class="f-spine"><div class="f-dot"></div></div>
+    <div class="f-body">
+      <div class="f-card">
+        <div class="f-title">STEP 3. 품질 관리 (사실상 라벨링)</div>
+        <div class="f-sub" style="margin-bottom:12px">유일하게 사람 손이 가는 단계. <strong>설비이용률 기준 이하 구간은 학습 제외.</strong></div>
+
+        <!-- 성능평가 공식 -->
+        <div style="background:var(--gray-bg);border-radius:10px;padding:16px;margin-bottom:14px">
+          <div style="font-size:12px;font-weight:600;color:var(--tm);margin-bottom:10px;letter-spacing:.04em;text-transform:uppercase">성능 평가 지표</div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:6px">설비이용률 = 계량발전량 ÷ 설비용량 × 100 (%)</div>
+          <div style="font-size:13px;color:var(--ts);margin-bottom:10px">→ 설비이용률 이상 구간만 학습 데이터로 사용</div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:4px">예측오차율 = |예측발전량 − 실제발전량| ÷ 설비용량 × 100 (%)</div>
+          <div style="font-size:13px;color:var(--ts)">→ 목표: 8% 이내 (전력거래소 기준) · 국내 연구 달성: 92.7% 정확도</div>
+        </div>
+
+        <div class="g2">
+          <div style="background:var(--coral-bg);border-radius:8px;padding:14px">
+            <div style="font-size:12px;font-weight:600;color:var(--coral-t);margin-bottom:6px">제외 대상</div>
+            <div style="font-size:13px;color:var(--ts);line-height:1.7">인버터 고장 구간<br>음영 이벤트<br>데이터 튀는 구간<br>야간(일출~일몰 외) 구간<br>설비이용률 기준 이하</div>
+          </div>
+          <div style="background:var(--teal-bg);border-radius:8px;padding:14px">
+            <div style="font-size:12px;font-weight:600;color:var(--teal-t);margin-bottom:6px">처리 방법</div>
+            <div style="font-size:13px;color:var(--ts);line-height:1.7">is_valid 플래그 컬럼 추가<br>야간은 별도 처리 or 제외<br>고장일은 날 전체 제외<br>음영은 도메인 룰 기반<br>패널 오염은 이미지 AI 탐지</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ────────── 08. 다음 체크리스트 ────────── -->
+<div class="sec-header">
+  <div class="sec-num n-coral">08</div>
+  <div class="sec-title">다음 단계로 넘어가기 전 확인할 것</div>
+</div>
+<ul class="checklist">
+  <li><div class="check-box"></div><span>발전소 실측 데이터 — 수집 가능한 항목 목록과 수집 주기 확인</span></li>
+  <li><div class="check-box"></div><span>기상청 ASOS API — GHI(전천일사량) 포함 항목 확인 (apihub.kma.go.kr · system@rmsgroup.co.kr)</span></li>
+  <li><div class="check-box"></div><span>해외 기상 API 선정 — ECMWF 계열 48h 예보 API (Open-Meteo 또는 Solcast 등)</span></li>
+  <li><div class="check-box"></div><span>미세먼지 API — 에어코리아 연동 여부 확인</span></li>
+  <li><div class="check-box"></div><span>발전소 선정 — 울산 거점 + VPP 대상 전국 분산 발전소 목록 확정</span></li>
+  <li><div class="check-box"></div><span>발전소 메타정보 확보 — 위경도, 패널 경사각, 방위각, 설비 용량, 출력온도계수</span></li>
+  <li><div class="check-box"></div><span>역사 데이터 범위 — 최소 1년치 이상 발전 실적 데이터 존재 여부</span></li>
+  <li><div class="check-box"></div><span>발전소별 맞춤 모델 vs 통합 모델 방향 결정 (VPP = 통합 모델 필요)</span></li>
+  <li><div class="check-box"></div><span>성능 평가 기준 확정 — 설비이용률 기준치 · 예측오차율 목표 8%</span></li>
+</ul>
+
+</div>
+</div>
+
+<script>
+const labels = ['06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00'];
+const baseOpts = {
+  responsive:true,
+  plugins:{legend:{position:'top',labels:{font:{family:'Pretendard',size:12},boxWidth:12}}},
+  scales:{
+    x:{grid:{color:'#e8e5de'},ticks:{font:{family:'Pretendard',size:11}}},
+    y:{grid:{color:'#e8e5de'},ticks:{font:{family:'Pretendard',size:11}}}
+  }
+};
+
+// 차트 1: 맑은날 vs 흐린날
+new Chart(document.getElementById('chart1'),{
+  type:'line',
+  data:{
+    labels,
+    datasets:[
+      {label:'맑은 날 (kW)',data:[0,2,18,45,72,88,95,92,80,62,40,18,3,0],borderColor:'#e89d26',backgroundColor:'rgba(232,157,38,0.08)',tension:.4,borderWidth:2,pointRadius:3},
+      {label:'흐린 날 (kW)',data:[0,1,8,18,28,32,30,25,20,15,8,3,0,0],borderColor:'#9b9b9b',backgroundColor:'rgba(155,155,155,0.08)',tension:.4,borderWidth:2,pointRadius:3,borderDash:[5,4]}
+    ]
+  },
+  options:{...baseOpts,scales:{...baseOpts.scales,y:{...baseOpts.scales.y,title:{display:true,text:'발전량 (kW)',font:{family:'Pretendard',size:11}}}}}
+});
+
+// 차트 2: 예측 vs 실측
+new Chart(document.getElementById('chart2'),{
+  type:'line',
+  data:{
+    labels,
+    datasets:[
+      {label:'실측값 (kW)',data:[0,2,20,48,75,90,97,89,78,60,38,16,2,0],borderColor:'#0f9d74',backgroundColor:'rgba(15,157,116,0.08)',tension:.4,borderWidth:2,pointRadius:3},
+      {label:'예측값 (kW)',data:[0,3,22,50,70,86,93,91,80,58,35,14,4,0],borderColor:'#2f80ed',backgroundColor:'rgba(47,128,237,0.06)',tension:.4,borderWidth:2,pointRadius:3,borderDash:[5,4]}
+    ]
+  },
+  options:{...baseOpts,scales:{...baseOpts.scales,y:{...baseOpts.scales.y,title:{display:true,text:'발전량 (kW)',font:{family:'Pretendard',size:11}}}}}
+});
+
+// 차트 3: GHI vs 발전량 산점도
+const ghi =  [50,120,200,280,350,420,500,580,650,720,800,850,900,950];
+const power = [2,  8,  18, 30, 42, 55, 68, 80, 88, 94,100,104,107,109];
+new Chart(document.getElementById('chart3'),{
+  type:'scatter',
+  data:{
+    datasets:[{
+      label:'GHI vs 발전량',
+      data: ghi.map((x,i)=>({x,y:power[i]})),
+      backgroundColor:'rgba(15,157,116,0.55)',
+      pointRadius:6
+    }]
+  },
+  options:{
+    ...baseOpts,
+    scales:{
+      x:{...baseOpts.scales.x,title:{display:true,text:'일사량 GHI (W/m²)',font:{family:'Pretendard',size:11}}},
+      y:{...baseOpts.scales.y,title:{display:true,text:'발전량 (kW)',font:{family:'Pretendard',size:11}}}
+    }
+  }
+});
+</script>
+</body>
+</html>
