@@ -309,7 +309,8 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
     
     <p>'2년·15분·15개소' 기준은 사계절 반복성, 단시간 변동성, 발전소 간 다양성을 동시에 확보하기 위한 최소한의 운영형 데이터 수집 기준임.</p>
     
-    <a href="https://arxiv.org/abs/2603.26596" target="_blank" rel="noopener noreferrer">참고문헌: 스위스 6,434개 PV 발전소 데이터 기반 램프 이벤트 연구 (2026)</a>
+    <div>참고 문헌:
+      <a href="https://arxiv.org/abs/2603.26596" target="_blank" rel="noopener noreferrer">스위스 6,434개 PV 발전소 데이터 기반 램프 이벤트 연구 (2026) ↗</a>
   </div>
 </div>
 
@@ -396,11 +397,11 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
       <div>
         근거:
         <a href="https://www.kpx.or.kr/board.es?act=view&bid=0030&list_no=74304&mid=a10205010000&nPage=1" target="_blank" rel="noopener noreferrer">
-          KPX 전력시장운영규칙 제24-6차 개정 공고(2025.2.12 시행)
+          KPX 전력시장운영규칙 제24-6차 개정 공고(2025.2.12 시행) ↗
         </a>
         |
         <a href="https://blog.haezoom.com/notice_05/" target="_blank" rel="noopener noreferrer">
-          해줌 재생에너지 예측제도 정산기준 변경 정리
+          해줌 재생에너지 예측제도 정산기준 변경 정리 ↗
         </a>
       </div>
     </div>
@@ -520,12 +521,20 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
     <div class="chart-note">※ 시뮬레이션 예시 — 실제 데이터 수집 후 상관계수 분석 예정</div>
   </div>
 
-  <div class="insight ia">
+  <div class="insight ia" style="font-size:14px">
     <strong>구조 요약:</strong> "내일 일사량(GHI)이 얼마일지" 예측(기상 모델) → "그 일사량에서 우리 발전소는 몇 kW 나올지" 계산(발전 모델). 패널 오염·음영·미세먼지는 두 번째 단계에서 오차를 만드는 주요 요인.
-    <span style="display:block;margin-top:8px;padding:8px 12px;background:var(--amber-bg);border-radius:6px;font-size:12px;color:var(--amber-t)">
-      ⚠ <strong>2025년 6월부터 태양광 예측오차율 기준 강화</strong> — KPX 제24-6차 전력시장운영규칙 개정으로 정산금 수령 기준이 기존 8%에서 <strong>6% 이하(4원/kWh)</strong>로 낮아짐. 예측 모델의 정밀도 요건이 직접 높아진 상황.
-      <a href="https://www.kpx.or.kr/board.es?act=view&bid=0030&list_no=74304&mid=a10205010000&nPage=1" target="_blank" style="color:var(--amber-t);display:block;margin-top:4px">→ KPX 제24-6차 전력시장운영규칙 개정 공고 ↗</a>
+
+    <span style="display:block;margin-top:8px;padding:8px 12px;background:var(--amber-bg);border-radius:6px;font-size:13px;color:var(--amber-t)">
+      ⚠ <strong>2025년 6월부터 태양광 예측오차율 기준 강화</strong> — KPX 제24-6차 전력시장운영규칙 개정으로 정산금 수령 기준이 기존 8%에서 <strong>6% 이하</strong>로 낮아짐.<br>
+      예측 모델의 정밀도 요건이 직접 높아진 상황.
     </span>
+
+    <div style="margin-top:8px;font-size:13px">
+      자료:
+      <a href="https://www.kpx.or.kr/board.es?act=view&bid=0030&list_no=74304&mid=a10205010000&nPage=1" target="_blank" rel="noopener noreferrer">
+        KPX 제24-6차 전력시장운영규칙 개정 공고 ↗
+      </a>
+    </div>
   </div>
 </div>
 
@@ -920,7 +929,7 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
   <div id="sec-model-mlax" class="sec-l2">
     <div class="sec-l2-header">
       <div class="sec-l2-num n-amber">B-3</div>
-      <div class="sec-l2-title">ML 관점과 AX 관점 — 같이 봐야 하는 이유</div>
+      <div class="sec-l2-title">ML 관점 / AX 관점</div>
     </div>
     <div class="g2">
       <div class="card ca">
@@ -954,11 +963,11 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 
   <div class="ref-box">
     <strong>모델 방법론 근거:</strong>
-    <a href="https://pvlib-python.readthedocs.io/en/stable/" target="_blank" rel="noopener noreferrer">pvlib 공식 문서</a> |
-    <a href="https://arxiv.org/abs/1910.05944" target="_blank" rel="noopener noreferrer">9개 PV 발전소 기반 15분~6시간 단기 예측 연구</a> |
-    <a href="https://arxiv.org/abs/2405.14472" target="_blank" rel="noopener noreferrer">SolNet 전이학습 기반 PV 예측 연구</a> |
-    <a href="https://arxiv.org/abs/2406.03808" target="_blank" rel="noopener noreferrer">PV-Client Transformer 기반 PV 예측 연구</a> |
-    <a href="https://arxiv.org/abs/2207.00913" target="_blank" rel="noopener noreferrer">SKIPP’D 3년치 PV 발전량·하늘 이미지 데이터셋</a>
+    <a href="https://pvlib-python.readthedocs.io/en/stable/" target="_blank" rel="noopener noreferrer">pvlib 공식 문서↗</a> |
+    <a href="https://arxiv.org/abs/1910.05944" target="_blank" rel="noopener noreferrer">9개 PV 발전소 기반 15분~6시간 단기 예측 연구↗</a> |
+    <a href="https://arxiv.org/abs/2405.14472" target="_blank" rel="noopener noreferrer">SolNet 전이학습 기반 PV 예측 연구↗</a> |
+    <a href="https://arxiv.org/abs/2406.03808" target="_blank" rel="noopener noreferrer">PV-Client Transformer 기반 PV 예측 연구↗</a> |
+    <a href="https://arxiv.org/abs/2207.00913" target="_blank" rel="noopener noreferrer">SKIPP’D 3년치 PV 발전량·하늘 이미지 데이터셋↗</a>
   </div>
 </div>
 
@@ -1035,7 +1044,7 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
   <div class="stat-box">
     <div class="stat-item"><div class="stat-num">1,051,200</div><div class="stat-label">발전소 실측 목표 건수</div><div class="stat-basis">15개소 × 96회/일 × 365일 × 2년</div></div>
     <div class="stat-item"><div class="stat-num">17,520</div><div class="stat-label">기상 데이터 (지점당)</div><div class="stat-basis">1시간 주기 × 24h × 365일 × 2년</div></div>
-    <div class="stat-item"><div class="stat-num">7개</div><div class="stat-label">DB 테이블 수</div><div class="stat-basis">실측 + 기상 5종 + 설비정보</div></div>
+    <div class="stat-item"><div class="stat-num">미정</div><div class="stat-label">DB 테이블 수</div><div class="stat-basis">실측 + 기상 5종 + 설비정보 등</div></div>
     <div class="stat-item"><div class="stat-num">92%+</div><div class="stat-label">목표 예측 정확도</div><div class="stat-basis">국내 연구과제 92.7% 기준</div></div>
   </div>
 
