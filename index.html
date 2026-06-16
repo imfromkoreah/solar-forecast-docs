@@ -269,50 +269,142 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
     <div class="meta-item"><span class="meta-label">수집 기간</span><span class="meta-value">2년 (24개월)</span></div>
     <div class="meta-item"><span class="meta-label">수집 주기</span><span class="meta-value">15분 단위</span></div>
     <div class="meta-item"><span class="meta-label">목표 발전소</span><span class="meta-value">15개소</span></div>
+    
+    <p>기상 요인(계절·일사량·운량 등)에 따른 발전량 변동성 반영 목적. 1개년 데이터는 사계절 패턴이 1회에 불과해 검증 데이터가 부족하고 학습/검증 분리가 어려움. 2개년 데이터 확보 시 1년차 학습, 2년차 검증(또는 교차 검증)을 통해 예측 모델의 일반화 성능 검증이 가능함.</p>
+    
+    <p>구름 이동 등으로 인한 10~30분 단위의 단기 출력 변동성 반영 목적. 특히 급격한 변동인 램프 이벤트(Ramp Event)는 1시간 단위 데이터 분석 시 정보가 평활화(유실)됨. 2026년 스위스 국가 연구(6,434개 PV 분석)에서도 램프 이벤트 분석 및 전력시장 기준 해상도로 15분 단위를 제시함.</p>
+    
+    <p>'2년·15분·15개소' 기준은 사계절 반복성, 단시간 변동성, 발전소 간 다양성을 동시에 확보하기 위한 최소한의 운영형 데이터 수집 기준임.</p>
+    
+    <a href="https://arxiv.org/abs/2603.26596" target="_blank" rel="noopener noreferrer">참고문헌: 스위스 6,434개 PV 발전소 데이터 기반 램프 이벤트 연구 (2026)</a>
   </div>
 </div>
 
-<div class="content">
+<!-- ════════════════════════════════════════
+  INTRO: 제도 배경
+════════════════════════════════════════ -->
+<div id="sec-policy" class="sec-l1">
+  <div class="sec-l1-header">
+    <div class="sec-l1-num n-teal">00</div>
+    <div class="sec-l1-title">제도 배경</div>
+  </div>
+  <p class="sec-l1-sub">
+    태양광 발전량 예측은 단순 분석 과제가 아니라 전력거래소 예측제도와 수익 정산에 직접 연결되는 운영 과제다.
+  </p>
 
+  <div class="sec-l2" style="margin-top:16px">
+    <div class="sec-l2-header">
+      <div class="sec-l2-num n-gray">배경</div>
+      <div class="sec-l2-title">재생에너지 발전량 예측제도</div>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px">
+      <div style="font-size:14px;color:var(--ts);line-height:1.9;margin-bottom:14px">
+        재생에너지 발전량 예측제도는 발전사업자가
+        <strong style="color:var(--tp)">하루 전 발전량을 예측해 제출</strong>하고,
+        실제 발전량과의 <strong style="color:var(--tp)">예측오차율 기준을 충족하면 정산금을 받는 제도</strong>다.
+        <br>
+        <strong style="color:var(--tp)">제24-6차(통합) 전력시장운영규칙 개정</strong>으로 정산기준이 강화되었으며,
+        태양광은 <strong style="color:var(--tp)">2025년 6월 1일부터</strong> 강화 기준이 적용된다.
+      </div>
+
+      <div style="padding:12px 16px;background:var(--teal-bg);border-radius:8px;font-size:13px;color:var(--teal-t);margin-bottom:14px">
+        하루 전 예측 제출 → 실제 발전량 비교 → 예측오차율 산정 → 기준 충족 시 정산금 수령
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 48px 1fr;gap:14px;align-items:center;margin-bottom:12px">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden">
+          <div style="background:var(--gray-bg);padding:10px 14px;text-align:center">
+            <div style="font-size:13px;font-weight:700;color:var(--gray-t)">기존 정산기준</div>
+            <div style="font-size:11px;color:var(--tm);margin-top:2px">태양광 기준 · 2025년 5월까지</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr">
+            <div style="padding:14px;text-align:center;border-right:1px solid var(--border)">
+              <div style="font-size:11px;color:var(--tm);margin-bottom:4px">예측오차율</div>
+              <div style="font-size:18px;font-weight:700;color:var(--tp)">6% 이하</div>
+              <div style="font-size:13px;font-weight:600;color:var(--ts);margin-top:6px">4원/kWh</div>
+            </div>
+            <div style="padding:14px;text-align:center">
+              <div style="font-size:11px;color:var(--tm);margin-bottom:4px">예측오차율</div>
+              <div style="font-size:18px;font-weight:700;color:var(--tp)">6~8% 이하</div>
+              <div style="font-size:13px;font-weight:600;color:var(--ts);margin-top:6px">3원/kWh</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:28px;color:var(--tm);text-align:center;font-weight:700">→</div>
+
+        <div style="background:var(--surface);border:1.5px solid var(--amber);border-radius:10px;overflow:hidden">
+          <div style="background:var(--amber);padding:10px 14px;text-align:center">
+            <div style="font-size:13px;font-weight:700;color:#fff">개정 후 태양광 기준</div>
+            <div style="font-size:11px;color:#fff;opacity:.86;margin-top:2px">2025년 6월 1일부터 적용</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr">
+            <div style="padding:14px;text-align:center;border-right:1px solid var(--border)">
+              <div style="font-size:11px;color:var(--tm);margin-bottom:4px">예측오차율</div>
+              <div style="font-size:18px;font-weight:700;color:var(--amber-t)">4% 이하</div>
+              <div style="font-size:13px;font-weight:700;color:var(--amber-t);margin-top:6px">4원/kWh</div>
+            </div>
+            <div style="padding:14px;text-align:center">
+              <div style="font-size:11px;color:var(--tm);margin-bottom:4px">예측오차율</div>
+              <div style="font-size:18px;font-weight:700;color:var(--amber-t)">4~6% 이하</div>
+              <div style="font-size:13px;font-weight:700;color:var(--amber-t);margin-top:6px">3원/kWh</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-size:12px;color:var(--ts);line-height:1.8;margin-bottom:12px">
+        핵심은 정산금을 받을 수 있는 예측오차율 상한이
+        <strong style="color:var(--tp)">기존 8%에서 태양광 기준 6%로 낮아졌다는 점</strong>이다.
+        따라서 발전량 예측 모델은 단순 참고용이 아니라 수익성과 직결되는 운영 모델이 된다.
+      </div>
+
+      <div>
+        근거:
+        <a href="https://www.kpx.or.kr/board.es?act=view&bid=0030&list_no=74304&mid=a10205010000&nPage=1" target="_blank" rel="noopener noreferrer">
+          KPX 전력시장운영규칙 제24-6차 개정 공고(2025.2.12 시행)
+        </a>
+        |
+        <a href="https://blog.haezoom.com/notice_05/" target="_blank" rel="noopener noreferrer">
+          해줌 재생에너지 예측제도 정산기준 변경 정리
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
 <!-- ════════════════════════════════════════
   L1: 01 왜 필요한가
 ════════════════════════════════════════ -->
 <div id="sec-why" class="sec-l1">
   <div class="sec-l1-header">
-    <div class="sec-l1-num n-gray">01</div>
+    <div class="sec-l1-num n-teal">01</div>
     <div class="sec-l1-title">왜 필요하고 무엇이 필요한가</div>
   </div>
-  <p class="sec-l1-sub">태양광 발전량 예측이라는 목표 아래 세 개의 큰 덩어리. 현재는 A. 데이터 영역 계획 수립 단계.</p>
+  <p class="sec-l1-sub">
+    재생에너지 발전량 예측제도에 대응하기 위해 필요한 요소는 데이터, 모델·방법론, 운영·연동 세 가지로 나뉜다.
+    현재(26.06 기준)는 A. 데이터 영역 계획 수립 단계다.
+  </p>
 
   <div class="g3">
     <div class="card now-card ct">
       <div class="card-title" style="color:var(--now-t)">A. 데이터</div>
       <div class="card-desc">어떤 자료가 필요한가<br>종류·항목·수집 계획 수립</div>
-      <div style="margin-top:8px"><span class="badge badge-now">현재(26.06) 진행 단계</span></div>
+      <div style="margin-top:8px">
+        <span class="badge badge-now">현재(26.06 기준) 진행 단계</span>
+      </div>
     </div>
+
     <div class="card dim cp">
       <div class="card-title">B. 모델·방법론</div>
       <div class="card-desc">어떻게 예측할 것인가<br>전처리·피처·학습·검증</div>
     </div>
+
     <div class="card dim cb">
       <div class="card-title">C. 운영·연동</div>
       <div class="card-desc">어디에 쓸 것인가<br>EMS·ESS·전력거래소</div>
-    </div>
-  </div>
-
-  <!-- L2: 제도 배경 -->
-  <div class="sec-l2">
-    <div class="sec-l2-header">
-      <div class="sec-l2-num n-gray">배경</div>
-      <div class="sec-l2-title">재생에너지 발전량 예측제도</div>
-    </div>
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px">
-      <div style="font-size:14px;color:var(--ts);line-height:1.9;margin-bottom:14px">
-        하루 전에 발전량을 예측해서 전력거래소에 제출하고, <strong style="color:var(--tp)">당일 오차율 8% 이내</strong>면 정산금을 받는 제도 — 예측 정확도가 곧 수익이다.
-      </div>
-      <div style="padding:12px 16px;background:var(--teal-bg);border-radius:8px;font-size:13px;color:var(--teal-t)">
-        하루 전 제출 → 당일 오차율 <strong>8% 이내</strong> → 정산금 수령
-      </div>
     </div>
   </div>
 </div>
