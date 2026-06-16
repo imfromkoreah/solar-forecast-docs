@@ -9,16 +9,16 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f7f6f3;--surface:#fff;--border:#e8e5de;
-  --tp:#1a1a1a;--ts:#6b6b6b;--tm:#9b9b9b;
-  --teal:#0f9d74;--blue:#2f80ed;--amber:#e89d26;--purple:#7c5cbf;--coral:#d85a30;
-  --teal-bg:#e1f5ee;--teal-t:#0a6b50;
-  --blue-bg:#e8f1fd;--blue-t:#1a5db5;
-  --amber-bg:#fdf0d8;--amber-t:#8a5c0a;
-  --purple-bg:#f0ecfb;--purple-t:#5b3fa0;
-  --coral-bg:#faecea;--coral-t:#a83220;
-  --gray-bg:#f1f0ec;--gray-t:#5a5a5a;
-  --now-bg:#e8f8f2;--now-b:#0f9d74;--now-t:#0a6b50;
+  --bg:#f7faf7;--surface:#fff;--border:#dfe8e2;
+  --tp:#1d2a24;--ts:#65736c;--tm:#99a39d;
+  --teal:#138a5d;--blue:#2f6f5d;--amber:#b7791f;--purple:#6f7771;--coral:#ba4a37;
+  --teal-bg:#e6f4ed;--teal-t:#0d5f42;
+  --blue-bg:#eef6f2;--blue-t:#245946;
+  --amber-bg:#fff4dd;--amber-t:#7a4d10;
+  --purple-bg:#f2f4f1;--purple-t:#5f6b63;
+  --coral-bg:#fff0ed;--coral-t:#913524;
+  --gray-bg:#f2f4f1;--gray-t:#5f6b63;
+  --now-bg:#e6f4ed;--now-b:#138a5d;--now-t:#0d5f42;
   --sidebar-w:240px;
 }
 body{font-family:'Pretendard',-apple-system,sans-serif;background:var(--bg);color:var(--tp);font-size:15px;line-height:1.7}
@@ -95,7 +95,7 @@ h1{font-size:36px;font-weight:700;line-height:1.2;letter-spacing:-.025em;margin-
 
 /* ── 공통 컴포넌트 ── */
 .badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:500;padding:3px 10px;border-radius:20px}
-.badge-now{background:var(--now-bg);color:var(--now-t);border:1px solid #a8dfc9}
+.badge-now{background:var(--now-bg);color:var(--now-t);border:1px solid #b8dcc9}
 .badge-now::before{content:'▶';font-size:9px}
 .tag{display:inline-flex;font-size:11px;font-weight:500;padding:2px 8px;border-radius:4px;margin:2px 2px 2px 0}
 .t-teal{background:var(--teal-bg);color:var(--teal-t)}
@@ -153,9 +153,9 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 .now-body{background:var(--now-bg);padding:20px}
 
 .layer{border-radius:10px;padding:16px;margin-bottom:12px}
-.l-basic{background:#f0faf5;border:1.5px solid #a8dfc9}
-.l-mid{background:#fef9ee;border:1.5px solid #f0cc7a}
-.l-adv{background:#f5f0fb;border:1.5px solid #c4aeed}
+.l-basic{background:#eaf6ef;border:1.5px solid #b8dcc9}
+.l-mid{background:#fff8e8;border:1.5px solid #e4c477}
+.l-adv{background:#f2f4f1;border:1.5px solid #cfd8d1}
 .layer-label{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
 
 .company-card{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--border);border-radius:10px;padding:18px;margin-bottom:12px}
@@ -187,7 +187,7 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 .tag-tip::after{
   content:attr(data-tip);position:absolute;
   top:calc(100% + 8px);left:50%;transform:translateX(-50%);
-  background:#1a1a1a;color:#fff;font-size:11px;font-weight:400;line-height:1.7;
+  background:#1d2a24;color:#fff;font-size:11px;font-weight:400;line-height:1.7;
   padding:10px 14px;border-radius:8px;white-space:nowrap;
   opacity:0;pointer-events:none;transition:opacity .2s;z-index:9999;
   box-shadow:0 4px 16px rgba(0,0,0,.25);
@@ -678,7 +678,8 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
   <div class="insight ic" style="margin-top:14px">
     <strong>국내외 비교 핵심:</strong> 국외는 <strong>기상예보 AI화(DeepMind)</strong>와 <strong>데이터 고해상도화(NREL)</strong>에 집중. 국내(해줌·대연씨앤아이)는 <strong>발전소 실측 데이터 축적 + 국내 기상청 NWP 조합</strong>이 강점. 우리 프로젝트는 국내 방식으로 시작해 데이터가 쌓이면 하이브리드 모델로 고도화하는 전략이 현실적.
   </div>
-</div>
+
+<div class="divider"></div>
 
 <!-- ════════════════════════════════════════
   L1: 05 데이터 계층
@@ -880,6 +881,8 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
   </div>
 </div>
 
+<div class="divider"></div>
+
 <!-- L2: API 현황 -->
 <div id="sec-api" class="sec-l2" style="margin-top:28px">
   <div class="sec-l2-header">
@@ -907,7 +910,7 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
         <div style="font-size:12px;color:var(--ts)">시군구 단위 48h 발전량 예측 · 일사강도 포함. 우리 예측 결과 비교 베이스라인으로 활용.</div>
       </div>
     </div>
-    <div style="background:var(--blue-bg);border:1.5px solid #a8c8f5;border-radius:10px;padding:16px">
+    <div style="background:var(--blue-bg);border:1.5px solid #bfd7ca;border-radius:10px;padding:16px">
       <div style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--blue-t);margin-bottom:12px">◎ 조사 중 — 테스트 필요</div>
       <div style="background:#fff;border-radius:8px;padding:12px;margin-bottom:8px">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
@@ -1051,6 +1054,8 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
   </div>
 </div>
 
+<div class="divider"></div>
+
 <!-- ════════════════════════════════════════
   L1: B 모델 방법론
 ════════════════════════════════════════ -->
@@ -1143,21 +1148,21 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 
 <script>
 const labels=['06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00'];
-const baseOpts={responsive:true,plugins:{legend:{position:'top',labels:{font:{family:'Pretendard',size:11},boxWidth:10}}},scales:{x:{grid:{color:'#e8e5de'},ticks:{font:{family:'Pretendard',size:10}}},y:{grid:{color:'#e8e5de'},ticks:{font:{family:'Pretendard',size:10}}}}};
+const baseOpts={responsive:true,plugins:{legend:{position:'top',labels:{font:{family:'Pretendard',size:11},boxWidth:10}}},scales:{x:{grid:{color:'#dfe8e2'},ticks:{font:{family:'Pretendard',size:10}}},y:{grid:{color:'#dfe8e2'},ticks:{font:{family:'Pretendard',size:10}}}}};
 
 new Chart(document.getElementById('chart1'),{type:'line',data:{labels,datasets:[
-  {label:'맑은 날 (kW)',data:[0,2,18,45,72,88,95,92,80,62,40,18,3,0],borderColor:'#e89d26',backgroundColor:'rgba(232,157,38,0.08)',tension:.4,borderWidth:2,pointRadius:2},
-  {label:'흐린 날 (kW)',data:[0,1,8,18,28,32,30,25,20,15,8,3,0,0],borderColor:'#9b9b9b',backgroundColor:'rgba(155,155,155,0.06)',tension:.4,borderWidth:2,pointRadius:2,borderDash:[5,4]}
+  {label:'맑은 날 (kW)',data:[0,2,18,45,72,88,95,92,80,62,40,18,3,0],borderColor:'#138a5d',backgroundColor:'rgba(19,138,93,0.08)',tension:.4,borderWidth:2,pointRadius:2},
+  {label:'흐린 날 (kW)',data:[0,1,8,18,28,32,30,25,20,15,8,3,0,0],borderColor:'#8b9690',backgroundColor:'rgba(139,150,144,0.08)',tension:.4,borderWidth:2,pointRadius:2,borderDash:[5,4]}
 ]},options:{...baseOpts,scales:{...baseOpts.scales,y:{...baseOpts.scales.y,title:{display:true,text:'발전량 (kW)',font:{family:'Pretendard',size:10}}}}}});
 
 new Chart(document.getElementById('chart2'),{type:'line',data:{labels,datasets:[
-  {label:'실측값 (kW)',data:[0,2,20,48,75,90,97,89,78,60,38,16,2,0],borderColor:'#0f9d74',backgroundColor:'rgba(15,157,116,0.08)',tension:.4,borderWidth:2,pointRadius:2},
-  {label:'예측값 (kW)',data:[0,3,22,50,70,86,93,91,80,58,35,14,4,0],borderColor:'#2f80ed',backgroundColor:'rgba(47,128,237,0.06)',tension:.4,borderWidth:2,pointRadius:2,borderDash:[5,4]}
+  {label:'실측값 (kW)',data:[0,2,20,48,75,90,97,89,78,60,38,16,2,0],borderColor:'#138a5d',backgroundColor:'rgba(19,138,93,0.08)',tension:.4,borderWidth:2,pointRadius:2},
+  {label:'예측값 (kW)',data:[0,3,22,50,70,86,93,91,80,58,35,14,4,0],borderColor:'#b7791f',backgroundColor:'rgba(183,121,31,0.08)',tension:.4,borderWidth:2,pointRadius:2,borderDash:[5,4]}
 ]},options:{...baseOpts,scales:{...baseOpts.scales,y:{...baseOpts.scales.y,title:{display:true,text:'발전량 (kW)',font:{family:'Pretendard',size:10}}}}}});
 
 const ghi=[50,120,200,280,350,420,500,580,650,720,800,850,900,950];
 const power=[2,8,18,30,42,55,68,80,88,94,100,104,107,109];
-new Chart(document.getElementById('chart3'),{type:'scatter',data:{datasets:[{label:'GHI vs 발전량',data:ghi.map((x,i)=>({x,y:power[i]})),backgroundColor:'rgba(15,157,116,0.55)',pointRadius:5}]},options:{...baseOpts,scales:{x:{...baseOpts.scales.x,title:{display:true,text:'일사량 GHI (W/m²)',font:{family:'Pretendard',size:10}}},y:{...baseOpts.scales.y,title:{display:true,text:'발전량 (kW)',font:{family:'Pretendard',size:10}}}}}});
+new Chart(document.getElementById('chart3'),{type:'scatter',data:{datasets:[{label:'GHI vs 발전량',data:ghi.map((x,i)=>({x,y:power[i]})),backgroundColor:'rgba(19,138,93,0.58)',pointRadius:5}]},options:{...baseOpts,scales:{x:{...baseOpts.scales.x,title:{display:true,text:'일사량 GHI (W/m²)',font:{family:'Pretendard',size:10}}},y:{...baseOpts.scales.y,title:{display:true,text:'발전량 (kW)',font:{family:'Pretendard',size:10}}}}}});
 
 // 사이드바 활성화
 const sections = document.querySelectorAll('[id^="sec-"]');
