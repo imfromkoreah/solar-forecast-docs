@@ -255,7 +255,7 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 
   <div class="nav-group">
     <div class="nav-group-label">모델 방법론</div>
-    <a href="#sec-model" class="nav-l1">B · 모델 개요 및 선택 근거</a>
+    <a href="#sec-model" class="nav-l1">B · 모델 학습 및 예측 — 방법론</a>
     <a href="#sec-model-horizon" class="nav-l2">B-1 · Horizon별 모델 비교</a>
     <a href="#sec-model-plan" class="nav-l2">B-2 · 단계별 적용 계획</a>
   </div>
@@ -821,35 +821,37 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
     <div class="sec-l1-num n-purple">B</div>
     <div class="sec-l1-title">모델 학습 및 예측 — 방법론 정리</div>
   </div>
-  <p class="sec-l1-sub">데이터 수집 완료 후 진행 예정. 참고용 방법론 정리.</p>
+  <p class="sec-l1-sub">발전량 예측은 시계열 회귀 문제다. 수집 초기에는 단순 기준모델과 머신러닝으로 시작하고, 데이터가 쌓이면 horizon별·입력데이터별 모델을 고도화한다.</p>
 
   <div class="insight ia">
-    <strong>핵심 원칙:</strong> 시계열 회귀(regression) 문제. 인버터 실측 발전량이 자동으로 정답값. 모델보다 데이터 품질이 먼저다.
+    <strong>핵심 원칙:</strong> 정답값은 인버터 실측 <code>ac_power</code>다. 먼저 데이터 품질·시간 정렬·결측/이상치 기준을 잡고, 이후 모델을 단계적으로 복잡하게 만든다.
   </div>
 
-  <div class="g2" style="margin-top:14px">
+  <div class="g3" style="margin-top:14px">
+    <div class="card ct">
+      <div style="font-size:10px;font-weight:700;color:var(--teal-t);margin-bottom:8px">기준 모델</div>
+      <div class="card-title">Persistence · pvlib</div>
+      <div class="card-desc">“직전 발전량이 이어진다”는 persistence와 태양 위치·일사량 기반 pvlib 계산값을 기준선으로 둔다. ML 모델이 이 기준보다 좋아야 의미가 있다.</div>
+    </div>
     <div class="card ca">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--amber-t);margin-bottom:8px">머신러닝 기반</div>
+      <div style="font-size:10px;font-weight:700;color:var(--amber-t);margin-bottom:8px">초기 머신러닝</div>
       <div class="card-title">XGBoost · LightGBM</div>
-      <div class="card-desc" style="margin-bottom:10px">트리 기반 앙상블. 빠르고 정확도 높음. 피처 중요도 직접 확인 가능. 초기 베이스라인으로 먼저 적용.</div>
-      <div style="border-top:1px solid var(--border);padding-top:8px;font-size:11px;color:var(--tm)">초기 모델 · 피처 중요도 분석 · 데이터 부족 구간</div>
+      <div class="card-desc">데이터가 3~6개월만 쌓여도 적용 가능하다. 피처 중요도 확인이 쉬워 일사량, 기온, 운량, lag 발전량의 영향도를 설명하기 좋다.</div>
     </div>
     <div class="card cp">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--purple-t);margin-bottom:8px">딥러닝 기반</div>
-      <div style="margin-bottom:8px"><div class="card-title">LSTM</div><div class="card-desc">과거 패턴 흐름 기억. "1시간 전이 이랬으면 지금은 이럴 것" 학습.</div></div>
-      <div style="border-top:1px solid var(--border);padding-top:8px;margin-bottom:8px"><div class="card-title">CNN-LSTM</div><div class="card-desc">CNN으로 지역 패턴 추출 후 LSTM으로 흐름 학습. 일사량 변화 포착.</div></div>
-      <div style="border-top:1px solid var(--border);padding-top:8px"><div class="card-title">Multi Input Model</div><div class="card-desc">실측·기상·설비정보 각각 별도 입력. 데이터 종류 다양한 우리 프로젝트에 적합.</div></div>
+      <div style="font-size:10px;font-weight:700;color:var(--purple-t);margin-bottom:8px">고도화 모델</div>
+      <div class="card-title">LSTM · CNN-LSTM · Multi Input</div>
+      <div class="card-desc">1년 이상 데이터가 쌓이면 계절·시간대 패턴을 학습한다. 위성/이미지/NWP까지 합치면 다중입력 모델로 확장한다.</div>
     </div>
   </div>
 
-  <!-- L2: 검증 -->
   <div class="sec-l2">
     <div class="sec-l2-header">
       <div class="sec-l2-num n-blue">검증</div>
       <div class="sec-l2-title">Walk-Forward Validation</div>
     </div>
     <div class="insight ib" style="margin-top:0">
-      <strong>랜덤 분할 절대 금지.</strong> 미래 데이터로 과거를 예측하는 데이터 누수(leakage) 발생. 시간 순서 유지한 walk-forward 방식 필수.
+      <strong>랜덤 분할 금지.</strong> 태양광은 시간 순서가 핵심이므로 미래 데이터가 학습에 섞이면 데이터 누수(leakage)가 발생한다.
     </div>
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;margin-top:10px">
       <div style="background:var(--teal-bg);color:var(--teal-t);padding:6px 14px;border-radius:6px;font-weight:600">1~12개월 학습</div>
@@ -863,17 +865,157 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
     </div>
   </div>
 
-  <!-- L2: 성능 목표 -->
+  <div id="sec-model-horizon" class="sec-l2">
+    <div class="sec-l2-header">
+      <div class="sec-l2-num n-purple">B-1</div>
+      <div class="sec-l2-title">Horizon별 모델 비교</div>
+    </div>
+    <p class="sec-l2-sub">예측 기간이 달라지면 필요한 입력데이터와 적합한 모델도 달라진다.</p>
+
+    <div class="tw">
+      <table>
+        <thead>
+          <tr>
+            <th>예측 Horizon</th>
+            <th>주요 목적</th>
+            <th>핵심 입력</th>
+            <th>추천 모델</th>
+            <th>비고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>15분~1시간</strong></td>
+            <td>급격한 출력 변동 감지</td>
+            <td>최근 발전량, GHI, 운량, 인버터 상태</td>
+            <td>Persistence, XGBoost, LightGBM</td>
+            <td>램프 이벤트·구름 이동 영향이 큼</td>
+          </tr>
+          <tr>
+            <td><strong>1~6시간</strong></td>
+            <td>단기 운영·ESS 제어</td>
+            <td>발전량 lag, ASOS, NWP, 위성/운량</td>
+            <td>XGBoost, LSTM, CNN-LSTM</td>
+            <td>연구사례: 9개 PV 발전소, 15분~6시간 예측에서 다중데이터 사용</td>
+          </tr>
+          <tr>
+            <td><strong>Day-ahead</strong><br>하루 전</td>
+            <td>전력거래소 제출 대응</td>
+            <td>NWP 예보, 일사량 예보, 설비정보, 과거 발전량</td>
+            <td>LightGBM, LSTM, Multi Input</td>
+            <td>정산금과 직접 연결되는 핵심 구간</td>
+          </tr>
+          <tr>
+            <td><strong>1주 이상</strong></td>
+            <td>운영계획·정비계획</td>
+            <td>중기 기상예보, 계절성, 설비 성능비</td>
+            <td>Random Forest, XGBoost, 통계모델</td>
+            <td>정밀도보다 추세와 리스크 파악 중심</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="sec-model-plan" class="sec-l2">
+    <div class="sec-l2-header">
+      <div class="sec-l2-num n-teal">B-2</div>
+      <div class="sec-l2-title">단계별 적용 계획</div>
+    </div>
+
+    <div class="flow">
+      <div class="f-row">
+        <div class="f-spine"><div class="f-dot on"></div><div class="f-line"></div></div>
+        <div class="f-body">
+          <div class="f-card on">
+            <div class="f-title" style="color:var(--now-t)">1단계 — 수집 초기~6개월</div>
+            <div class="f-sub" style="color:var(--now-t)">데이터 품질 점검, persistence/pvlib 기준모델, XGBoost·LightGBM 베이스라인 구축. 피처 중요도로 핵심 변수 확인.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="f-row">
+        <div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div>
+        <div class="f-body">
+          <div class="f-card">
+            <div class="f-title">2단계 — 6~12개월</div>
+            <div class="f-sub">발전소별 모델과 통합 모델 비교. 15분→1시간 리샘플링, lag/rolling/sin-cos 피처 확정, walk-forward 검증 시작.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="f-row">
+        <div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div>
+        <div class="f-body">
+          <div class="f-card">
+            <div class="f-title">3단계 — 12~24개월</div>
+            <div class="f-sub">사계절 1회 이상 확보 후 LSTM, CNN-LSTM, Multi Input Model 적용. 같은 계절을 학습/검증으로 나눠 일반화 성능 확인.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="f-row">
+        <div class="f-spine"><div class="f-dot"></div></div>
+        <div class="f-body">
+          <div class="f-card">
+            <div class="f-title">4단계 — 24개월 이후</div>
+            <div class="f-sub">위성영상, 패널 이미지, 미세먼지, 해외 NWP를 결합한 하이브리드 모델 검토. 목표는 정산기준 6% 이내 안정화, 고도화 목표는 4% 이하.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="sec-l2">
     <div class="sec-l2-header">
       <div class="sec-l2-num n-teal">목표</div>
       <div class="sec-l2-title">성능 목표</div>
     </div>
+
     <div class="g3">
-      <div class="card ct"><div class="card-title">목표 정확도</div><div class="card-desc"><strong style="font-size:18px;color:var(--teal)">92%+</strong><br>국내 연구과제 92.7% 기준</div></div>
-      <div class="card ct"><div class="card-title">목표 오차율</div><div class="card-desc"><strong style="font-size:18px;color:var(--teal)">8% 이내</strong><br>전력거래소 예측제도 기준</div></div>
-      <div class="card ct"><div class="card-title">평가 지표</div><div class="card-desc"><strong>RMSE · MAE · MAPE</strong><br>|예측 − 실제| ÷ 설비용량 × 100</div></div>
+      <div class="card ct">
+        <div class="card-title">1차 운영 목표</div>
+        <div class="card-desc">
+          <strong style="font-size:18px;color:var(--teal)">정확도 94%+</strong><br>
+          예측오차율 6% 이내 대응
+        </div>
+      </div>
+
+      <div class="card ct">
+        <div class="card-title">고도화 목표</div>
+        <div class="card-desc">
+          <strong style="font-size:18px;color:var(--teal)">정확도 96%+</strong><br>
+          예측오차율 4% 이하 구간 목표
+        </div>
+      </div>
+
+      <div class="card ct">
+        <div class="card-title">평가 지표</div>
+        <div class="card-desc">
+          <strong>정산용 예측오차율</strong><br>
+          RMSE · MAE · MAPE는 보조 지표로 관리
+        </div>
+      </div>
     </div>
+
+    <div class="insight" style="margin-top:12px;margin-bottom:0;font-size:12px">
+      <strong>해석 기준:</strong>
+      여기서 정확도 94%+는 예측오차율 6% 이내를
+      <strong>100% − 예측오차율</strong>로 환산한 운영 목표다.
+      실제 모델 평가는 RMSE·MAE·MAPE를 함께 보되, 전력거래소 정산 대응은 예측오차율 기준으로 별도 산정한다.
+    </div>
+  </div>
+
+  <div class="ref-box">
+    <strong>근거:</strong>
+    <a href="https://www.kpx.or.kr/board.es?act=view&bid=0030&list_no=74304&mid=a10205010000&nPage=1" target="_blank" rel="noopener noreferrer">
+      KPX 전력시장운영규칙 제24-6차 개정 공고(2025.2.12 시행)
+    </a>
+    — 페이지 내 「붙임1. 전력시장운영규칙 개정내용」 중 재생에너지 발전량 예측제도 정산기준 변경 항목 확인
+    |
+    <a href="https://blog.haezoom.com/notice_05/" target="_blank" rel="noopener noreferrer">
+      해줌 재생에너지 예측제도 정산기준 변경 정리
+    </a>
   </div>
 </div>
 
