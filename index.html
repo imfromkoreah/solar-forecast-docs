@@ -202,6 +202,10 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 
 .ref-box{background:var(--gray-bg);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--tm);margin-top:8px;line-height:1.7}
 .ref-box strong{color:var(--gray-t)}
+
+.model-box{background:var(--gray-bg);border-radius:8px;padding:12px;margin:10px 0}
+.model-box-title{font-size:11px;font-weight:700;color:var(--tm);margin-bottom:8px;letter-spacing:.04em;text-transform:uppercase}
+.model-src{margin-top:8px;padding:6px 10px;border-radius:5px;font-size:11px}
 </style>
 </head>
 <body>
@@ -222,6 +226,8 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
   <div class="nav-group">
     <div class="nav-group-label">벤치마크</div>
     <a href="#sec-bench" class="nav-l1">04 · 국내 실서비스</a>
+    <a href="#sec-bench-global" class="nav-l2">04-1 · 국외 벤치마크</a>
+    <a href="#sec-bench-compare" class="nav-l2">04-2 · 모델 비교표</a>
   </div>
   <div class="nav-group">
     <div class="nav-group-label">데이터 구조</div>
@@ -240,7 +246,7 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
   <div class="nav-group">
     <div class="nav-group-label">가공 · 모델</div>
     <a href="#sec-dataset" class="nav-l1">07 · 학습 데이터셋</a>
-    <a href="#sec-model" class="nav-l1">B · 모델 방법론</a>
+    <a href="#sec-model-select" class="nav-l2">B-1 · 모델 선택 근거</a>
   </div>
   <div class="nav-group">
     <a href="#sec-check" class="nav-l1">08 · 확인사항</a>
@@ -411,6 +417,20 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
       </summary>
       <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
         <div class="c-desc">전국 2,800여 개 자체 시공 발전소 실측 데이터 + 실시간 인공위성 영상으로 구름 이동 추적이 핵심 차별점. 1h~72h 예측 제공.</div>
+        <div class="model-box">
+          <div class="model-box-title">모델 구조</div>
+          <div class="g2" style="gap:8px">
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--teal-t);margin-bottom:4px">3중 입력 구조</div>
+              <div style="font-size:11px;color:var(--ts);line-height:1.7">① 위성 영상 (천리안 2호) → CNN 구름 이동 추적<br>② 수치예보 NWP (KIM) → 기상 예측값<br>③ 발전소 실측 (1만개+) → 학습 피드백</div>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--teal-t);margin-bottom:4px">예측 알고리즘</div>
+              <div style="font-size:11px;color:var(--ts);line-height:1.7">AI 기반 자원별 예측 알고리즘<br>최적 입찰량 알고리즘 결합<br>실시간 이상탐지·출력제어 통합</div>
+            </div>
+          </div>
+          <div class="model-src" style="background:var(--teal-bg);color:var(--teal-t)">✓ 근거: KPX 공시 — 2024.10~2025.03 혼합자원 6개월 연속 최소 오차율 · 평균 오차율 2.6% (인더스트리뉴스, 2025.04)</div>
+        </div>
         <div class="c-data"><span class="tag t-teal">인버터 실측</span><span class="tag t-teal">인공위성 영상 (천리안 2호)</span><span class="tag t-teal">수치예보 NWP (KIM)</span><span class="tag t-teal">발전소 위치·설비정보</span></div>
       </div>
     </details>
@@ -425,6 +445,20 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
       </summary>
       <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
         <div class="c-desc">RTU로 인버터 현장 데이터 직접 수집. <strong>인버터 프로토콜 표준화 → 멀티벤더 데이터 통합</strong>이 핵심 기술. 15년치 2,000개+ 발전소 누적 DB 기반 딥러닝.</div>
+        <div class="model-box">
+          <div class="model-box-title">모델 구조</div>
+          <div class="g2" style="gap:8px">
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--amber-t);margin-bottom:4px">입력 데이터</div>
+              <div style="font-size:11px;color:var(--ts);line-height:1.7">RTU 인버터 (전압·전류·출력)<br>국내 기상청 API + 해외 NWP (ECMWF)<br>주변 발전소 비교 + 현장 센서</div>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--amber-t);margin-bottom:4px">예측 모델</div>
+              <div style="font-size:11px;color:var(--ts);line-height:1.7">딥러닝 기반 발전소별 맞춤 모델<br>15년 · 2,000개+ 누적 DB<br>멀티벤더 표준화가 핵심 차별점</div>
+            </div>
+          </div>
+          <div class="model-src" style="background:var(--amber-bg);color:var(--amber-t)">✓ 근거: 솔레몬 EMS 공식 자료 — 평균 예측 정확도 95% (dycni.com 공식 발표)</div>
+        </div>
         <div class="c-data"><span class="tag t-amber">RTU 인버터</span><span class="tag t-amber">국내 기상청 API</span><span class="tag t-amber">해외 NWP (ECMWF)</span><span class="tag t-amber">주변 발전소 비교</span><span class="tag t-amber">현장 센서</span></div>
       </div>
     </details>
@@ -439,6 +473,20 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
       </summary>
       <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
         <div class="c-desc">연간 180TB 기상 빅데이터 처리. <strong>현장 센서 없이 위치 + 기상 데이터만으로 예측</strong> 가능. 위성 영상 기반 구름 이동 예측 알고리즘.</div>
+        <div class="model-box">
+          <div class="model-box-title">모델 구조</div>
+          <div class="g2" style="gap:8px">
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--purple-t);margin-bottom:4px">핵심 차별점</div>
+              <div style="font-size:11px;color:var(--ts);line-height:1.7">센서 없이 위치+기상만으로 예측<br>천리안 2호 위성 기반 구름 이동<br>전국 15만개+ 발전소 위치 DB</div>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--purple-t);margin-bottom:4px">AI 모델</div>
+              <div style="font-size:11px;color:var(--ts);line-height:1.7">AI 기반 실시간 발전량 예측<br>ESS·EV 충방전 최적화 결합<br>분산에너지 통합 관제</div>
+            </div>
+          </div>
+          <div class="model-src" style="background:var(--purple-bg);color:var(--purple-t)">✓ 근거: 2023 CES 혁신상 · 소셜벤처 IR 대상 (중소벤처기업부 장관상) · 60hz.io 공식 자료</div>
+        </div>
         <div class="c-data"><span class="tag t-purple">천리안 2호 위성 (실시간)</span><span class="tag t-purple">기상청 관측·예보</span><span class="tag t-purple">전국 7만 개 발전소 위치 DB</span></div>
       </div>
     </details>
@@ -453,6 +501,7 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
       </summary>
       <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
         <div class="c-desc">인버터·PCS·배터리 설비 단위 수집 + 인근 발전소 비교 + 기상 분석. 소규모 전력중개 시장 연계 운영.</div>
+
         <div class="c-data"><span class="tag t-gray">인버터·PCS·배터리</span><span class="tag t-gray">인근 발전소 비교</span><span class="tag t-gray">기상 예측</span></div>
       </div>
     </details>
@@ -467,21 +516,169 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
       </summary>
       <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
         <div class="c-desc">100m 고해상도 수치예보 기반. 전국 시군구 단위 48시간 발전량 예측 제공. 물리 기반 공식 사용.</div>
-        <div class="formula-box" style="margin:10px 0">
-          <div class="formula">발전량 = 설비용량 × 일사강도 × [1 + 출력온도계수 × (모듈표면온도 − 25)]</div>
-          <div class="formula-sub">기상 데이터(일사강도·모듈표면온도) + 비기상 데이터(설비용량·출력온도계수)</div>
+        <div class="model-box">
+          <div class="model-box-title">모델 구조 (물리 기반)</div>
+          <div class="formula-box" style="margin:8px 0">
+            <div class="formula">발전량 = 설비용량 × 일사강도 × [1 + 출력온도계수 × (모듈표면온도 − 25)]</div>
+            <div class="formula-sub">기상 데이터(일사강도·모듈표면온도) + 비기상 데이터(설비용량·출력온도계수)</div>
+          </div>
+          <div class="model-src" style="background:var(--blue-bg);color:var(--blue-t)">✓ 근거: 기상청 국립기상과학원 공식 서비스 · 100m 해상도 수치예보 (bd.kma.go.kr)</div>
         </div>
         <div class="c-data"><span class="tag t-blue">100m 수치예보</span><span class="tag t-blue">설비용량·발전량 실적</span><span class="tag t-blue">출력온도계수</span></div>
       </div>
     </details>
   </div>
 
-  <div class="ref-box">
-    <strong>참고 — 국내 디지털트윈 연구과제 (2023):</strong> 발전소 9개소 · 2년 · 1시간 기준 → 155만 9천 건 수집. XGBoost·LSTM·CNN-LSTM 복합 → 예측 정확도 92.7% 달성. 우리 프로젝트 목표 정확도·방법론의 기준으로 삼음.
+  <div class="company-card hg">
+    <details open>
+      <summary style="display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;outline:none">
+        <span style="font-size:12px;color:var(--tm)">▶</span>
+        <div><div class="c-name">⑤ 국내 디지털트윈 연구과제 (동서발전)</div><a href="#" style="font-size:11px;color:var(--tm);text-decoration:none;display:block">국가R&D 보고서 · 2023</a></div>
+        <span class="tag t-gray">정확도 92.7%</span><span class="tag t-gray">우리 목표 기준</span>
+      </summary>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
+        <div class="c-desc">발전소 9개소 · 2년 · 1시간 기준 → 155만 9천 건 수집. <strong>국내에서 근거 있는 수치를 제시한 가장 신뢰할 수 있는 공개 자료.</strong></div>
+        <div class="model-box">
+          <div class="model-box-title">모델 구조 (상세)</div>
+          <div class="g2" style="gap:8px">
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--gray-t);margin-bottom:4px">1단계 — 머신러닝</div>
+              <div style="font-size:11px;color:var(--ts);line-height:1.7">XGBoost — 트리 기반, 피처 중요도 파악<br>LightGBM — 대용량 고속 처리<br>베이스라인 확인 및 변수 선택</div>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--gray-t);margin-bottom:4px">2단계 — 딥러닝</div>
+              <div style="font-size:11px;color:var(--ts);line-height:1.7">LSTM — 시계열 패턴 기억<br>CNN-LSTM — 공간 패턴 + 흐름 결합<br>Multi Input Model — 다중 데이터 입력</div>
+            </div>
+          </div>
+          <div style="margin-top:8px;padding:8px 10px;background:var(--gray-bg);border-radius:5px;font-size:11px;color:var(--gray-t)">
+            입력: SCADA 실측 + 기상청 ASOS + 해외 기상 API + 미세먼지 API + 패널 이미지<br>
+            전략: 발전소별 맞춤 모델 + 통합 스케일링 모델 병행
+          </div>
+          <div class="model-src" style="background:var(--gray-bg);color:var(--gray-t)">✓ 근거: 국가R&D 보고서 "디지털트윈 적용 태양광 발전량 예측 고도화" (2023) — 공인인증 시험평가 결과 정확도 92.7% 달성</div>
+        </div>
+        <div class="c-data"><span class="tag t-gray">XGBoost · LightGBM</span><span class="tag t-gray">LSTM · CNN-LSTM</span><span class="tag t-gray">Multi Input Model</span><span class="tag t-gray">92.7%</span></div>
+      </div>
+    </details>
   </div>
 </div>
 
 <div class="divider"></div>
+
+<!-- 04-1 국외 벤치마크 -->
+<div id="sec-bench-global" class="sec-l2" style="margin-top:28px">
+  <div class="sec-l2-header"><div class="sec-l2-num n-blue">4-1</div><div class="sec-l2-title">국외 벤치마크 — 글로벌 탑 플레이어</div></div>
+  <p class="sec-l2-sub">국외에서는 어떤 모델로 어떤 방식으로 접근하는지. 우리 모델 선택의 방향성 근거.</p>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:14px">
+    <div style="font-size:12px;font-weight:700;color:var(--tm);letter-spacing:.05em;text-transform:uppercase;margin-bottom:14px">글로벌 모델 진화 흐름</div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px">
+      <div style="background:var(--gray-bg);color:var(--gray-t);padding:8px 14px;border-radius:6px;text-align:center"><div style="font-weight:600">2010년대 초</div><div style="font-size:11px;margin-top:2px">통계 모델<br>ARIMA · 선형회귀</div></div>
+      <div style="color:var(--tm)">→</div>
+      <div style="background:var(--amber-bg);color:var(--amber-t);padding:8px 14px;border-radius:6px;text-align:center"><div style="font-weight:600">2010년대 중</div><div style="font-size:11px;margin-top:2px">머신러닝<br>XGBoost · RF · SVM</div></div>
+      <div style="color:var(--tm)">→</div>
+      <div style="background:var(--teal-bg);color:var(--teal-t);padding:8px 14px;border-radius:6px;text-align:center"><div style="font-weight:600">2010년대 말</div><div style="font-size:11px;margin-top:2px">딥러닝<br>LSTM · CNN-LSTM</div></div>
+      <div style="color:var(--tm)">→</div>
+      <div style="background:var(--blue-bg);color:var(--blue-t);padding:8px 14px;border-radius:6px;text-align:center"><div style="font-weight:600">2020년대 초</div><div style="font-size:11px;margin-top:2px">하이브리드<br>CNN-LSTM-Transformer</div></div>
+      <div style="color:var(--tm)">→</div>
+      <div style="background:var(--purple-bg);color:var(--purple-t);padding:8px 14px;border-radius:6px;text-align:center"><div style="font-weight:600">2023~현재</div><div style="font-size:11px;margin-top:2px">생성형 AI<br>대형 기상 AI 모델</div></div>
+    </div>
+    <div class="insight ia" style="margin-top:12px;margin-bottom:0;font-size:12px"><strong>글로벌 트렌드:</strong> 하이브리드 모델(CNN+LSTM+Transformer)이 단일 딥러닝 대비 정확도 25~30% 향상. <em>(출처: ScienceDirect 재생에너지 예측 리뷰, 2024)</em></div>
+  </div>
+  <div class="g3">
+    <div class="card cb">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--blue-t);margin-bottom:8px">NREL — 미국 국립 재생에너지연구소</div>
+      <div class="card-title">Sup3rCC — 생성형 딥러닝</div>
+      <div class="card-desc" style="margin-bottom:10px">CNN 기반 Super-Resolution. 저해상도 기후 데이터를 공간 25배·시간 24배 향상 → 15,000배 고해상도 변환. 기존 방법 대비 40배 빠름.</div>
+      <div style="border-top:1px solid var(--border);padding-top:8px;margin-bottom:6px"><div style="font-size:11px;color:var(--tm);margin-bottom:4px">핵심 전략</div><div style="font-size:12px;color:var(--ts)"><strong>모델이 아니라 입력 데이터 품질을 AI로 올림</strong></div></div>
+      <div style="font-size:10px;color:var(--tm)">출처: NREL 공식 발표 (2024.04)</div>
+      <div style="margin-top:6px"><span class="tag t-blue">CNN Super-Resolution</span><span class="tag t-blue">생성형 AI</span></div>
+    </div>
+    <div class="card cp">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--purple-t);margin-bottom:8px">Google DeepMind × Open Climate Fix</div>
+      <div class="card-title">Transformer 기반 AI 기상예보</div>
+      <div class="card-desc" style="margin-bottom:10px">WeatherNext AI 기상예보를 영국 태양광 예측에 적용. 24~48h에서 대형 오차 10% 감소, 평균 오차 5% 감소. 인도 국가 그리드에도 적용 중.</div>
+      <div style="border-top:1px solid var(--border);padding-top:8px;margin-bottom:6px"><div style="font-size:11px;color:var(--tm);margin-bottom:4px">핵심 전략</div><div style="font-size:12px;color:var(--ts)"><strong>기상예보 자체를 AI로 개선</strong> → 발전량 예측 정확도 향상</div></div>
+      <div style="font-size:10px;color:var(--tm)">출처: Open Climate Fix 공식 블로그 (2024)</div>
+      <div style="margin-top:6px"><span class="tag t-purple">Transformer</span><span class="tag t-purple">오차 10% 감소</span></div>
+    </div>
+    <div class="card ca">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--amber-t);margin-bottom:8px">글로벌 학계 — 실제 발전소 비교 연구</div>
+      <div class="card-title">Horizon별 최적 모델이 다름</div>
+      <div class="card-desc" style="margin-bottom:10px">180kWp 발전소 2년·5분 간격 데이터 비교. 단기(1일) → ANN, 중기(1주) → XGBoost+RF 하이브리드, 장기(1개월) → Random Forest.</div>
+      <div style="border-top:1px solid var(--border);padding-top:8px;margin-bottom:6px"><div style="font-size:11px;color:var(--tm);margin-bottom:4px">핵심 발견</div><div style="font-size:12px;color:var(--ts)"><strong>예측 기간에 따라 최적 모델이 다름.</strong> 단일 모델로 전 구간 커버 불가</div></div>
+      <div style="font-size:10px;color:var(--tm)">출처: Scientific Reports (Nature, 2025.09)</div>
+      <div style="margin-top:6px"><span class="tag t-amber">단기: ANN</span><span class="tag t-amber">중기: XGBoost+RF</span><span class="tag t-amber">장기: RF</span></div>
+    </div>
+  </div>
+  <div class="insight ic" style="margin-top:14px"><strong>국내외 비교 핵심:</strong> 국외는 <strong>기상예보 AI화(DeepMind)</strong>와 <strong>데이터 고해상도화(NREL)</strong>에 집중. 국내는 <strong>발전소 실측 데이터 축적 + 국내 기상청 NWP 조합</strong>이 강점. 우리 프로젝트는 국내 방식으로 시작해 데이터가 쌓이면 하이브리드 모델로 고도화.</div>
+</div>
+
+<!-- 04-2 모델 비교표 -->
+<div id="sec-bench-compare" class="sec-l2">
+  <div class="sec-l2-header"><div class="sec-l2-num n-amber">4-2</div><div class="sec-l2-title">국내외 모델 비교표 — 한눈에 보기</div></div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>주체</th><th>핵심 모델</th><th>입력 데이터</th><th>정확도</th><th>근거</th></tr></thead>
+      <tbody>
+        <tr><td><strong>해줌</strong></td><td>AI 예측 알고리즘 + CNN 위성</td><td>위성 영상 + NWP + 1만개 실측</td><td><span class="tag t-teal">오차율 2.6%</span></td><td>KPX 공시 (2025.03)</td></tr>
+        <tr><td><strong>대연씨앤아이</strong></td><td>딥러닝 (발전소별 맞춤)</td><td>RTU 인버터 + 국내외 NWP</td><td><span class="tag t-teal">95%</span></td><td>솔레몬 EMS 공식 자료</td></tr>
+        <tr><td><strong>식스티헤르츠</strong></td><td>AI 기반 위치·기상 예측</td><td>위성 + 기상 (센서 없음)</td><td>—</td><td>CES 혁신상 (2023)</td></tr>
+        <tr><td><strong>동서발전</strong></td><td>XGBoost + LSTM + CNN-LSTM + Multi Input</td><td>SCADA + 기상청 + 미세먼지</td><td><span class="tag t-teal">92.7%</span></td><td>국가R&D 보고서 (2023)</td></tr>
+        <tr><td><strong>날씨마루</strong></td><td>물리 기반 공식</td><td>100m 수치예보 + 설비정보</td><td>—</td><td>기상청 공식 서비스</td></tr>
+        <tr><td><strong>NREL</strong></td><td>CNN Super-Resolution</td><td>저해상도 기후 모델 → 고해상도</td><td>기존 대비 40배↑</td><td>NREL 발표 (2024.04)</td></tr>
+        <tr><td><strong>DeepMind</strong></td><td>Transformer 기반 AI 기상예보</td><td>AI 기상예보 + 실측</td><td><span class="tag t-blue">오차 10% 감소</span></td><td>Open Climate Fix (2024)</td></tr>
+        <tr style="background:var(--now-bg)"><td><strong>우리 프로젝트 (목표)</strong></td><td>XGBoost → LSTM → CNN-LSTM 단계적 고도화</td><td>LASEE + 기상청 ASOS + Open-Meteo</td><td><span class="tag t-teal">목표 92%+</span></td><td>동서발전 연구과제 기준</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+  <!-- 3개 플레이어 카드 -->
+  <div class="g3">
+    <div class="card cb">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--blue-t);margin-bottom:8px">NREL — 미국 국립 재생에너지연구소</div>
+      <div class="card-title">Sup3rCC — 생성형 딥러닝</div>
+      <div class="card-desc" style="margin-bottom:10px">
+        CNN 기반 Super-Resolution 모델. 저해상도 기후 모델 데이터를 공간 25배·시간 24배 향상 → 총 15,000배 고해상도 변환. 기존 방법 대비 40배 빠름.
+      </div>
+      <div style="border-top:1px solid var(--border);padding-top:8px">
+        <div style="font-size:11px;color:var(--tm);margin-bottom:4px">핵심 접근</div>
+        <div style="font-size:12px;color:var(--ts)">모델 고도화보다 <strong>입력 데이터 품질을 AI로 올리는 것</strong>이 핵심 전략</div>
+      </div>
+      <div style="margin-top:8px"><span class="tag t-blue">CNN Super-Resolution</span><span class="tag t-blue">기후 데이터 고해상도화</span></div>
+    </div>
+
+    <div class="card cp">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--purple-t);margin-bottom:8px">Google DeepMind × Open Climate Fix — 영국</div>
+      <div class="card-title">Transformer 기반 AI 기상예보</div>
+      <div class="card-desc" style="margin-bottom:10px">
+        DeepMind의 WeatherNext AI 기상예보 모델을 영국 태양광 발전량 예측에 적용. 24~48h 예측에서 대형 오차 10% 감소, 평균 오차 5% 감소 달성. 인도 국가 그리드에도 동일 프로젝트 적용 중.
+      </div>
+      <div style="border-top:1px solid var(--border);padding-top:8px">
+        <div style="font-size:11px;color:var(--tm);margin-bottom:4px">핵심 접근</div>
+        <div style="font-size:12px;color:var(--ts)"><strong>기상예보 자체를 AI로 개선</strong> → 발전량 예측 정확도 향상. 기상 모델이 발전 모델의 품질을 결정</div>
+      </div>
+      <div style="margin-top:8px"><span class="tag t-purple">Transformer</span><span class="tag t-purple">AI 기상예보</span><span class="tag t-purple">오차 10% 감소</span></div>
+    </div>
+
+    <div class="card ca">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--amber-t);margin-bottom:8px">글로벌 학계 — 실제 발전소 적용 사례</div>
+      <div class="card-title">Horizon별 최적 모델이 다름</div>
+      <div class="card-desc" style="margin-bottom:10px">
+        180kWp 발전소 2년치 5분 간격 데이터 기반 비교 연구. 단기(1일) 예측 → ANN, 중기(1주) → XGBoost+RF 하이브리드, 장기(1개월) → Random Forest가 최적.
+      </div>
+      <div style="border-top:1px solid var(--border);padding-top:8px">
+        <div style="font-size:11px;color:var(--tm);margin-bottom:4px">핵심 발견</div>
+        <div style="font-size:12px;color:var(--ts)"><strong>예측 기간에 따라 최적 모델이 달라짐.</strong> 단일 모델로 전 구간을 커버하려 하면 안 됨</div>
+      </div>
+      <div style="margin-top:8px"><span class="tag t-amber">단기: ANN</span><span class="tag t-amber">중기: XGBoost+RF</span><span class="tag t-amber">장기: RF</span></div>
+    </div>
+  </div>
+
+  <!-- 국내외 비교 인사이트 -->
+  <div class="insight ic" style="margin-top:14px">
+    <strong>국내외 비교 핵심:</strong> 국외는 <strong>기상예보 AI화(DeepMind)</strong>와 <strong>데이터 고해상도화(NREL)</strong>에 집중. 국내(해줌·대연씨앤아이)는 <strong>발전소 실측 데이터 축적 + 국내 기상청 NWP 조합</strong>이 강점. 우리 프로젝트는 국내 방식으로 시작해 데이터가 쌓이면 하이브리드 모델로 고도화하는 전략이 현실적.
+  </div>
+</div>
 
 <!-- ════════════════════════════════════════
   L1: 05 데이터 계층
@@ -826,6 +1023,33 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 </div>
 
 <div class="divider"></div>
+
+<!-- B-1 모델 선택 근거 -->
+<div id="sec-model-select" class="sec-l2">
+  <div class="sec-l2-header"><div class="sec-l2-num n-purple">B-1</div><div class="sec-l2-title">모델 선택 근거 — 왜 이 모델들인가</div></div>
+  <p class="sec-l2-sub">국내외 벤치마크와 실제 연구과제 결과를 바탕으로 도출한 모델 선택 근거.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>모델</th><th>학습 난이도</th><th>데이터 요구량</th><th>시간 패턴 학습</th><th>해석 가능성</th><th>적합한 상황</th></tr></thead>
+      <tbody>
+        <tr><td><strong>XGBoost / LightGBM</strong></td><td><span class="tag t-teal">쉬움</span></td><td>적어도 OK</td><td>△ 간접 (lag 피처 수동)</td><td><span class="tag t-teal">높음</span></td><td>초기 베이스라인 · 피처 분석</td></tr>
+        <tr><td><strong>LSTM</strong></td><td><span class="tag t-amber">보통</span></td><td>1년+ 필요</td><td><span class="tag t-teal">직접 학습</span></td><td><span class="tag t-amber">낮음</span></td><td>시계열 패턴이 복잡한 경우</td></tr>
+        <tr><td><strong>CNN-LSTM</strong></td><td><span class="tag t-coral">어려움</span></td><td>1년+ 필요</td><td><span class="tag t-teal">직접 학습</span></td><td><span class="tag t-amber">낮음</span></td><td>단기 일사량 변화 포착</td></tr>
+        <tr><td><strong>Multi Input Model</strong></td><td><span class="tag t-coral">어려움</span></td><td>많이 필요</td><td><span class="tag t-teal">직접 학습</span></td><td><span class="tag t-amber">낮음</span></td><td>다종 데이터 통합 (우리 프로젝트)</td></tr>
+        <tr style="background:var(--amber-bg)"><td><strong>하이브리드 (글로벌 표준)</strong></td><td><span class="tag t-coral">복잡</span></td><td>많이 필요</td><td><span class="tag t-teal">직접 학습</span></td><td><span class="tag t-coral">매우 낮음</span></td><td>최고 정확도 목표 (25~30% 향상)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-top:14px">
+    <div style="font-size:12px;font-weight:700;color:var(--tm);letter-spacing:.05em;text-transform:uppercase;margin-bottom:14px">우리 프로젝트 — 단계별 모델 적용 계획</div>
+    <div class="flow">
+      <div class="f-row"><div class="f-spine"><div class="f-dot on"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card on"><div class="f-title" style="color:var(--now-t)">1단계 — 데이터 수집 초기 (0~6개월)</div><div class="f-sub" style="color:var(--now-t);opacity:.85;margin-bottom:6px">XGBoost / LightGBM으로 빠르게 베이스라인 확인. 피처 중요도로 핵심 변수 파악.</div><div style="display:flex;gap:4px;flex-wrap:wrap"><span class="tag t-teal">XGBoost</span><span class="tag t-teal">LightGBM</span><span class="tag t-teal">피처 중요도 분석</span></div></div></div></div>
+      <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">2단계 — 데이터 1년 이상 확보 후</div><div class="f-sub" style="margin-bottom:6px">LSTM 도입. 시계열 패턴 더 잘 포착. 계절·시간대별 패턴 학습.</div><div style="display:flex;gap:4px;flex-wrap:wrap"><span class="tag t-gray">LSTM</span><span class="tag t-gray">walk-forward 검증</span></div></div></div></div>
+      <div class="f-row"><div class="f-spine"><div class="f-dot"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">3단계 — 데이터 2년 이상 · 고도화</div><div class="f-sub" style="margin-bottom:6px">CNN-LSTM + Multi Input Model 조합. 목표 정확도 92%+ 달성.</div><div style="display:flex;gap:4px;flex-wrap:wrap"><span class="tag t-gray">CNN-LSTM</span><span class="tag t-gray">Multi Input</span><span class="tag t-gray">목표 92%+</span></div></div></div></div>
+    </div>
+    <div class="insight" style="margin-top:12px;margin-bottom:0;font-size:12px"><strong>근거:</strong> 동서발전 연구과제(국가R&D, 2023)에서 XGBoost→LSTM→CNN-LSTM 복합 모델로 단계적 고도화 → 92.7% 달성. 글로벌 트렌드는 하이브리드 모델이 단일 DL 대비 25~30% 향상 (ScienceDirect, 2024).</div>
+  </div>
+</div>
 
 <!-- ════════════════════════════════════════
   L1: B 모델 방법론
