@@ -206,6 +206,26 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 .model-box{background:var(--gray-bg);border-radius:8px;padding:12px;margin:10px 0}
 .model-box-title{font-size:11px;font-weight:700;color:var(--tm);margin-bottom:8px;letter-spacing:.04em;text-transform:uppercase}
 .model-src{margin-top:8px;padding:6px 10px;border-radius:5px;font-size:11px}
+
+.sidebar{
+  width:var(--sidebar-w);flex-shrink:0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;
+  background:var(--surface);border-right:1px solid var(--border);padding:32px 0;z-index:100;
+  transition:transform .25s ease;
+}
+.sidebar.collapsed{transform:translateX(-100%)}
+.main{margin-left:var(--sidebar-w);flex:1;padding:0 40px;max-width:1100px;transition:margin-left .25s ease}
+.main.expanded{margin-left:0}
+
+.sidebar-toggle{
+  position:fixed;top:16px;left:16px;z-index:200;
+  width:32px;height:32px;border-radius:8px;
+  background:var(--surface);border:1px solid var(--border);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--tp);
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+.sidebar-toggle:hover{background:var(--bg)}
+.sidebar-logo{padding:0 20px 20px 56px;border-bottom:1px solid var(--border);margin-bottom:16px}
 </style>
 </head>
 <body>
@@ -217,23 +237,35 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
     <div class="sidebar-logo-text">Solar Forecast</div>
     <div class="sidebar-logo-sub">데이터 수집 계획</div>
   </div>
+
   <div class="nav-group">
     <div class="nav-group-label">전체 절차</div>
+    <a href="#sec-policy" class="nav-l1">00 · 제도 배경 및 개정 공고</a>
     <a href="#sec-why" class="nav-l1">01 · 왜 필요한가</a>
     <a href="#sec-flow" class="nav-l1">02 · 전체 절차</a>
     <a href="#sec-visual" class="nav-l1">03 · 예측이란</a>
   </div>
+
   <div class="nav-group">
     <div class="nav-group-label">벤치마크</div>
     <a href="#sec-bench" class="nav-l1">04 · 국내 실서비스</a>
     <a href="#sec-bench-global" class="nav-l2">04-1 · 국외 벤치마크</a>
     <a href="#sec-bench-compare" class="nav-l2">04-2 · 모델 비교표</a>
   </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">모델 방법론</div>
+    <a href="#sec-model" class="nav-l1">B · 모델 개요 및 선택 근거</a>
+    <a href="#sec-model-horizon" class="nav-l2">B-1 · Horizon별 모델 비교</a>
+    <a href="#sec-model-plan" class="nav-l2">B-2 · 단계별 적용 계획</a>
+  </div>
+
   <div class="nav-group">
     <div class="nav-group-label">데이터 구조</div>
     <a href="#sec-layer" class="nav-l1">05 · 데이터 계층</a>
     <a href="#sec-factor" class="nav-l2">05-1 · 저하 요인</a>
   </div>
+
   <div class="nav-group">
     <div class="nav-group-label">수집 계획 (현재)</div>
     <a href="#sec-raw" class="nav-l1">06 · 원천데이터 정의</a>
@@ -243,16 +275,16 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
     <a href="#sec-raw-astro" class="nav-l2">④ 천문 계산값</a>
     <a href="#sec-api" class="nav-l1">06-1 · API 현황</a>
   </div>
+
   <div class="nav-group">
-    <div class="nav-group-label">가공 · 모델</div>
+    <div class="nav-group-label">가공</div>
     <a href="#sec-dataset" class="nav-l1">07 · 학습 데이터셋</a>
-    <a href="#sec-model-select" class="nav-l2">B-1 · 모델 선택 근거</a>
   </div>
+
   <div class="nav-group">
     <a href="#sec-check" class="nav-l1">08 · 확인사항</a>
   </div>
 </nav>
-
 <!-- ═══════════════════════════
   MAIN
 ═══════════════════════════ -->
@@ -286,7 +318,7 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 <div id="sec-policy" class="sec-l1">
   <div class="sec-l1-header">
     <div class="sec-l1-num n-teal">00</div>
-    <div class="sec-l1-title">제도 배경</div>
+    <div class="sec-l1-title">제도 배경 및 개정 공고</div>
   </div>
   <p class="sec-l1-sub">
     태양광 발전량 예측은 단순 분석 과제가 아니라 전력거래소 예측제도와 수익 정산에 직접 연결되는 운영 과제다.
@@ -464,16 +496,20 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 
   <div class="chart-wrap">
     <div class="chart-title">① 하루 발전 패턴 — 맑은 날 vs 흐린 날</div>
-    <div class="chart-sub">날씨에 따라 발전량 차이가 3배 이상 발생. 구름이 핵심 변수.</div>
+    <div class="chart-sub">날씨에 따라 발전량 차이가 3배 이상 발생. 구름 유입 여부가 핵심 변수.</div>
     <canvas id="chart1" height="110"></canvas>
     <div class="chart-note">※ 시뮬레이션 예시 — 실제 발전소 데이터 수집 후 교체 예정</div>
   </div>
 
   <div class="chart-wrap">
-    <div class="chart-title">② 예측값 vs 실측값 비교</div>
-    <div class="chart-sub">구름 유입 시간대(10~12시)에서 예측 오차 집중 발생. 목표 오차율 8% 이내.</div>
+    <div class="chart-title">② 예측값 vs 실측값 — 허용 오차 범위 비교</div>
+    <div class="chart-sub">
+      개정 전(8%, 회색 점선)보다 개정 후(6%, 주황 점선) 허용 범위가 좁아짐.
+      예측값이 주황 점선 안에 들어와야 최고 정산금(4원/kWh) 수령 가능.
+      <span style="font-size:11px;color:var(--tm);display:block;margin-top:4px">※ KPX 제24-6차 전력시장운영규칙 개정 — 태양광 2025.06.01 적용</span>
+    </div>
     <canvas id="chart2" height="110"></canvas>
-    <div class="chart-note">※ 시뮬레이션 예시 — 목표 오차율 8% 이내 (전력거래소 기준)</div>
+    <div class="chart-note">※ 시뮬레이션 예시 — 목표 오차율 6% 이하 (KPX 제24-6차 전력시장운영규칙 개정, 태양광 2025.06.01 적용)</div>
   </div>
 
   <div class="chart-wrap">
@@ -485,6 +521,10 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 
   <div class="insight ia">
     <strong>구조 요약:</strong> "내일 일사량(GHI)이 얼마일지" 예측(기상 모델) → "그 일사량에서 우리 발전소는 몇 kW 나올지" 계산(발전 모델). 패널 오염·음영·미세먼지는 두 번째 단계에서 오차를 만드는 주요 요인.
+    <span style="display:block;margin-top:8px;padding:8px 12px;background:var(--amber-bg);border-radius:6px;font-size:12px;color:var(--amber-t)">
+      ⚠ <strong>2025년 6월부터 태양광 예측오차율 기준 강화</strong> — KPX 제24-6차 전력시장운영규칙 개정으로 정산금 수령 기준이 기존 8%에서 <strong>6% 이하(4원/kWh)</strong>로 낮아짐. 예측 모델의 정밀도 요건이 직접 높아진 상황.
+      <a href="https://www.kpx.or.kr/board.es?act=view&bid=0030&list_no=74304&mid=a10205010000&nPage=1" target="_blank" style="color:var(--amber-t);display:block;margin-top:4px">→ KPX 제24-6차 전력시장운영규칙 개정 공고 ↗</a>
+    </span>
   </div>
 </div>
 
@@ -770,6 +810,72 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
   <div class="insight ic" style="margin-top:14px">
     <strong>국내외 비교 핵심:</strong> 국외는 <strong>기상예보 AI화(DeepMind)</strong>와 <strong>데이터 고해상도화(NREL)</strong>에 집중. 국내(해줌·대연씨앤아이)는 <strong>발전소 실측 데이터 축적 + 국내 기상청 NWP 조합</strong>이 강점. 우리 프로젝트는 국내 방식으로 시작해 데이터가 쌓이면 하이브리드 모델로 고도화하는 전략이 현실적.
   </div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+  L1: B 모델 방법론
+════════════════════════════════════════ -->
+<div id="sec-model" class="sec-l1">
+  <div class="sec-l1-header">
+    <div class="sec-l1-num n-purple">B</div>
+    <div class="sec-l1-title">모델 학습 및 예측 — 방법론 정리</div>
+  </div>
+  <p class="sec-l1-sub">데이터 수집 완료 후 진행 예정. 참고용 방법론 정리.</p>
+
+  <div class="insight ia">
+    <strong>핵심 원칙:</strong> 시계열 회귀(regression) 문제. 인버터 실측 발전량이 자동으로 정답값. 모델보다 데이터 품질이 먼저다.
+  </div>
+
+  <div class="g2" style="margin-top:14px">
+    <div class="card ca">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--amber-t);margin-bottom:8px">머신러닝 기반</div>
+      <div class="card-title">XGBoost · LightGBM</div>
+      <div class="card-desc" style="margin-bottom:10px">트리 기반 앙상블. 빠르고 정확도 높음. 피처 중요도 직접 확인 가능. 초기 베이스라인으로 먼저 적용.</div>
+      <div style="border-top:1px solid var(--border);padding-top:8px;font-size:11px;color:var(--tm)">초기 모델 · 피처 중요도 분석 · 데이터 부족 구간</div>
+    </div>
+    <div class="card cp">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--purple-t);margin-bottom:8px">딥러닝 기반</div>
+      <div style="margin-bottom:8px"><div class="card-title">LSTM</div><div class="card-desc">과거 패턴 흐름 기억. "1시간 전이 이랬으면 지금은 이럴 것" 학습.</div></div>
+      <div style="border-top:1px solid var(--border);padding-top:8px;margin-bottom:8px"><div class="card-title">CNN-LSTM</div><div class="card-desc">CNN으로 지역 패턴 추출 후 LSTM으로 흐름 학습. 일사량 변화 포착.</div></div>
+      <div style="border-top:1px solid var(--border);padding-top:8px"><div class="card-title">Multi Input Model</div><div class="card-desc">실측·기상·설비정보 각각 별도 입력. 데이터 종류 다양한 우리 프로젝트에 적합.</div></div>
+    </div>
+  </div>
+
+  <!-- L2: 검증 -->
+  <div class="sec-l2">
+    <div class="sec-l2-header">
+      <div class="sec-l2-num n-blue">검증</div>
+      <div class="sec-l2-title">Walk-Forward Validation</div>
+    </div>
+    <div class="insight ib" style="margin-top:0">
+      <strong>랜덤 분할 절대 금지.</strong> 미래 데이터로 과거를 예측하는 데이터 누수(leakage) 발생. 시간 순서 유지한 walk-forward 방식 필수.
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;margin-top:10px">
+      <div style="background:var(--teal-bg);color:var(--teal-t);padding:6px 14px;border-radius:6px;font-weight:600">1~12개월 학습</div>
+      <div style="color:var(--tm)">→</div>
+      <div style="background:var(--blue-bg);color:var(--blue-t);padding:6px 14px;border-radius:6px;font-weight:600">13개월 검증</div>
+      <div style="color:var(--tm)">→</div>
+      <div style="background:var(--teal-bg);color:var(--teal-t);padding:6px 14px;border-radius:6px;font-weight:600">1~13개월 학습</div>
+      <div style="color:var(--tm)">→</div>
+      <div style="background:var(--blue-bg);color:var(--blue-t);padding:6px 14px;border-radius:6px;font-weight:600">14개월 검증</div>
+      <div style="color:var(--tm)">→ 반복</div>
+    </div>
+  </div>
+
+  <!-- L2: 성능 목표 -->
+  <div class="sec-l2">
+    <div class="sec-l2-header">
+      <div class="sec-l2-num n-teal">목표</div>
+      <div class="sec-l2-title">성능 목표</div>
+    </div>
+    <div class="g3">
+      <div class="card ct"><div class="card-title">목표 정확도</div><div class="card-desc"><strong style="font-size:18px;color:var(--teal)">92%+</strong><br>국내 연구과제 92.7% 기준</div></div>
+      <div class="card ct"><div class="card-title">목표 오차율</div><div class="card-desc"><strong style="font-size:18px;color:var(--teal)">8% 이내</strong><br>전력거래소 예측제도 기준</div></div>
+      <div class="card ct"><div class="card-title">평가 지표</div><div class="card-desc"><strong>RMSE · MAE · MAPE</strong><br>|예측 − 실제| ÷ 설비용량 × 100</div></div>
+    </div>
+  </div>
+</div>
 
 <div class="divider"></div>
 
@@ -1149,72 +1255,6 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 <div class="divider"></div>
 
 <!-- ════════════════════════════════════════
-  L1: B 모델 방법론
-════════════════════════════════════════ -->
-<div id="sec-model" class="sec-l1">
-  <div class="sec-l1-header">
-    <div class="sec-l1-num n-purple">B</div>
-    <div class="sec-l1-title">모델 학습 및 예측 — 방법론 정리</div>
-  </div>
-  <p class="sec-l1-sub">데이터 수집 완료 후 진행 예정. 참고용 방법론 정리.</p>
-
-  <div class="insight ia">
-    <strong>핵심 원칙:</strong> 시계열 회귀(regression) 문제. 인버터 실측 발전량이 자동으로 정답값. 모델보다 데이터 품질이 먼저다.
-  </div>
-
-  <div class="g2" style="margin-top:14px">
-    <div class="card ca">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--amber-t);margin-bottom:8px">머신러닝 기반</div>
-      <div class="card-title">XGBoost · LightGBM</div>
-      <div class="card-desc" style="margin-bottom:10px">트리 기반 앙상블. 빠르고 정확도 높음. 피처 중요도 직접 확인 가능. 초기 베이스라인으로 먼저 적용.</div>
-      <div style="border-top:1px solid var(--border);padding-top:8px;font-size:11px;color:var(--tm)">초기 모델 · 피처 중요도 분석 · 데이터 부족 구간</div>
-    </div>
-    <div class="card cp">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--purple-t);margin-bottom:8px">딥러닝 기반</div>
-      <div style="margin-bottom:8px"><div class="card-title">LSTM</div><div class="card-desc">과거 패턴 흐름 기억. "1시간 전이 이랬으면 지금은 이럴 것" 학습.</div></div>
-      <div style="border-top:1px solid var(--border);padding-top:8px;margin-bottom:8px"><div class="card-title">CNN-LSTM</div><div class="card-desc">CNN으로 지역 패턴 추출 후 LSTM으로 흐름 학습. 일사량 변화 포착.</div></div>
-      <div style="border-top:1px solid var(--border);padding-top:8px"><div class="card-title">Multi Input Model</div><div class="card-desc">실측·기상·설비정보 각각 별도 입력. 데이터 종류 다양한 우리 프로젝트에 적합.</div></div>
-    </div>
-  </div>
-
-  <!-- L2: 검증 -->
-  <div class="sec-l2">
-    <div class="sec-l2-header">
-      <div class="sec-l2-num n-blue">검증</div>
-      <div class="sec-l2-title">Walk-Forward Validation</div>
-    </div>
-    <div class="insight ib" style="margin-top:0">
-      <strong>랜덤 분할 절대 금지.</strong> 미래 데이터로 과거를 예측하는 데이터 누수(leakage) 발생. 시간 순서 유지한 walk-forward 방식 필수.
-    </div>
-    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;margin-top:10px">
-      <div style="background:var(--teal-bg);color:var(--teal-t);padding:6px 14px;border-radius:6px;font-weight:600">1~12개월 학습</div>
-      <div style="color:var(--tm)">→</div>
-      <div style="background:var(--blue-bg);color:var(--blue-t);padding:6px 14px;border-radius:6px;font-weight:600">13개월 검증</div>
-      <div style="color:var(--tm)">→</div>
-      <div style="background:var(--teal-bg);color:var(--teal-t);padding:6px 14px;border-radius:6px;font-weight:600">1~13개월 학습</div>
-      <div style="color:var(--tm)">→</div>
-      <div style="background:var(--blue-bg);color:var(--blue-t);padding:6px 14px;border-radius:6px;font-weight:600">14개월 검증</div>
-      <div style="color:var(--tm)">→ 반복</div>
-    </div>
-  </div>
-
-  <!-- L2: 성능 목표 -->
-  <div class="sec-l2">
-    <div class="sec-l2-header">
-      <div class="sec-l2-num n-teal">목표</div>
-      <div class="sec-l2-title">성능 목표</div>
-    </div>
-    <div class="g3">
-      <div class="card ct"><div class="card-title">목표 정확도</div><div class="card-desc"><strong style="font-size:18px;color:var(--teal)">92%+</strong><br>국내 연구과제 92.7% 기준</div></div>
-      <div class="card ct"><div class="card-title">목표 오차율</div><div class="card-desc"><strong style="font-size:18px;color:var(--teal)">8% 이내</strong><br>전력거래소 예측제도 기준</div></div>
-      <div class="card ct"><div class="card-title">평가 지표</div><div class="card-desc"><strong>RMSE · MAE · MAPE</strong><br>|예측 − 실제| ÷ 설비용량 × 100</div></div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- ════════════════════════════════════════
   L1: 08 확인사항
 ════════════════════════════════════════ -->
 <div id="sec-check" class="sec-l1">
@@ -1247,10 +1287,62 @@ new Chart(document.getElementById('chart1'),{type:'line',data:{labels,datasets:[
   {label:'흐린 날 (kW)',data:[0,1,8,18,28,32,30,25,20,15,8,3,0,0],borderColor:'#8b9690',backgroundColor:'rgba(139,150,144,0.08)',tension:.4,borderWidth:2,pointRadius:2,borderDash:[5,4]}
 ]},options:{...baseOpts,scales:{...baseOpts.scales,y:{...baseOpts.scales.y,title:{display:true,text:'발전량 (kW)',font:{family:'Pretendard',size:10}}}}}});
 
-new Chart(document.getElementById('chart2'),{type:'line',data:{labels,datasets:[
-  {label:'실측값 (kW)',data:[0,2,20,48,75,90,97,89,78,60,38,16,2,0],borderColor:'#138a5d',backgroundColor:'rgba(19,138,93,0.08)',tension:.4,borderWidth:2,pointRadius:2},
-  {label:'예측값 (kW)',data:[0,3,22,50,70,86,93,91,80,58,35,14,4,0],borderColor:'#b7791f',backgroundColor:'rgba(183,121,31,0.08)',tension:.4,borderWidth:2,pointRadius:2,borderDash:[5,4]}
-]},options:{...baseOpts,scales:{...baseOpts.scales,y:{...baseOpts.scales.y,title:{display:true,text:'발전량 (kW)',font:{family:'Pretendard',size:10}}}}}});
+new Chart(document.getElementById('chart2'),{
+  type:'line',
+  data:{labels,datasets:[
+    {
+      label:'실측값 (kW)',
+      data:[0,2,20,48,75,90,97,89,78,60,38,16,2,0],
+      borderColor:'#138a5d',backgroundColor:'rgba(19,138,93,0.08)',
+      tension:.4,borderWidth:2.5,pointRadius:3,order:1
+    },
+    {
+      label:'예측값 (kW)',
+      data:[0,3,22,50,70,86,93,91,80,58,35,14,4,0],
+      borderColor:'#b7791f',backgroundColor:'rgba(183,121,31,0.08)',
+      tension:.4,borderWidth:2,pointRadius:2,borderDash:[5,4],order:2
+    },
+    {
+      label:'기존 허용범위 상한 (8%)',
+      data:[0,2.2,21.6,51.8,81.0,97.2,104.8,96.1,84.2,64.8,41.0,17.3,2.2,0],
+      borderColor:'rgba(107,107,107,0.5)',backgroundColor:'transparent',
+      tension:.4,borderWidth:1,pointRadius:0,borderDash:[4,4],order:3
+    },
+    {
+      label:'기존 허용범위 하한 (8%)',
+      data:[0,1.8,18.4,44.2,69.0,82.8,89.2,81.9,71.8,55.2,35.0,14.7,1.8,0],
+      borderColor:'rgba(107,107,107,0.5)',backgroundColor:'rgba(107,107,107,0.05)',
+      tension:.4,borderWidth:1,pointRadius:0,borderDash:[4,4],fill:'-1',order:4
+    },
+    {
+      label:'강화 허용범위 상한 (6%)',
+      data:[0,2.1,21.2,50.9,79.5,95.4,102.8,94.3,82.7,63.6,40.3,17.0,2.1,0],
+      borderColor:'rgba(216,90,48,0.7)',backgroundColor:'transparent',
+      tension:.4,borderWidth:1.5,pointRadius:0,borderDash:[3,3],order:5
+    },
+    {
+      label:'강화 허용범위 하한 (6%)',
+      data:[0,1.9,18.8,45.1,70.5,84.6,91.2,83.7,73.3,56.4,35.7,15.0,1.9,0],
+      borderColor:'rgba(216,90,48,0.7)',backgroundColor:'rgba(216,90,48,0.07)',
+      tension:.4,borderWidth:1.5,pointRadius:0,borderDash:[3,3],fill:'-1',order:6
+    }
+  ]},
+  options:{
+    ...baseOpts,
+    plugins:{
+      ...baseOpts.plugins,
+      legend:{
+        position:'top',
+        labels:{
+          font:{family:'Pretendard',size:11},
+          boxWidth:12,
+          filter:(item)=>!item.text.includes('하한')
+        }
+      }
+    },
+    scales:{...baseOpts.scales,y:{...baseOpts.scales.y,title:{display:true,text:'발전량 (kW)',font:{family:'Pretendard',size:10}}}}
+  }
+});
 
 const ghi=[50,120,200,280,350,420,500,580,650,720,800,850,900,950];
 const power=[2,8,18,30,42,55,68,80,88,94,100,104,107,109];
@@ -1272,6 +1364,17 @@ function updateNav() {
     if (a.getAttribute('href') === '#' + cur) a.classList.add('active');
   });
 }
+
+const toggle = document.getElementById('sidebarToggle');
+const sidebar = document.querySelector('.sidebar');
+const main = document.querySelector('.main');
+
+toggle.addEventListener('click', () => {
+  sidebar.classList.toggle('collapsed');
+  main.classList.toggle('expanded');
+  toggle.classList.toggle('collapsed');
+  toggle.textContent = sidebar.classList.contains('collapsed') ? '☰' : '✕';
+});
 
 window.addEventListener('scroll', updateNav);
 updateNav(); // 페이지 로드 시 즉시 실행
