@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -239,113 +240,107 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
   </div>
 
   <div class="nav-group">
-    <div class="nav-group-label">전체 절차</div>
+    <div class="nav-group-label">배경</div>
     <a href="#sec-policy" class="nav-l1">00 · 제도 배경 및 개정 공고</a>
     <a href="#sec-why" class="nav-l1">01 · 왜 필요한가</a>
-    <a href="#sec-flow" class="nav-l1">02 · 전체 절차</a>
-    <a href="#sec-visual" class="nav-l1">03 · 예측이란</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">이해</div>
+    <a href="#sec-visual" class="nav-l1">02 · 태양광 발전 예측이란</a>
+    <a href="#sec-flow" class="nav-l1">03 · 전체 절차 플로우</a>
   </div>
 
   <div class="nav-group">
     <div class="nav-group-label">벤치마크</div>
     <a href="#sec-bench" class="nav-l1">04 · 국내 실서비스</a>
-    <a href="#sec-bench-global" class="nav-l2">04-1 · 국외 벤치마크</a>
-    <a href="#sec-bench-compare" class="nav-l2">04-2 · 모델 비교표</a>
+    <a href="#sec-public-data" class="nav-l1">05 · 공공 데이터 근거</a>
+    <a href="#sec-bench-global" class="nav-l1">06 · 국외 벤치마크</a>
+    <a href="#sec-bench-compare" class="nav-l1">07 · 국내외 모델 비교표</a>
   </div>
 
   <div class="nav-group">
     <div class="nav-group-label">모델 방법론</div>
-    <a href="#sec-model" class="nav-l1">B · 모델 학습 및 예측 — 방법론</a>
-    <a href="#sec-model-horizon" class="nav-l2">B-1 · Horizon별 모델 비교</a>
-    <a href="#sec-model-plan" class="nav-l2">B-2 · 단계별 적용 계획</a>
-    <a href="#sec-model-mlax" class="nav-l2">B-3 · ML·AX 관점</a>
+    <a href="#sec-model" class="nav-l1">08 · 모델 방법론 개요</a>
+    <a href="#sec-model-history" class="nav-l2">08-1 · 모델 진화 흐름</a>
+    <a href="#sec-model-horizon" class="nav-l2">08-2 · Horizon별 모델 비교</a>
+    <a href="#sec-model-candidate" class="nav-l2">08-3 · 후보 모델 상세 비교</a>
+    <a href="#sec-model-plan" class="nav-l2">08-4 · 단계별 적용 계획</a>
   </div>
 
   <div class="nav-group">
-    <div class="nav-group-label">데이터 구조</div>
-    <a href="#sec-layer" class="nav-l1">05 · 데이터 계층</a>
-    <a href="#sec-factor" class="nav-l2">05-1 · 저하 요인</a>
+    <div class="nav-group-label">데이터 설계</div>
+    <a href="#sec-layer" class="nav-l1">09 · 데이터 구조 및 계층</a>
   </div>
 
   <div class="nav-group">
     <div class="nav-group-label">수집 계획 (현재)</div>
-    <a href="#sec-raw" class="nav-l1">06 · 원천데이터 정의</a>
+    <a href="#sec-factor" class="nav-l1">10 · 발전량 저하 요인</a>
+    <a href="#sec-raw" class="nav-l1">11 · 원천데이터 정의</a>
     <a href="#sec-raw-inv" class="nav-l2">① 발전소 실측</a>
     <a href="#sec-raw-wx" class="nav-l2">② 기상 데이터</a>
     <a href="#sec-raw-plant" class="nav-l2">③ 설비 고유정보</a>
     <a href="#sec-raw-astro" class="nav-l2">④ 천문 계산값</a>
-    <a href="#sec-api" class="nav-l1">06-1 · API 현황</a>
+    <a href="#sec-api" class="nav-l1">11-1 · API 현황</a>
   </div>
 
   <div class="nav-group">
     <div class="nav-group-label">가공</div>
-    <a href="#sec-dataset" class="nav-l1">07 · 학습 데이터셋</a>
+    <a href="#sec-dataset" class="nav-l1">12 · 학습 데이터셋 구조</a>
   </div>
 
   <div class="nav-group">
-    <a href="#sec-check" class="nav-l1">08 · 확인사항</a>
+    <a href="#sec-check" class="nav-l1">13 · 확인사항</a>
   </div>
 </nav>
 <!-- ═══════════════════════════
   MAIN
 ═══════════════════════════ -->
 <div class="main">
-
-<!-- HEADER -->
 <div class="page-header">
   <div class="eyebrow">Research Plan · Solar Forecast</div>
   <h1>태양광 발전량 예측<br>데이터 수집 계획</h1>
-  <p class="page-desc">전체 절차 → 세부 절차 → 벤치마크 → 데이터 계층 → 수집 계획 → 모델 방법론</p>
+  <p class="page-desc">배경 → 이해 → 벤치마크 → 모델 방법론 → 데이터 설계 → 수집 계획 → 가공</p>
   <div class="meta-row">
     <div class="meta-item"><span class="meta-label">프로젝트</span><span class="meta-value">울산 에너지 자급자족 (US_EMS)</span></div>
     <div class="meta-item"><span class="meta-label">현재 단계</span><span class="meta-value"><span class="badge badge-now">원천데이터 수집 계획 수립 중</span></span></div>
     <div class="meta-item"><span class="meta-label">수집 기간</span><span class="meta-value">2년 (24개월)</span></div>
     <div class="meta-item"><span class="meta-label">수집 주기</span><span class="meta-value">15분 단위</span></div>
     <div class="meta-item"><span class="meta-label">목표 발전소</span><span class="meta-value">15개소</span></div>
-    
-    <p>기상 요인(계절·일사량·운량 등)에 따른 발전량 변동성 반영 목적. 1개년 데이터는 사계절 패턴이 1회에 불과해 검증 데이터가 부족하고 학습/검증 분리가 어려움. 2개년 데이터 확보 시 1년차 학습, 2년차 검증(또는 교차 검증)을 통해 예측 모델의 일반화 성능 검증이 가능함.</p>
-    
-    <p>구름 이동 등으로 인한 10~30분 단위의 단기 출력 변동성 반영 목적. 특히 급격한 변동인 램프 이벤트(Ramp Event)는 1시간 단위 데이터 분석 시 정보가 평활화(유실)됨. 2026년 스위스 국가 연구(6,434개 PV 분석)에서도 램프 이벤트 분석 및 전력시장 기준 해상도로 15분 단위를 제시함.</p>
-    
-    <p>'2년·15분·15개소' 기준은 사계절 반복성, 단시간 변동성, 발전소 간 다양성을 동시에 확보하기 위한 최소한의 운영형 데이터 수집 기준임.</p>
-    
-    <div>참고 문헌:
-      <a href="https://arxiv.org/abs/2603.26596" target="_blank" rel="noopener noreferrer">스위스 6,434개 PV 발전소 데이터 기반 램프 이벤트 연구 (2026) ↗</a>
+  </div>
+  <div style="margin-top:16px;padding:16px 20px;background:var(--gray-bg);border-radius:10px;font-size:12px;color:var(--ts);line-height:1.9">
+    <div style="font-size:11px;font-weight:700;color:var(--tm);letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px">수집 기준 근거 — 왜 2년·15분·15개소인가</div>
+    <p style="margin-bottom:8px"><strong style="color:var(--tp)">2년:</strong> 기상 요인(계절·일사량·운량 등)에 따른 발전량 변동성 반영 목적. 1개년 데이터는 사계절 패턴이 1회에 불과해 검증 데이터가 부족하고 학습/검증 분리가 어려움. 2개년 확보 시 1년차 학습, 2년차 검증으로 예측 모델의 일반화 성능 검증이 가능하다.</p>
+    <p style="margin-bottom:8px"><strong style="color:var(--tp)">15분:</strong> 구름 이동 등으로 인한 10~30분 단위의 단기 출력 변동성 반영 목적. 급격한 변동인 램프 이벤트(Ramp Event)는 1시간 단위 분석 시 정보가 평활화(유실)됨. 스위스 국가 연구(6,434개 PV 분석, 2026)에서도 램프 이벤트 분석 및 전력시장 기준 해상도로 15분 단위를 제시했다.</p>
+    <p style="margin-bottom:10px"><strong style="color:var(--tp)">15개소:</strong> 사계절 반복성, 단시간 변동성, 발전소 간 다양성을 동시에 확보하기 위한 최소한의 운영형 데이터 수집 기준이다.</p>
+    <div style="font-size:11px;color:var(--tm)">참고문헌: <a href="https://arxiv.org/abs/2603.26596" target="_blank" rel="noopener noreferrer" style="color:var(--blue-t)">스위스 6,434개 PV 발전소 데이터 기반 램프 이벤트 연구 (2026) ↗</a></div>
   </div>
 </div>
+<div class="content">
 
 <!-- ════════════════════════════════════════
-  INTRO: 제도 배경
+  00 제도 배경
 ════════════════════════════════════════ -->
 <div id="sec-policy" class="sec-l1">
   <div class="sec-l1-header">
     <div class="sec-l1-num n-teal">00</div>
     <div class="sec-l1-title">제도 배경 및 개정 공고</div>
   </div>
-  <p class="sec-l1-sub">
-    태양광 발전량 예측은 단순 분석 과제가 아니라 전력거래소 예측제도와 수익 정산에 직접 연결되는 운영 과제다.
-  </p>
+  <p class="sec-l1-sub">태양광 발전량 예측은 단순 분석 과제가 아니라 전력거래소 예측제도와 수익 정산에 직접 연결되는 운영 과제다.</p>
 
   <div class="sec-l2" style="margin-top:16px">
     <div class="sec-l2-header">
       <div class="sec-l2-num n-gray">배경</div>
       <div class="sec-l2-title">재생에너지 발전량 예측제도</div>
     </div>
-
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px">
       <div style="font-size:14px;color:var(--ts);line-height:1.9;margin-bottom:14px">
-        재생에너지 발전량 예측제도는 발전사업자가
-        <strong style="color:var(--tp)">하루 전 발전량을 예측해 제출</strong>하고,
-        실제 발전량과의 <strong style="color:var(--tp)">예측오차율 기준을 충족하면 정산금을 받는 제도</strong>다.
-        <br>
-        <strong style="color:var(--tp)">제24-6차(통합) 전력시장운영규칙 개정</strong>으로 정산기준이 강화되었으며,
-        태양광은 <strong style="color:var(--tp)">2025년 6월 1일부터</strong> 강화 기준이 적용된다.
+        재생에너지 발전량 예측제도는 발전사업자가 <strong style="color:var(--tp)">하루 전 발전량을 예측해 제출</strong>하고, 실제 발전량과의 <strong style="color:var(--tp)">예측오차율 기준을 충족하면 정산금을 받는 제도</strong>다.
+        <strong style="color:var(--tp)">제24-6차(통합) 전력시장운영규칙 개정</strong>으로 정산기준이 강화되었으며, 태양광은 <strong style="color:var(--tp)">2025년 6월 1일부터</strong> 강화 기준이 적용된다.
       </div>
-
       <div style="padding:12px 16px;background:var(--teal-bg);border-radius:8px;font-size:13px;color:var(--teal-t);margin-bottom:14px">
         하루 전 예측 제출 → 실제 발전량 비교 → 예측오차율 산정 → 기준 충족 시 정산금 수령
       </div>
-
       <div style="display:grid;grid-template-columns:1fr 48px 1fr;gap:14px;align-items:center;margin-bottom:12px">
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden">
           <div style="background:var(--gray-bg);padding:10px 14px;text-align:center">
@@ -365,9 +360,7 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
             </div>
           </div>
         </div>
-
         <div style="font-size:28px;color:var(--tm);text-align:center;font-weight:700">→</div>
-
         <div style="background:var(--surface);border:1.5px solid var(--amber);border-radius:10px;overflow:hidden">
           <div style="background:var(--amber);padding:10px 14px;text-align:center">
             <div style="font-size:13px;font-weight:700;color:#fff">개정 후 태양광 기준</div>
@@ -387,55 +380,40 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
           </div>
         </div>
       </div>
-
       <div style="font-size:12px;color:var(--ts);line-height:1.8;margin-bottom:12px">
-        핵심은 정산금을 받을 수 있는 예측오차율 상한이
-        <strong style="color:var(--tp)">기존 8%에서 태양광 기준 6%로 낮아졌다는 점</strong>이다.
-        따라서 발전량 예측 모델은 단순 참고용이 아니라 수익성과 직결되는 운영 모델이 된다.
+        핵심은 정산금을 받을 수 있는 예측오차율 상한이 <strong style="color:var(--tp)">기존 8%에서 태양광 기준 6%로 낮아졌다는 점</strong>이다. 발전량 예측 모델은 단순 참고용이 아니라 수익성과 직결되는 운영 모델이 된다.
       </div>
-
-      <div>
+      <div style="font-size:12px;color:var(--tm)">
         근거:
-        <a href="https://www.kpx.or.kr/board.es?act=view&bid=0030&list_no=74304&mid=a10205010000&nPage=1" target="_blank" rel="noopener noreferrer">
-          KPX 전력시장운영규칙 제24-6차 개정 공고(2025.2.12 시행) ↗
-        </a>
+        <a href="https://www.kpx.or.kr/board.es?act=view&bid=0030&list_no=74304&mid=a10205010000&nPage=1" target="_blank" rel="noopener noreferrer">KPX 전력시장운영규칙 제24-6차 개정 공고(2025.2.12 시행) ↗</a>
         |
-        <a href="https://blog.haezoom.com/notice_05/" target="_blank" rel="noopener noreferrer">
-          해줌 재생에너지 예측제도 정산기준 변경 정리 ↗
-        </a>
+        <a href="https://blog.haezoom.com/notice_05/" target="_blank" rel="noopener noreferrer">해줌 재생에너지 예측제도 정산기준 변경 정리 ↗</a>
       </div>
     </div>
   </div>
 </div>
 
 <div class="divider"></div>
+
 <!-- ════════════════════════════════════════
-  L1: 01 왜 필요한가
+  01 왜 필요한가
 ════════════════════════════════════════ -->
 <div id="sec-why" class="sec-l1">
   <div class="sec-l1-header">
     <div class="sec-l1-num n-teal">01</div>
     <div class="sec-l1-title">왜 필요하고 무엇이 필요한가</div>
   </div>
-  <p class="sec-l1-sub">
-    재생에너지 발전량 예측제도에 대응하기 위해 필요한 요소는 데이터, 모델·방법론, 운영·연동 세 가지로 나뉜다.
-    현재(26.06 기준)는 A. 데이터 영역 계획 수립 단계다.
-  </p>
-
+  <p class="sec-l1-sub">재생에너지 발전량 예측제도에 대응하기 위해 필요한 요소는 데이터, 모델·방법론, 운영·연동 세 가지로 나뉜다. 현재(26.06 기준)는 A. 데이터 영역 계획 수립 단계다.</p>
   <div class="g3">
     <div class="card now-card ct">
       <div class="card-title" style="color:var(--now-t)">A. 데이터</div>
       <div class="card-desc">어떤 자료가 필요한가<br>종류·항목·수집 계획 수립</div>
-      <div style="margin-top:8px">
-        <span class="badge badge-now">현재(26.06 기준) 진행 단계</span>
-      </div>
+      <div style="margin-top:8px"><span class="badge badge-now">현재(26.06 기준) 진행 단계</span></div>
     </div>
-
     <div class="card dim cp">
       <div class="card-title">B. 모델·방법론</div>
       <div class="card-desc">어떻게 예측할 것인가<br>전처리·피처·학습·검증</div>
     </div>
-
     <div class="card dim cb">
       <div class="card-title">C. 운영·연동</div>
       <div class="card-desc">어디에 쓸 것인가<br>EMS·ESS·전력거래소</div>
@@ -446,55 +424,14 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 <div class="divider"></div>
 
 <!-- ════════════════════════════════════════
-  L1: 02 전체 절차
-════════════════════════════════════════ -->
-<div id="sec-flow" class="sec-l1">
-  <div class="sec-l1-header">
-    <div class="sec-l1-num n-teal">02</div>
-    <div class="sec-l1-title">전체 절차 플로우</div>
-  </div>
-  <p class="sec-l1-sub">7단계 흐름. 현재는 ② 원천데이터 수집 계획 수립 단계.</p>
-
-  <div class="flow">
-    <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">① 목표 정의</div><div class="f-sub">예측 horizon · 정확도 목표 · 활용처 확정</div></div></div></div>
-    <div class="f-row">
-      <div class="f-spine"><div class="f-dot on"></div><div class="f-line"></div></div>
-      <div class="f-body">
-        <div class="f-card on">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-            <div class="f-title" style="color:var(--now-t)">② 원천데이터 수집</div>
-            <span class="badge badge-now">현재 진행 중</span>
-          </div>
-          <div class="f-sub" style="color:var(--now-t);opacity:.85;margin-bottom:8px">어떤 데이터가 필요한지 종류·항목·수집 가능 여부 파악</div>
-          <div style="display:flex;flex-wrap:wrap;gap:4px">
-            <span class="tag t-teal tag-tip" data-tip="인버터 AC/DC 출력 · 일누적 발전량 · 모듈 표면온도 · 인버터 상태 · 스트링 전압·전류">발전소 실측</span>
-            <span class="tag t-teal tag-tip" data-tip="GHI 전천일사량(핵심) · 기온 · 전운량 · 풍속 · 습도 · ASOS 실측(학습용) + NWP 예보(예측용) 둘 다 필요">기상 실측·예보</span>
-            <span class="tag t-teal tag-tip" data-tip="설비용량(kW) · 발전소 위경도 · 패널 경사각 · 방위각(정남향=180°) · 출력온도계수(%/°C) · 어레이 타입">설비 고유정보</span>
-            <span class="tag t-teal tag-tip" data-tip="태양 고도각 · 방위각 · 일출·일몰 시각 · 클리어스카이 — 위경도+timestamp만 있으면 pvlib으로 계산">천문 계산값</span>
-            <span class="tag t-teal tag-tip" data-tip="PM2.5 · PM10 실측(1시간) + 48h 예보 · 에어코리아 API · 농도 높을수록 GHI 감소 → 발전량 감소">미세먼지</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">③ 전처리</div><div class="f-sub">결측치 · 이상치 제거 · 시계열 정렬 · 정규화</div></div></div></div>
-    <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">④ 피처 엔지니어링</div><div class="f-sub">시간 파생(sin/cos) · Lag · Rolling · pvlib 계산값 생성</div></div></div></div>
-    <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">⑤ 모델 학습 및 예측</div><div class="f-sub">XGBoost · LSTM · CNN-LSTM · Multi Input Model · walk-forward 검증</div></div></div></div>
-    <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">⑥ 운영 연동</div><div class="f-sub">EMS 스케줄링 · ESS 충방전 제어 · 전력거래소 예측 제출</div></div></div></div>
-    <div class="f-row"><div class="f-spine"><div class="f-dot"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">⑦ 피드백 → 재학습</div><div class="f-sub">실측 vs 예측 비교 · 오차 분석 · 주기적 모델 갱신</div></div></div></div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- ════════════════════════════════════════
-  L1: 03 예측이란
+  02 태양광 발전 예측이란
 ════════════════════════════════════════ -->
 <div id="sec-visual" class="sec-l1">
   <div class="sec-l1-header">
-    <div class="sec-l1-num n-blue">03</div>
+    <div class="sec-l1-num n-blue">02</div>
     <div class="sec-l1-title">태양광 발전 예측이란 — 패턴으로 이해하기</div>
   </div>
-  <p class="sec-l1-sub">실제 발전 데이터가 어떤 패턴을 갖는지 시각적으로 확인. 아래 차트는 일반적인 태양광 발전 패턴을 표현한 시뮬레이션 예시.</p>
+  <p class="sec-l1-sub">실제 발전 데이터가 어떤 패턴을 갖는지 시각적으로 확인한다. 아래 차트는 일반적인 태양광 발전 패턴을 표현한 시뮬레이션 예시다.</p>
 
   <div class="chart-wrap">
     <div class="chart-title">① 하루 발전 패턴 — 맑은 날 vs 흐린 날</div>
@@ -516,24 +453,18 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 
   <div class="chart-wrap">
     <div class="chart-title">③ 일사량(GHI) vs 발전량 상관관계</div>
-    <div class="chart-sub">GHI가 높을수록 발전량 증가. 모델이 학습하는 핵심 패턴. 고온·미세먼지 구간에서 관계 약해짐.</div>
+    <div class="chart-sub">GHI가 높을수록 발전량 증가. 모델이 학습하는 핵심 패턴. 고온·미세먼지 구간에서 관계가 약해짐.</div>
     <canvas id="chart3" height="110"></canvas>
     <div class="chart-note">※ 시뮬레이션 예시 — 실제 데이터 수집 후 상관계수 분석 예정</div>
   </div>
 
   <div class="insight ia" style="font-size:14px">
-    <strong>구조 요약:</strong> "내일 일사량(GHI)이 얼마일지" 예측(기상 모델) → "그 일사량에서 우리 발전소는 몇 kW 나올지" 계산(발전 모델). 패널 오염·음영·미세먼지는 두 번째 단계에서 오차를 만드는 주요 요인.
-
+    <strong>구조 요약:</strong> "내일 일사량(GHI)이 얼마일지" 예측(기상 모델) → "그 일사량에서 우리 발전소는 몇 kW 나올지" 계산(발전 모델). 패널 오염·음영·미세먼지는 두 번째 단계에서 오차를 만드는 주요 요인이다.
     <span style="display:block;margin-top:8px;padding:8px 12px;background:var(--amber-bg);border-radius:6px;font-size:13px;color:var(--amber-t)">
-      ⚠ <strong>2025년 6월부터 태양광 예측오차율 기준 강화</strong> — KPX 제24-6차 전력시장운영규칙 개정으로 정산금 수령 기준이 기존 8%에서 <strong>6% 이하</strong>로 낮아짐.<br>
-      예측 모델의 정밀도 요건이 직접 높아진 상황.
+      ⚠ <strong>2025년 6월부터 태양광 예측오차율 기준 강화</strong> — KPX 제24-6차 전력시장운영규칙 개정으로 정산금 수령 기준이 기존 8%에서 <strong>6% 이하</strong>로 낮아짐. 예측 모델의 정밀도 요건이 직접 높아진 상황이다.
     </span>
-
     <div style="margin-top:8px;font-size:13px">
-      자료:
-      <a href="https://www.kpx.or.kr/board.es?act=view&bid=0030&list_no=74304&mid=a10205010000&nPage=1" target="_blank" rel="noopener noreferrer">
-        KPX 제24-6차 전력시장운영규칙 개정 공고 ↗
-      </a>
+      자료: <a href="https://www.kpx.or.kr/board.es?act=view&bid=0030&list_no=74304&mid=a10205010000&nPage=1" target="_blank" rel="noopener noreferrer">KPX 제24-6차 전력시장운영규칙 개정 공고 ↗</a>
     </div>
   </div>
 </div>
@@ -541,39 +472,79 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 <div class="divider"></div>
 
 <!-- ════════════════════════════════════════
-  L1: 04 국내 벤치마크
+  03 전체 절차 플로우
+════════════════════════════════════════ -->
+<div id="sec-flow" class="sec-l1">
+  <div class="sec-l1-header">
+    <div class="sec-l1-num n-teal">03</div>
+    <div class="sec-l1-title">전체 절차 플로우</div>
+  </div>
+  <p class="sec-l1-sub">7단계 흐름. 현재는 ② 원천데이터 수집 계획 수립 단계.</p>
+  <div class="flow">
+  <div class="flow">
+    <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">① 목표 정의</div><div class="f-sub">예측 horizon · 정확도 목표 · 활용처 확정</div></div></div></div>
+    <div class="f-row">
+      <div class="f-spine"><div class="f-dot on"></div><div class="f-line"></div></div>
+      <div class="f-body">
+        <div class="f-card on">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><div class="f-title" style="color:var(--now-t)">② 원천데이터 수집</div><span class="badge badge-now">현재 진행 중</span></div>
+          <div class="f-sub" style="color:var(--now-t);opacity:.85;margin-bottom:8px">어떤 데이터가 필요한지 종류·항목·수집 가능 여부 파악</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px">
+            <span class="tag t-teal tag-tip" data-tip="인버터 AC/DC 출력 · 일누적 발전량 · 모듈 표면온도 · 인버터 상태 · 스트링 전압·전류">발전소 실측</span>
+            <span class="tag t-teal tag-tip" data-tip="GHI 전천일사량(핵심) · 기온 · 전운량 · 풍속 · 습도 · ASOS 실측(학습용) + NWP 예보(예측용) 둘 다 필요">기상 실측·예보</span>
+            <span class="tag t-teal tag-tip" data-tip="설비용량(kW) · 발전소 위경도 · 패널 경사각 · 방위각(정남향=180°) · 출력온도계수(%/°C) · 어레이 타입">설비 고유정보</span>
+            <span class="tag t-teal tag-tip" data-tip="태양 고도각 · 방위각 · 일출·일몰 시각 · 클리어스카이 — 위경도+timestamp만 있으면 pvlib으로 계산">천문 계산값</span>
+            <span class="tag t-teal tag-tip" data-tip="PM2.5 · PM10 실측(1시간) + 48h 예보 · 에어코리아 API · 농도 높을수록 GHI 감소 → 발전량 감소">미세먼지</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">③ 전처리</div><div class="f-sub">결측치 · 이상치 제거 · 시계열 정렬 · 정규화</div></div></div></div>
+    <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">④ 피처 엔지니어링</div><div class="f-sub">시간 파생(sin/cos) · Lag · Rolling · pvlib 계산값 생성</div></div></div></div>
+    <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">⑤ 모델 학습 및 예측</div><div class="f-sub">XGBoost · LSTM · CNN-LSTM · Multi Input Model · walk-forward 검증</div></div></div></div>
+    <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">⑥ 운영 연동</div><div class="f-sub">EMS 스케줄링 · ESS 충방전 제어 · 전력거래소 예측 제출</div></div></div></div>
+    <div class="f-row"><div class="f-spine"><div class="f-dot"></div></div><div class="f-body"><div class="f-card dim"><div class="f-title">⑦ 피드백 → 재학습</div><div class="f-sub">실측 vs 예측 비교 · 오차 분석 · 주기적 모델 갱신</div></div></div></div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+  04 국내 실서비스 벤치마크
 ════════════════════════════════════════ -->
 <div id="sec-bench" class="sec-l1">
   <div class="sec-l1-header">
     <div class="sec-l1-num n-amber">04</div>
     <div class="sec-l1-title">국내 실서비스 벤치마크</div>
   </div>
-  <p class="sec-l1-sub">실제로 돌아가고 있는 국내 회사들이 어떤 데이터로 어떻게 예측하는지.</p>
+  <p class="sec-l1-sub">실제로 돌아가고 있는 국내 회사들이 어떤 데이터로 어떻게 예측하는지 확인한다.</p>
 
   <div class="company-card ht">
     <details open>
       <summary style="display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;outline:none">
         <span style="font-size:12px;color:var(--tm)">▶</span>
-        <div><div class="c-name">① 해줌 (Haezoom)</div><a href="https://haezoom.com" target="_blank" style="font-size:11px;color:var(--tm);text-decoration:none;display:block">haezoom.com ↗</a></div>
-        <span class="tag t-teal">VPP 탑</span><span class="tag t-teal">오차율 최저</span>
+        <div>
+          <div class="c-name">① 해줌 (Haezoom)</div>
+          <a href="https://haezoom.com" target="_blank" rel="noopener noreferrer" style="font-size:11px;color:var(--tm);text-decoration:none;display:block">haezoom.com ↗</a>
+        </div>
+        <span class="tag t-teal">VPP</span><span class="tag t-teal">발전량 예측</span><span class="tag t-teal">위성 기반</span>
       </summary>
       <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
-        <div class="c-desc">전국 2,800여 개 자체 시공 발전소 실측 데이터 + 실시간 인공위성 영상으로 구름 이동 추적이 핵심 차별점. 1h~72h 예측 제공.</div>
+        <div class="c-desc">해줌은 천리안 2호 인공위성 기반 예측 알고리즘과 기상조건·발전소 고유정보를 활용해 1시간부터 72시간 뒤까지의 태양광 발전량을 예측하는 서비스를 제공한다. 7,000여 개소 이상 태양광 발전소 관리 경험을 기반으로 알고리즘을 개선·검증하고 있다.</div>
         <div class="model-box">
-          <div class="model-box-title">모델 구조</div>
+          <div class="model-box-title">공식 확인된 기술 구조</div>
           <div class="g2" style="gap:8px">
             <div>
-              <div style="font-size:11px;font-weight:600;color:var(--teal-t);margin-bottom:4px">3중 입력 구조</div>
-              <div style="font-size:11px;color:var(--ts);line-height:1.7">① 위성 영상 (천리안 2호) → CNN 구름 이동 추적<br>② 수치예보 NWP (KIM) → 기상 예측값<br>③ 발전소 실측 (1만개+) → 학습 피드백</div>
+              <div style="font-size:11px;font-weight:600;color:var(--teal-t);margin-bottom:4px">입력 데이터·기술</div>
+              <div style="font-size:11px;color:var(--ts);line-height:1.7">천리안 2호 인공위성 기반 예측 알고리즘<br>실시간 기상 상황: 일사량 · 구름 움직임<br>각종 기상조건 + 발전소 고유정보<br>발전소 관리 데이터 기반 알고리즘 개선</div>
             </div>
             <div>
-              <div style="font-size:11px;font-weight:600;color:var(--teal-t);margin-bottom:4px">예측 알고리즘</div>
-              <div style="font-size:11px;color:var(--ts);line-height:1.7">AI 기반 자원별 예측 알고리즘<br>최적 입찰량 알고리즘 결합<br>실시간 이상탐지·출력제어 통합</div>
+              <div style="font-size:11px;font-weight:600;color:var(--teal-t);margin-bottom:4px">예측·운영 방식</div>
+              <div style="font-size:11px;color:var(--ts);line-height:1.7">머신러닝 기반 발전량 예측<br>1시간~72시간 미래 발전량 예측<br>AI 기반 정상 발전량 패턴 예측<br>해줌V 기반 예측·입찰·제어·정산 운영</div>
             </div>
           </div>
-          <div class="model-src" style="background:var(--teal-bg);color:var(--teal-t)">✓ 근거: KPX 공시 — 2024.10~2025.03 혼합자원 6개월 연속 최소 오차율 · 평균 오차율 2.6% (인더스트리뉴스, 2025.04)</div>
+          <div class="model-src" style="background:var(--teal-bg);color:var(--teal-t)">✓ 근거: <a href="https://haezoom.com/apiservice/" target="_blank" rel="noopener noreferrer">해줌 발전량 예측 서비스</a> | <a href="https://corp.haezoom.com/tech/" target="_blank" rel="noopener noreferrer">해줌 기술력 페이지</a> | <a href="https://haezoom.com/vpp/" target="_blank" rel="noopener noreferrer">해줌 VPP 페이지</a></div>
         </div>
-        <div class="c-data"><span class="tag t-teal">인버터 실측</span><span class="tag t-teal">인공위성 영상 (천리안 2호)</span><span class="tag t-teal">수치예보 NWP (KIM)</span><span class="tag t-teal">발전소 위치·설비정보</span></div>
+        <div class="c-data"><span class="tag t-teal">천리안 2호</span><span class="tag t-teal">기상조건</span><span class="tag t-teal">발전소 고유정보</span><span class="tag t-teal">머신러닝 예측</span></div>
       </div>
     </details>
   </div>
@@ -582,26 +553,29 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
     <details open>
       <summary style="display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;outline:none">
         <span style="font-size:12px;color:var(--tm)">▶</span>
-        <div><div class="c-name">② 대연씨앤아이 (솔레몬 EMS)</div><a href="https://www.dycni.com" target="_blank" style="font-size:11px;color:var(--tm);text-decoration:none;display:block">dycni.com ↗</a></div>
-        <span class="tag t-amber">국내 O&M 1위</span><span class="tag t-amber">정확도 95%</span>
+        <div>
+          <div class="c-name">② 대연씨앤아이 (Daeyeon C&I)</div>
+          <a href="https://www.dycni.com" target="_blank" rel="noopener noreferrer" style="font-size:11px;color:var(--tm);text-decoration:none;display:block">dycni.com ↗</a>
+        </div>
+        <span class="tag t-amber">PV 설치 실적</span><span class="tag t-amber">모니터링</span><span class="tag t-amber">데이터 수집</span>
       </summary>
       <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
-        <div class="c-desc">RTU로 인버터 현장 데이터 직접 수집. <strong>인버터 프로토콜 표준화 → 멀티벤더 데이터 통합</strong>이 핵심 기술. 15년치 2,000개+ 발전소 누적 DB 기반 딥러닝.</div>
+        <div class="c-desc">대연씨앤아이는 태양광 모니터링 시스템, 데이터 수집·제어 장비, 접속함, 기상관측장비, IoT 통신장비를 제공하는 에너지 솔루션 기업이다. PV 국내 설치 실적 1등, 설치 용량 4.9GWp 및 300MW 이상 대규모 사이트 구축실적을 보유하고 있다.</div>
         <div class="model-box">
-          <div class="model-box-title">모델 구조</div>
+          <div class="model-box-title">공식 확인된 기술 구조</div>
           <div class="g2" style="gap:8px">
             <div>
-              <div style="font-size:11px;font-weight:600;color:var(--amber-t);margin-bottom:4px">입력 데이터</div>
-              <div style="font-size:11px;color:var(--ts);line-height:1.7">RTU 인버터 (전압·전류·출력)<br>국내 기상청 API + 해외 NWP (ECMWF)<br>주변 발전소 비교 + 현장 센서</div>
+              <div style="font-size:11px;font-weight:600;color:var(--amber-t);margin-bottom:4px">수집·계측 인프라</div>
+              <div style="font-size:11px;color:var(--ts);line-height:1.7">태양광 모니터링 시스템<br>데이터 수집 & 제어 장비(DY-7000)<br>기상관측장비<br>IoT 통신장비</div>
             </div>
             <div>
-              <div style="font-size:11px;font-weight:600;color:var(--amber-t);margin-bottom:4px">예측 모델</div>
-              <div style="font-size:11px;color:var(--ts);line-height:1.7">딥러닝 기반 발전소별 맞춤 모델<br>15년 · 2,000개+ 누적 DB<br>멀티벤더 표준화가 핵심 차별점</div>
+              <div style="font-size:11px;font-weight:600;color:var(--amber-t);margin-bottom:4px">설비·운영 솔루션</div>
+              <div style="font-size:11px;color:var(--ts);line-height:1.7">태양광 접속함<br>태양광 발전용 설비 보호<br>ESS 통합 에너지 솔루션<br>다양한 운영 환경 맞춤형 모니터링</div>
             </div>
           </div>
-          <div class="model-src" style="background:var(--amber-bg);color:var(--amber-t)">✓ 근거: 솔레몬 EMS 공식 자료 — 평균 예측 정확도 95% (dycni.com 공식 발표)</div>
+          <div class="model-src" style="background:var(--amber-bg);color:var(--amber-t)">✓ 근거: <a href="https://www.dycni.com/" target="_blank" rel="noopener noreferrer">대연씨앤아이 공식 홈페이지</a> — PV 설치 실적, 태양광 모니터링 시스템, 데이터 수집·제어, 기상관측장비, IoT 통신장비 확인</div>
         </div>
-        <div class="c-data"><span class="tag t-amber">RTU 인버터</span><span class="tag t-amber">국내 기상청 API</span><span class="tag t-amber">해외 NWP (ECMWF)</span><span class="tag t-amber">주변 발전소 비교</span><span class="tag t-amber">현장 센서</span></div>
+        <div class="c-data"><span class="tag t-amber">태양광 모니터링</span><span class="tag t-amber">데이터 수집·제어</span><span class="tag t-amber">기상관측장비</span><span class="tag t-amber">ESS 솔루션</span></div>
       </div>
     </details>
   </div>
@@ -629,7 +603,7 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
           </div>
           <div class="model-src" style="background:var(--purple-bg);color:var(--purple-t)">✓ 근거: 2023 CES 혁신상 · 소셜벤처 IR 대상 (중소벤처기업부 장관상) · 60hz.io 공식 자료</div>
         </div>
-        <div class="c-data"><span class="tag t-purple">천리안 2호 위성 (실시간)</span><span class="tag t-purple">기상청 관측·예보</span><span class="tag t-purple">전국 7만 개 발전소 위치 DB</span></div>
+        <div class="c-data"><span class="tag t-purple">천리안 2호 위성</span><span class="tag t-purple">기상청 관측·예보</span><span class="tag t-purple">전국 7만 개 발전소 위치 DB</span></div>
       </div>
     </details>
   </div>
@@ -643,62 +617,7 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
       </summary>
       <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
         <div class="c-desc">인버터·PCS·배터리 설비 단위 수집 + 인근 발전소 비교 + 기상 분석. 소규모 전력중개 시장 연계 운영.</div>
-
         <div class="c-data"><span class="tag t-gray">인버터·PCS·배터리</span><span class="tag t-gray">인근 발전소 비교</span><span class="tag t-gray">기상 예측</span></div>
-      </div>
-    </details>
-  </div>
-
-  <div class="company-card hb">
-    <details open>
-      <summary style="display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;outline:none">
-        <span style="font-size:12px;color:var(--tm)">▶</span>
-        <div><div class="c-name">⑤ 기상청 날씨마루</div><a href="https://bd.kma.go.kr" target="_blank" style="font-size:11px;color:var(--tm);text-decoration:none;display:block">bd.kma.go.kr ↗</a></div>
-        <span class="tag t-blue">공공 인프라</span>
-      </summary>
-      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
-        <div class="c-desc">100m 고해상도 수치예보 기반. 전국 시군구 단위 48시간 발전량 예측 제공. 물리 기반 공식 사용.</div>
-        <div class="model-box">
-          <div class="model-box-title">모델 구조 (물리 기반)</div>
-          <div class="formula-box" style="margin:8px 0">
-            <div class="formula">발전량 = 설비용량 × 일사강도 × [1 + 출력온도계수 × (모듈표면온도 − 25)]</div>
-            <div class="formula-sub">기상 데이터(일사강도·모듈표면온도) + 비기상 데이터(설비용량·출력온도계수)</div>
-          </div>
-          <div class="model-src" style="background:var(--blue-bg);color:var(--blue-t)">✓ 근거: 기상청 국립기상과학원 공식 서비스 · 100m 해상도 수치예보 (bd.kma.go.kr)</div>
-        </div>
-        <div class="c-data"><span class="tag t-blue">100m 수치예보</span><span class="tag t-blue">설비용량·발전량 실적</span><span class="tag t-blue">출력온도계수</span></div>
-      </div>
-    </details>
-  </div>
-
-  <div class="company-card hg">
-    <details open>
-      <summary style="display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;outline:none">
-        <span style="font-size:12px;color:var(--tm)">▶</span>
-        <div><div class="c-name">⑤ 국내 디지털트윈 연구과제 (동서발전)</div><a href="#" style="font-size:11px;color:var(--tm);text-decoration:none;display:block">국가R&D 보고서 · 2023</a></div>
-        <span class="tag t-gray">정확도 92.7%</span><span class="tag t-gray">우리 목표 기준</span>
-      </summary>
-      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
-        <div class="c-desc">발전소 9개소 · 2년 · 1시간 기준 → 155만 9천 건 수집. <strong>국내에서 근거 있는 수치를 제시한 가장 신뢰할 수 있는 공개 자료.</strong></div>
-        <div class="model-box">
-          <div class="model-box-title">모델 구조 (상세)</div>
-          <div class="g2" style="gap:8px">
-            <div>
-              <div style="font-size:11px;font-weight:600;color:var(--gray-t);margin-bottom:4px">1단계 — 머신러닝</div>
-              <div style="font-size:11px;color:var(--ts);line-height:1.7">XGBoost — 트리 기반, 피처 중요도 파악<br>LightGBM — 대용량 고속 처리<br>베이스라인 확인 및 변수 선택</div>
-            </div>
-            <div>
-              <div style="font-size:11px;font-weight:600;color:var(--gray-t);margin-bottom:4px">2단계 — 딥러닝</div>
-              <div style="font-size:11px;color:var(--ts);line-height:1.7">LSTM — 시계열 패턴 기억<br>CNN-LSTM — 공간 패턴 + 흐름 결합<br>Multi Input Model — 다중 데이터 입력</div>
-            </div>
-          </div>
-          <div style="margin-top:8px;padding:8px 10px;background:var(--gray-bg);border-radius:5px;font-size:11px;color:var(--gray-t)">
-            입력: SCADA 실측 + 기상청 ASOS + 해외 기상 API + 미세먼지 API + 패널 이미지<br>
-            전략: 발전소별 맞춤 모델 + 통합 스케일링 모델 병행
-          </div>
-          <div class="model-src" style="background:var(--gray-bg);color:var(--gray-t)">✓ 근거: 국가R&D 보고서 "디지털트윈 적용 태양광 발전량 예측 고도화" (2023) — 공인인증 시험평가 결과 정확도 92.7% 달성</div>
-        </div>
-        <div class="c-data"><span class="tag t-gray">XGBoost · LightGBM</span><span class="tag t-gray">LSTM · CNN-LSTM</span><span class="tag t-gray">Multi Input Model</span><span class="tag t-gray">92.7%</span></div>
       </div>
     </details>
   </div>
@@ -706,10 +625,102 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 
 <div class="divider"></div>
 
-<!-- 04-1 국외 벤치마크 -->
-<div id="sec-bench-global" class="sec-l2" style="margin-top:28px">
-  <div class="sec-l2-header"><div class="sec-l2-num n-blue">4-1</div><div class="sec-l2-title">국외 벤치마크 — 글로벌 탑 플레이어</div></div>
-  <p class="sec-l2-sub">국외에서는 어떤 모델로 어떤 방식으로 접근하는지. 우리 모델 선택의 방향성 근거.</p>
+<!-- ════════════════════════════════════════
+  05 공공 데이터 근거
+════════════════════════════════════════ -->
+<div id="sec-public-data" class="sec-l1">
+  <div class="sec-l1-header">
+    <div class="sec-l1-num n-gray">05</div>
+    <div class="sec-l1-title">공공 데이터 근거 — 발전사·기상 데이터</div>
+  </div>
+  <p class="sec-l1-sub">공공기관 자료는 특정 예측 모델 성과보다, 어떤 데이터를 수집해야 하는지에 대한 기준을 잡는 데 의미가 있다. 발전량 실측, 대기·기상정보, 설비정보를 함께 모아야 하는 근거로 활용한다.</p>
+
+  <div class="g2">
+    <div class="company-card hg">
+      <details open>
+        <summary style="display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;outline:none">
+          <span style="font-size:12px;color:var(--tm)">▶</span>
+          <div>
+            <div class="c-name">한국동서발전(EWP)</div>
+            <a href="https://www.ewp.co.kr/kor/main/" target="_blank" rel="noopener noreferrer" style="font-size:11px;color:var(--tm);text-decoration:none;display:block">ewp.co.kr ↗</a>
+          </div>
+          <span class="tag t-gray">공공 발전사</span><span class="tag t-gray">공공데이터</span>
+        </summary>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
+          <div class="c-desc">한국동서발전은 신재생에너지사업을 추진하는 공공 발전사이며, 공공데이터 체계에서 발전량 데이터, 대기정보 데이터, 발전 설비 데이터를 관리·개방 대상으로 설명한다. 예측 모델 성과가 아니라 데이터 수집 범주를 뒷받침하는 근거로 활용한다.</div>
+          <div class="model-box">
+            <div class="model-box-title">확인된 데이터 범주</div>
+            <div class="g2" style="gap:8px">
+              <div>
+                <div style="font-size:11px;font-weight:600;color:var(--gray-t);margin-bottom:4px">관리·개방 데이터</div>
+                <div style="font-size:11px;color:var(--ts);line-height:1.7">발전량 데이터<br>대기정보 데이터<br>발전 설비 데이터<br>신재생에너지 관련 데이터</div>
+              </div>
+              <div>
+                <div style="font-size:11px;font-weight:600;color:var(--gray-t);margin-bottom:4px">적용 의미</div>
+                <div style="font-size:11px;color:var(--ts);line-height:1.7">실측 발전량 수집 근거<br>기상·대기 데이터 결합 근거<br>설비정보 피처화 근거<br>데이터 품질관리 필요성</div>
+              </div>
+            </div>
+            <div class="model-src" style="background:var(--gray-bg);color:var(--gray-t)">✓ 근거: <a href="https://www.ewp.co.kr/kor/subpage/content.html?pc=ARAELD2D3U1QK70SI435SIPF4CU78WV" target="_blank" rel="noopener noreferrer">신재생에너지사업</a> | <a href="https://www.ewp.co.kr/kor/subpage/content.html?pc=E9IM8INRIXZ9R5NJCD17X3WZ1UKH7GN" target="_blank" rel="noopener noreferrer">공공데이터 소개</a> | <a href="https://www.ewp.co.kr/kor/subpage/content.html?pc=SXUO23FN1OI5KD14AG7S7EJC5W71ZSO" target="_blank" rel="noopener noreferrer">공공데이터 목록</a></div>
+          </div>
+          <div class="c-data"><span class="tag t-gray">발전량</span><span class="tag t-gray">대기정보</span><span class="tag t-gray">발전 설비</span><span class="tag t-gray">신재생E</span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="company-card hb">
+      <details open>
+        <summary style="display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;outline:none">
+          <span style="font-size:12px;color:var(--tm)">▶</span>
+          <div>
+            <div class="c-name">기상청 날씨마루 · 기상자료개방포털</div>
+            <a href="https://bd.kma.go.kr" target="_blank" rel="noopener noreferrer" style="font-size:11px;color:var(--tm);text-decoration:none;display:block">bd.kma.go.kr ↗</a>
+          </div>
+          <span class="tag t-blue">공공 기상 인프라</span><span class="tag t-blue">외부 입력 데이터</span>
+        </summary>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
+          <div class="c-desc">기상 데이터는 태양광 발전량 예측에서 가장 중요한 외부 입력값이다. 발전량은 일사량, 구름, 기온, 습도, 풍속, 강수 등 기상 조건에 좌우되므로, 공공 기상자료를 발전소 실측 데이터와 함께 연결해야 한다.</div>
+          <div class="model-box">
+            <div class="model-box-title">활용 데이터 관점</div>
+            <div class="g2" style="gap:8px">
+              <div>
+                <div style="font-size:11px;font-weight:600;color:var(--blue-t);margin-bottom:4px">기상 입력값</div>
+                <div style="font-size:11px;color:var(--ts);line-height:1.7">일사량 · 일조시간<br>기온 · 습도 · 풍속<br>구름 · 강수 · 적설<br>관측·예보 기상자료</div>
+              </div>
+              <div>
+                <div style="font-size:11px;font-weight:600;color:var(--blue-t);margin-bottom:4px">적용 의미</div>
+                <div style="font-size:11px;color:var(--ts);line-height:1.7">발전량 변동 원인 설명<br>단기 예측 모델 입력 확보<br>실측 발전량과 외부 데이터 결합<br>API 연동 및 품질관리 대상</div>
+              </div>
+            </div>
+            <div style="margin-top:8px;padding:8px 10px;background:var(--blue-bg);border-radius:5px;font-size:11px;color:var(--blue-t);line-height:1.7">주의: 100m 해상도, 48시간 태양광 발전량 예측 제공, 특정 물리식 적용 여부는 별도 공식 자료 확인 후 기재한다. 현재는 공공 기상 데이터 입력 근거로 분류한다.</div>
+            <div class="model-src" style="background:var(--blue-bg);color:var(--blue-t)">✓ 근거: <a href="https://bd.kma.go.kr" target="_blank" rel="noopener noreferrer">기상청 날씨마루</a> | <a href="https://data.kma.go.kr" target="_blank" rel="noopener noreferrer">기상자료개방포털</a></div>
+          </div>
+          <div class="c-data"><span class="tag t-blue">일사량</span><span class="tag t-blue">기온</span><span class="tag t-blue">습도</span><span class="tag t-blue">풍속</span><span class="tag t-blue">구름</span><span class="tag t-blue">예보자료</span></div>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div id="sec-public-data-meaning" class="sec-l3">
+    <div class="sec-l3-title">수집 항목 근거</div>
+    <div class="g3">
+      <div class="card cg"><div class="card-title">발전량 실측</div><div class="card-desc">예측 모델의 정답값(label). 인버터·전력량계 기준 실측 데이터가 있어야 학습·검증이 가능하다.</div></div>
+      <div class="card cg"><div class="card-title">기상·대기정보</div><div class="card-desc">일사량, 기온, 습도, 풍속, 구름, 미세먼지 등은 발전량 변동을 설명하는 주요 입력값이다.</div></div>
+      <div class="card cg"><div class="card-title">발전 설비정보</div><div class="card-desc">설비용량, 위치, 패널 방향·각도, 인버터 정보는 발전소별 출력 차이를 설명하는 고정 피처다.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+  06 국외 벤치마크
+════════════════════════════════════════ -->
+<div id="sec-bench-global" class="sec-l1">
+  <div class="sec-l1-header">
+    <div class="sec-l1-num n-blue">06</div>
+    <div class="sec-l1-title">국외 벤치마크 — 글로벌 탑 플레이어</div>
+  </div>
+  <p class="sec-l1-sub">국외에서는 어떤 모델로 어떤 방식으로 접근하는지 확인한다. 우리 모델 선택의 방향성 근거.</p>
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:14px">
     <div style="font-size:12px;font-weight:700;color:var(--tm);letter-spacing:.05em;text-transform:uppercase;margin-bottom:14px">글로벌 모델 진화 흐름</div>
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px">
@@ -751,93 +762,51 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
       <div style="margin-top:6px"><span class="tag t-amber">단기: ANN</span><span class="tag t-amber">중기: XGBoost+RF</span><span class="tag t-amber">장기: RF</span></div>
     </div>
   </div>
-  <div class="insight ic" style="margin-top:14px"><strong>국내외 비교 핵심:</strong> 국외는 <strong>기상예보 AI화(DeepMind)</strong>와 <strong>데이터 고해상도화(NREL)</strong>에 집중. 국내는 <strong>발전소 실측 데이터 축적 + 국내 기상청 NWP 조합</strong>이 강점. 우리 프로젝트는 국내 방식으로 시작해 데이터가 쌓이면 하이브리드 모델로 고도화.</div>
+  <div class="insight ic" style="margin-top:14px"><strong>국내외 비교 핵심:</strong> 국외는 <strong>기상예보 AI화(DeepMind)</strong>와 <strong>데이터 고해상도화(NREL)</strong>에 집중. 국내는 <strong>발전소 실측 데이터 축적 + 국내 기상청 NWP 조합</strong>이 강점. 우리 프로젝트는 국내 방식으로 시작해 데이터가 쌓이면 하이브리드 모델로 고도화한다.</div>
 </div>
 
-<!-- 04-2 모델 비교표 -->
-<div id="sec-bench-compare" class="sec-l2">
-  <div class="sec-l2-header"><div class="sec-l2-num n-amber">4-2</div><div class="sec-l2-title">국내외 모델 비교표 — 한눈에 보기</div></div>
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+  07 국내외 모델 비교표
+════════════════════════════════════════ -->
+<div id="sec-bench-compare" class="sec-l1">
+  <div class="sec-l1-header">
+    <div class="sec-l1-num n-amber">07</div>
+    <div class="sec-l1-title">국내외 모델 비교표 — 한눈에 보기</div>
+  </div>
   <div class="tw">
     <table>
-      <thead><tr><th>주체</th><th>핵심 모델</th><th>입력 데이터</th><th>정확도</th><th>근거</th></tr></thead>
+      <thead><tr><th>주체</th><th>핵심 접근</th><th>입력 데이터</th><th>확인된 성과·의미</th><th>근거</th></tr></thead>
       <tbody>
-        <tr><td><strong>해줌</strong></td><td>AI 예측 알고리즘 + CNN 위성</td><td>위성 영상 + NWP + 1만개 실측</td><td><span class="tag t-teal">오차율 2.6%</span></td><td>KPX 공시 (2025.03)</td></tr>
-        <tr><td><strong>대연씨앤아이</strong></td><td>딥러닝 (발전소별 맞춤)</td><td>RTU 인버터 + 국내외 NWP</td><td><span class="tag t-teal">95%</span></td><td>솔레몬 EMS 공식 자료</td></tr>
-        <tr><td><strong>식스티헤르츠</strong></td><td>AI 기반 위치·기상 예측</td><td>위성 + 기상 (센서 없음)</td><td>—</td><td>CES 혁신상 (2023)</td></tr>
-        <tr><td><strong>동서발전</strong></td><td>XGBoost + LSTM + CNN-LSTM + Multi Input</td><td>SCADA + 기상청 + 미세먼지</td><td><span class="tag t-teal">92.7%</span></td><td>국가R&D 보고서 (2023)</td></tr>
-        <tr><td><strong>날씨마루</strong></td><td>물리 기반 공식</td><td>100m 수치예보 + 설비정보</td><td>—</td><td>기상청 공식 서비스</td></tr>
-        <tr><td><strong>NREL</strong></td><td>CNN Super-Resolution</td><td>저해상도 기후 모델 → 고해상도</td><td>기존 대비 40배↑</td><td>NREL 발표 (2024.04)</td></tr>
-        <tr><td><strong>DeepMind</strong></td><td>Transformer 기반 AI 기상예보</td><td>AI 기상예보 + 실측</td><td><span class="tag t-blue">오차 10% 감소</span></td><td>Open Climate Fix (2024)</td></tr>
-        <tr style="background:var(--now-bg)"><td><strong>우리 프로젝트 (목표)</strong></td><td>XGBoost → LSTM → CNN-LSTM 단계적 고도화</td><td>LASEE + 기상청 ASOS + Open-Meteo</td><td><span class="tag t-teal">목표 92%+</span></td><td>동서발전 연구과제 기준</td></tr>
+        <tr><td><strong>해줌</strong></td><td>천리안 2호 기반 예측 알고리즘 + 머신러닝 예측</td><td>인공위성 기반 기상상황 + 기상조건 + 발전소 고유정보</td><td>1시간~72시간 발전량 예측 서비스</td><td>해줌 공식 서비스·기술력 페이지</td></tr>
+        <tr><td><strong>대연씨앤아이</strong></td><td>모니터링·데이터 수집 인프라</td><td>태양광 모니터링 + 데이터 수집·제어 + 기상관측장비 + IoT 통신장비</td><td>예측 모델보다 현장 데이터 수집 기반 벤치마크</td><td>대연씨앤아이 공식 홈페이지</td></tr>
+        <tr><td><strong>식스티헤르츠</strong></td><td>AI 기반 신재생 운영·예측 서비스</td><td>위치·기상 데이터 중심</td><td>세부 모델 구조는 공식 근거 추가 확인 필요</td><td>60Hz 공식 자료 확인 필요</td></tr>
+        <tr><td><strong>공공 데이터 근거</strong></td><td>데이터 수집 범주 정리</td><td>발전량 + 대기·기상정보 + 발전 설비정보</td><td>예측 모델 입력 데이터 선정 근거</td><td>동서발전 공공데이터 · 기상청 자료</td></tr>
+        <tr><td><strong>NREL</strong></td><td>CNN Super-Resolution</td><td>저해상도 기후 모델 → 고해상도 변환</td><td>입력 기상 데이터 품질을 AI로 개선</td><td>NREL 발표</td></tr>
+        <tr><td><strong>DeepMind / OCF</strong></td><td>AI 기상예보 기반 태양광 예측</td><td>AI 기상예보 + 발전량 실측</td><td>기상예보 품질 개선이 발전량 예측 정확도 개선으로 연결</td><td>Open Climate Fix</td></tr>
+        <tr><td><strong>공개 연구 사례</strong></td><td>Horizon별 입력 선택 + Spatio-Temporal 접근</td><td>9개 PV 발전소 + 발전량 + 위성영상 + NWP</td><td>15분~6시간 단기 예측 연구</td><td>arXiv:1910.05944</td></tr>
+        <tr style="background:var(--now-bg)"><td><strong>우리 프로젝트 (권장)</strong></td><td>XGBoost/LightGBM → LSTM → CNN-LSTM·Multi Input 단계적 고도화</td><td>LASEE 실측 + 기상청 ASOS + Open-Meteo + 설비정보</td><td><span class="tag t-teal">1차 94%+</span><span class="tag t-teal">고도화 96%+</span></td><td>2025 태양광 정산기준을 모델 목표로 환산</td></tr>
       </tbody>
     </table>
   </div>
 </div>
 
-  <!-- 3개 플레이어 카드 -->
-  <div class="g3">
-    <div class="card cb">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--blue-t);margin-bottom:8px">NREL — 미국 국립 재생에너지연구소</div>
-      <div class="card-title">Sup3rCC — 생성형 딥러닝</div>
-      <div class="card-desc" style="margin-bottom:10px">
-        CNN 기반 Super-Resolution 모델. 저해상도 기후 모델 데이터를 공간 25배·시간 24배 향상 → 총 15,000배 고해상도 변환. 기존 방법 대비 40배 빠름.
-      </div>
-      <div style="border-top:1px solid var(--border);padding-top:8px">
-        <div style="font-size:11px;color:var(--tm);margin-bottom:4px">핵심 접근</div>
-        <div style="font-size:12px;color:var(--ts)">모델 고도화보다 <strong>입력 데이터 품질을 AI로 올리는 것</strong>이 핵심 전략</div>
-      </div>
-      <div style="margin-top:8px"><span class="tag t-blue">CNN Super-Resolution</span><span class="tag t-blue">기후 데이터 고해상도화</span></div>
-    </div>
-
-    <div class="card cp">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--purple-t);margin-bottom:8px">Google DeepMind × Open Climate Fix — 영국</div>
-      <div class="card-title">Transformer 기반 AI 기상예보</div>
-      <div class="card-desc" style="margin-bottom:10px">
-        DeepMind의 WeatherNext AI 기상예보 모델을 영국 태양광 발전량 예측에 적용. 24~48h 예측에서 대형 오차 10% 감소, 평균 오차 5% 감소 달성. 인도 국가 그리드에도 동일 프로젝트 적용 중.
-      </div>
-      <div style="border-top:1px solid var(--border);padding-top:8px">
-        <div style="font-size:11px;color:var(--tm);margin-bottom:4px">핵심 접근</div>
-        <div style="font-size:12px;color:var(--ts)"><strong>기상예보 자체를 AI로 개선</strong> → 발전량 예측 정확도 향상. 기상 모델이 발전 모델의 품질을 결정</div>
-      </div>
-      <div style="margin-top:8px"><span class="tag t-purple">Transformer</span><span class="tag t-purple">AI 기상예보</span><span class="tag t-purple">오차 10% 감소</span></div>
-    </div>
-
-    <div class="card ca">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--amber-t);margin-bottom:8px">글로벌 학계 — 실제 발전소 적용 사례</div>
-      <div class="card-title">Horizon별 최적 모델이 다름</div>
-      <div class="card-desc" style="margin-bottom:10px">
-        180kWp 발전소 2년치 5분 간격 데이터 기반 비교 연구. 단기(1일) 예측 → ANN, 중기(1주) → XGBoost+RF 하이브리드, 장기(1개월) → Random Forest가 최적.
-      </div>
-      <div style="border-top:1px solid var(--border);padding-top:8px">
-        <div style="font-size:11px;color:var(--tm);margin-bottom:4px">핵심 발견</div>
-        <div style="font-size:12px;color:var(--ts)"><strong>예측 기간에 따라 최적 모델이 달라짐.</strong> 단일 모델로 전 구간을 커버하려 하면 안 됨</div>
-      </div>
-      <div style="margin-top:8px"><span class="tag t-amber">단기: ANN</span><span class="tag t-amber">중기: XGBoost+RF</span><span class="tag t-amber">장기: RF</span></div>
-    </div>
-  </div>
-
-  <!-- 국내외 비교 인사이트 -->
-  <div class="insight ic" style="margin-top:14px">
-    <strong>국내외 비교 핵심:</strong> 국외는 <strong>기상예보 AI화(DeepMind)</strong>와 <strong>데이터 고해상도화(NREL)</strong>에 집중. 국내(해줌·대연씨앤아이)는 <strong>발전소 실측 데이터 축적 + 국내 기상청 NWP 조합</strong>이 강점. 우리 프로젝트는 국내 방식으로 시작해 데이터가 쌓이면 하이브리드 모델로 고도화하는 전략이 현실적.
-  </div>
-
 <div class="divider"></div>
 
 <!-- ════════════════════════════════════════
-  L1: B 모델 방법론
-════════════════════════════════════════ -->
-<!-- ════════════════════════════════════════
-  L1: B 모델 방법론
+  08 모델 방법론
 ════════════════════════════════════════ -->
 <div id="sec-model" class="sec-l1">
   <div class="sec-l1-header">
-    <div class="sec-l1-num n-purple">B</div>
+    <div class="sec-l1-num n-purple">08</div>
     <div class="sec-l1-title">모델 학습 및 예측 — 방법론 정리</div>
   </div>
   <p class="sec-l1-sub">모델 파트의 목적은 특정 알고리즘을 먼저 정하는 것이 아니라, 데이터 수준·예측 horizon·운영 목적에 맞는 모델 선택 기준을 도출하는 것이다.</p>
 
   <div class="insight ia">
-    <strong>핵심 원칙:</strong> 태양광 발전량 예측은 시계열 회귀(regression) 문제이며, 정답값은 인버터 실측 <code>ac_power</code>다. 모델 정확도는 데이터 품질, 기상 예보 품질, 발전소 메타정보, 검증 방식에 의해 함께 결정된다.
+    <strong>핵심 원칙:</strong> 태양광 발전량 예측은 시계열 회귀 문제이며 정답값은 인버터 실측 <code>ac_power</code>다. 국내 실험 논문 분석 결과 공통으로 내린 결론 —<br>
+    <strong>어떤 데이터를 어떻게 만들어 넣느냐가 모델 선택보다 중요하다.</strong> 모델을 먼저 확정하지 않고 단계별로 검증하는 이유가 여기 있다.
   </div>
 
   <div class="sec-l2" style="margin-top:18px">
@@ -854,6 +823,31 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 
   <div class="sec-l2">
     <div class="sec-l2-header">
+      <div class="sec-l2-num n-blue">개념</div>
+      <div class="sec-l2-title">NWP (수치예보) — 기상 입력 데이터의 핵심</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px">
+      <div style="font-size:13px;color:var(--ts);line-height:1.8;margin-bottom:12px">
+        수치예보(Numerical Weather Prediction, NWP)란 대기 현상의 역학·물리 원리에 대한 지배방정식을 컴퓨터로 수치 적분하여 미래 대기 상태를 정량적으로 예측하는 기술이다. 태양광 발전량 예측에서 NWP는 <strong style="color:var(--tp)">GHI·기온·운량·풍속·습도 등을 시간 단위로 예보</strong>하는 핵심 입력 소스다.
+      </div>
+      <div class="g2" style="gap:10px">
+        <div style="background:var(--teal-bg);border-radius:8px;padding:12px">
+          <div style="font-size:11px;font-weight:700;color:var(--teal-t);margin-bottom:6px">학습 시 — 과거 실측값 사용</div>
+          <div style="font-size:11px;color:var(--ts);line-height:1.7">기상청 ASOS 관측소 실측<br>GHI · 기온 · 풍속 · 전운량 · 습도 · 강수<br>→ 실제 기상과 발전량 관계 학습</div>
+        </div>
+        <div style="background:var(--blue-bg);border-radius:8px;padding:12px">
+          <div style="font-size:11px;font-weight:700;color:var(--blue-t);margin-bottom:6px">예측 시 — NWP 예보값 사용</div>
+          <div style="font-size:11px;color:var(--ts);line-height:1.7">기상청 KIM · ECMWF · Open-Meteo<br>48h 앞 GHI·기온·운량 예보<br>→ 학습된 모델에 내일 기상 입력해 발전량 예측</div>
+        </div>
+      </div>
+      <div class="insight ib" style="margin-top:12px;margin-bottom:0;font-size:12px">
+        <strong>주의:</strong> 기상청 단기예보 API는 일사량(GHI)을 직접 제공하지 않는다. Open-Meteo의 <code>shortwave_radiation</code>으로 보완이 필요하다.
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-l2">
+    <div class="sec-l2-header">
       <div class="sec-l2-num n-amber">비교</div>
       <div class="sec-l2-title">모델 후보군 비교 — 무엇을 왜 보는가</div>
     </div>
@@ -862,11 +856,11 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
         <thead><tr><th>모델군</th><th>대표 모델</th><th>장점</th><th>한계</th><th>우리 프로젝트 적용</th></tr></thead>
         <tbody>
           <tr><td><strong>기준 모델</strong></td><td>Persistence, pvlib</td><td>성능 비교 기준선. 물리적으로 설명 가능</td><td>구름·미세먼지·고장 같은 현장 변수 반영 약함</td><td>초기 필수. ML 모델이 이 기준보다 좋아야 함</td></tr>
-          <tr><td><strong>트리 기반 ML</strong></td><td>XGBoost, LightGBM, Random Forest</td><td>적은 데이터에서도 강함. 피처 중요도 해석 가능</td><td>시간 흐름은 lag/rolling 피처로 수동 반영</td><td>0~6개월 베이스라인 및 변수 영향도 분석</td></tr>
-          <tr><td><strong>시계열 DL</strong></td><td>LSTM, GRU, TCN</td><td>과거 발전량 흐름과 계절·시간 패턴 학습</td><td>데이터가 적으면 과적합. 설명 가능성 낮음</td><td>1년 이상 확보 후 발전소별/통합 모델 비교</td></tr>
-          <tr><td><strong>공간·이미지 모델</strong></td><td>CNN, CNN-LSTM</td><td>위성·하늘 이미지 기반 구름 이동, 급격한 출력 변동 포착</td><td>이미지 수집·라벨링·동기화 필요</td><td>위성/패널 이미지 확보 후 2차 고도화</td></tr>
-          <tr><td><strong>다중입력 모델</strong></td><td>Multi Input, Transformer, iTransformer</td><td>발전량·기상·설비·이미지 간 상호작용 학습</td><td>구현 복잡도와 데이터 요구량 높음</td><td>2년 이상 데이터 축적 후 고도화 후보</td></tr>
-          <tr><td><strong>하이브리드</strong></td><td>pvlib + ML, NWP + ML, Ensemble</td><td>물리적 설명력과 데이터 기반 보정 결합</td><td>운영 검증과 모델 관리 체계 필요</td><td>최종 운영형 모델 방향. 정확도와 설명력 균형</td></tr>
+          <tr><td><strong>트리 기반 ML</strong></td><td>XGBoost, LightGBM, Random Forest</td><td>데이터 적어도 강함. 피처 중요도로 변수 영향도 직접 확인 가능</td><td>시간 흐름은 lag/rolling 피처로 수동 반영 필요</td><td>0~6개월 베이스라인. 지역별로 최적 모델이 다를 수 있음</td></tr>
+          <tr><td><strong>시계열 DL</strong></td><td>LSTM, BiLSTM, GRU</td><td>과거 발전량 흐름과 계절·시간 패턴 자동 학습</td><td>데이터 적으면 과적합. 야간 데이터 처리 방식이 성능에 직접 영향</td><td>1년 이상 확보 후 XGBoost와 병렬 비교</td></tr>
+          <tr><td><strong>병렬 모델</strong></td><td>DNN+BiLSTM, DNN+LSTM</td><td>각 단일 모델의 장점 결합. 깊은 레이어 없이도 높은 성능</td><td>구현 복잡도 증가</td><td>2단계 이후 LSTM 성능 확인 후 병렬 구조 검토</td></tr>
+          <tr><td><strong>다중입력 모델</strong></td><td>Multi Input, Transformer</td><td>발전량·기상·설비·이미지 간 상호작용 학습</td><td>구현 복잡도와 데이터 요구량 높음</td><td>2년 이상 축적 후 고도화 후보</td></tr>
+          <tr><td><strong>하이브리드</strong></td><td>pvlib + ML, NWP + ML</td><td>물리적 설명력과 데이터 기반 보정 결합</td><td>운영 검증과 모델 관리 체계 필요</td><td>최종 운영형 모델 방향</td></tr>
         </tbody>
       </table>
     </div>
@@ -892,57 +886,213 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
     </div>
   </div>
 
+  <!-- 08-1 모델 진화 흐름 -->
+  <div id="sec-model-history" class="sec-l2" style="margin-top:18px">
+    <div class="sec-l2-header">
+      <div class="sec-l2-num n-gray">08-1</div>
+      <div class="sec-l2-title">모델 진화 흐름 — 고전에서 현재까지</div>
+    </div>
+    <p class="sec-l2-sub">태양광 발전량 예측 모델은 "무엇을 입력으로 넣느냐"가 계속 넓어지는 방향으로 발전해왔다. 이 흐름을 이해해야 왜 지금 우리가 쓰려는 모델이 적합한지 근거가 생긴다.</p>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px">
+      <div class="flow">
+        <div class="f-row">
+          <div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div>
+          <div class="f-body">
+            <div class="f-card">
+              <div class="f-title">① 고전 통계 모델 — ARIMA, AR, MA</div>
+              <div class="f-sub" style="margin-bottom:6px">발전량 데이터 하나만 입력. "과거 패턴이 반복된다"는 가정으로 예측한다.</div>
+              <div style="padding:8px 12px;background:var(--gray-bg);border-radius:6px;font-size:11px;color:var(--gray-t)">한계: 기상 변수를 전혀 반영하지 못함. 구름이 갑자기 끼면 예측값이 실측과 크게 벗어남. <em>(Cheng et al., 2012)</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="f-row">
+          <div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div>
+          <div class="f-body">
+            <div class="f-card">
+              <div class="f-title">② 기상 변수 발견 — ANN, KNN</div>
+              <div class="f-sub" style="margin-bottom:6px">온도·습도·운량을 독립변수로 추가. 발전량 예측 정확도가 의미있게 향상됐다.</div>
+              <div style="padding:8px 12px;background:var(--gray-bg);border-radius:6px;font-size:11px;color:var(--gray-t)">발견: 모듈 온도가 발전량에 선형적으로 영향. 구름 있을 때 일반 모델은 과대 예측. 습도 증가 시 일사량 감소. <em>(Skoplaki &amp; Palyvos, 2009 외)</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="f-row">
+          <div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div>
+          <div class="f-body">
+            <div class="f-card">
+              <div class="f-title">③ 트리 기반 ML — Random Forest, XGBoost, LightGBM</div>
+              <div class="f-sub" style="margin-bottom:6px">비선형 관계 학습 가능. 피처 중요도로 어떤 변수가 발전량에 얼마나 영향을 주는지 확인 가능하다.</div>
+              <div style="padding:8px 12px;background:var(--gray-bg);border-radius:6px;font-size:11px;color:var(--gray-t)">국내 21개 발전소 NWP 기상 예보 입력으로 여러 ML 모델 비교 — 고전 통계 모델 대비 정확도 향상 확인. <em>(이용택 외, 대한산업공학회지 2021)</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="f-row">
+          <div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div>
+          <div class="f-body">
+            <div class="f-card">
+              <div class="f-title">④ 시계열 딥러닝 — LSTM, BiLSTM, GRU</div>
+              <div class="f-sub" style="margin-bottom:6px">시간 흐름의 패턴을 자동 학습. 과거 발전량 흐름을 기억하면서 예측한다.</div>
+              <div style="padding:8px 12px;background:var(--gray-bg);border-radius:6px;font-size:11px;color:var(--gray-t)">주의: LSTM 성능이 낮게 나오는 경우는 모델 문제가 아니라 야간 데이터 제거 시 시퀀스 끊김 문제다. 전처리 방식이 성능을 결정한다. <em>(이용택 외, 2021)</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="f-row">
+          <div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div>
+          <div class="f-body">
+            <div class="f-card">
+              <div class="f-title">⑤ 피처 확장 + 병렬 모델 — DBiLSTM, CNN+LSTM</div>
+              <div class="f-sub" style="margin-bottom:6px">기상 데이터 8개를 특성 공학으로 494개까지 확장. DNN+BiLSTM 병렬 결합으로 단일 모델 대비 RMSE 15~37% 향상됐다.</div>
+              <div style="padding:8px 12px;background:var(--gray-bg);border-radius:6px;font-size:11px;color:var(--gray-t)">핵심: 어떤 데이터를 어떻게 만들어 넣느냐가 모델 선택보다 중요하다. GHI 상관계수 0.704로 가장 강한 입력 변수 확인. <em>(황주훈·김창복, Journal of KIIT 2024)</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="f-row">
+          <div class="f-spine"><div class="f-dot"></div></div>
+          <div class="f-body">
+            <div class="f-card" style="border-color:var(--now-b);background:var(--now-bg)">
+              <div class="f-title" style="color:var(--now-t)">⑥ 현재 — 하이브리드 (물리 + 데이터)</div>
+              <div class="f-sub" style="color:var(--now-t);opacity:.85;margin-bottom:6px">pvlib 물리 모델로 클리어스카이 기준선을 잡고, ML/DL로 실제 발전량과의 차이(잔차)를 학습한다. 설명 가능성과 정확도를 동시에 확보하는 방향이다.</div>
+              <div style="padding:8px 12px;background:var(--surface);border-radius:6px;font-size:11px;color:var(--gray-t)">글로벌: 하이브리드 모델이 단일 DL 대비 25~30% 정확도 향상. <em>(ScienceDirect 재생에너지 예측 리뷰, 2024)</em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:12px;margin-bottom:0;font-size:12px">
+      <strong>핵심 인사이트:</strong> 모델이 발전할수록 "입력 데이터의 종류"가 늘어났다. 발전량만 → 기상 추가 → 피처 확장 → 다중 입력 통합. 더 좋은 모델을 쓰려면 더 많은 종류의 데이터가 먼저 있어야 한다. 우리가 데이터 수집을 먼저 하는 이유가 여기 있다.
+    </div>
+  </div>
+
+  <!-- 08-2 Horizon별 모델 비교 -->
   <div id="sec-model-horizon" class="sec-l2">
     <div class="sec-l2-header">
-      <div class="sec-l2-num n-purple">B-1</div>
+      <div class="sec-l2-num n-purple">08-2</div>
       <div class="sec-l2-title">Horizon별 모델 비교</div>
     </div>
-    <p class="sec-l2-sub">예측 기간이 달라지면 필요한 입력데이터와 적합한 모델도 달라진다. 단일 모델 하나로 전 구간을 커버하기보다 horizon별 후보를 비교한다.</p>
-
+    <p class="sec-l2-sub">예측 기간이 달라지면 필요한 입력과 적합한 모델도 달라진다. 단일 모델 하나로 전 구간을 커버하기보다 horizon별로 비교한다.</p>
     <div class="tw">
       <table>
-        <thead><tr><th>예측 Horizon</th><th>주요 목적</th><th>핵심 입력</th><th>추천 모델</th><th>판단 기준</th></tr></thead>
+        <thead><tr><th>예측 Horizon</th><th>주요 목적</th><th>핵심 입력</th><th>추천 모델</th><th>근거</th></tr></thead>
         <tbody>
-          <tr><td><strong>15분~1시간</strong></td><td>급격한 출력 변동 감지</td><td>최근 발전량, GHI, 운량, 인버터 상태</td><td>Persistence, XGBoost, LightGBM</td><td>램프 이벤트·구름 이동 영향. 단기 실측 품질이 중요</td></tr>
-          <tr><td><strong>1~6시간</strong></td><td>단기 운영·ESS 제어</td><td>발전량 lag, ASOS, NWP, 위성/운량</td><td>XGBoost, LSTM, CNN-LSTM</td><td>연구사례에서 9개 PV 발전소와 다중 데이터로 15분~6시간 예측 수행</td></tr>
-          <tr><td><strong>Day-ahead</strong><br>하루 전</td><td>전력거래소 제출 대응</td><td>NWP 예보, 일사량 예보, 설비정보, 과거 발전량</td><td>LightGBM, LSTM, Multi Input</td><td>정산금과 직접 연결. 기상 예보 품질이 모델 성능을 좌우</td></tr>
-          <tr><td><strong>1주 이상</strong></td><td>운영계획·정비계획</td><td>중기 기상예보, 계절성, 설비 성능비</td><td>Random Forest, XGBoost, 통계모델</td><td>정밀도보다 추세와 리스크 파악 중심</td></tr>
+          <tr><td><strong>15분~1시간</strong></td><td>급격한 출력 변동 감지</td><td>최근 발전량, GHI, 운량, 인버터 상태</td><td>Persistence, XGBoost, LightGBM</td><td>램프 이벤트 대응. 단기 실측 품질이 성능 좌우</td></tr>
+          <tr><td><strong>1~6시간</strong></td><td>단기 운영·ESS 제어</td><td>발전량 lag, ASOS, NWP, 운량</td><td>XGBoost, LSTM, CNN-LSTM</td><td>9개 PV 발전소 다중 데이터 기반 단기 예측 연구 <em>(arXiv:1910.05944)</em></td></tr>
+          <tr><td><strong>Day-ahead</strong><br><span style="font-size:11px;color:var(--tm)">하루 전</span></td><td>전력거래소 제출 대응</td><td>NWP 예보, GHI 예보, 설비정보, 과거 발전량</td><td>LightGBM, LSTM, Multi Input</td><td>정산금과 직접 연결. 기상 예보 품질이 모델 성능을 좌우</td></tr>
+          <tr><td><strong>1주 이상</strong></td><td>운영·정비 계획</td><td>중기 기상예보, 계절성, 설비 성능비</td><td>Random Forest, XGBoost</td><td>정밀도보다 추세·리스크 파악 중심</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <div id="sec-model-plan" class="sec-l2">
+  <!-- 08-3 후보 모델 상세 비교 -->
+  <div id="sec-model-candidate" class="sec-l2">
     <div class="sec-l2-header">
-      <div class="sec-l2-num n-teal">B-2</div>
-      <div class="sec-l2-title">단계별 적용 계획</div>
+      <div class="sec-l2-num n-amber">08-3</div>
+      <div class="sec-l2-title">후보 모델 상세 비교 — 국내 논문 근거</div>
+    </div>
+    <p class="sec-l2-sub">국내 실험 논문 분석 결과를 기반으로 우리 프로젝트 적용 근거를 도출했다.</p>
+
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+      <div style="background:var(--amber-bg);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--amber-t)">
+        <strong>① 단일 최고 모델은 없다</strong>
+        <div style="margin-top:4px;font-size:12px;line-height:1.7">발전소 위치·기상 패턴·데이터 특성에 따라 최적 모델이 달라진다. 국내 21개 발전소 실험에서 부산은 XGBoost, 영월은 Random Forest, 삼척은 SVR이 각각 최고 성능을 보였다. 전국 통합 모델 하나로 모든 발전소를 커버하려 하면 안 된다는 근거다. <em>(이용택 외, 대한산업공학회지 2021)</em></div>
+      </div>
+      <div style="background:var(--coral-bg);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--coral-t)">
+        <strong>② 전처리·피처 설계가 모델 성능을 결정한다</strong>
+        <div style="margin-top:4px;font-size:12px;line-height:1.7">LSTM이 XGBoost보다 낮게 나온 건 모델 자체 문제가 아니라 야간 데이터 제거 시 시퀀스가 끊기는 전처리 문제였다. 기상 데이터 8개를 특성 공학으로 494개까지 확장했을 때 RMSE가 0.0907 → 0.0793으로 향상됐다. lag·rolling·sin/cos 인코딩 같은 피처 설계가 모델 선택만큼 중요하다. <em>(황주훈·김창복, Journal of KIIT 2024)</em></div>
+      </div>
+      <div style="background:var(--purple-bg);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--purple-t)">
+        <strong>③ 병렬 모델이 단일 모델보다 좋다</strong>
+        <div style="margin-top:4px;font-size:12px;line-height:1.7">DNN의 각 시점 특성 추출 능력과 BiLSTM의 시계열 패턴 학습 능력을 병렬로 결합한 DBiLSTM 모델이 단일 BiLSTM 대비 RMSE 기준 15~37% 향상됐다. 깊은 레이어 없이도 Vanishing Gradient 문제를 피하면서 높은 성능을 낼 수 있다. <em>(황주훈·김창복, Journal of KIIT 2024)</em></div>
+      </div>
     </div>
 
-    <div class="flow">
-      <div class="f-row"><div class="f-spine"><div class="f-dot on"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card on"><div class="f-title" style="color:var(--now-t)">1단계 — 수집 초기~6개월</div><div class="f-sub" style="color:var(--now-t)">데이터 품질 점검, persistence/pvlib 기준모델, XGBoost·LightGBM 베이스라인 구축. 피처 중요도로 핵심 변수 확인.</div></div></div></div>
-      <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card"><div class="f-title">2단계 — 6~12개월</div><div class="f-sub">발전소별 모델과 통합 모델 비교. 15분→1시간 리샘플링, lag/rolling/sin-cos 피처 확정, walk-forward 검증 시작.</div></div></div></div>
-      <div class="f-row"><div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div><div class="f-body"><div class="f-card"><div class="f-title">3단계 — 12~24개월</div><div class="f-sub">사계절 1회 이상 확보 후 LSTM, CNN-LSTM, Multi Input Model 적용. 같은 계절을 학습/검증으로 나눠 일반화 성능 확인.</div></div></div></div>
-      <div class="f-row"><div class="f-spine"><div class="f-dot"></div></div><div class="f-body"><div class="f-card"><div class="f-title">4단계 — 24개월 이후</div><div class="f-sub">위성영상, 패널 이미지, 미세먼지, 해외 NWP를 결합한 하이브리드 모델 검토. 목표는 정산기준 6% 이내 안정화, 고도화 목표는 4% 이하.</div></div></div></div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px">
+      <div style="font-size:12px;font-weight:700;color:var(--tm);letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px">GHI 수집이 왜 핵심인가 — 상관관계 수치 근거</div>
+      <div class="tw" style="margin:0">
+        <table>
+          <thead><tr><th>기상 변수</th><th>발전량과 상관계수</th><th>의미</th></tr></thead>
+          <tbody>
+            <tr style="background:var(--now-bg)"><td><strong>일사량 GHI</strong></td><td><strong>0.704</strong></td><td>가장 강한 상관관계 — GHI 수집이 핵심인 수치 근거</td></tr>
+            <tr><td>일조량</td><td>0.575</td><td>GHI와 함께 핵심 기상 변수</td></tr>
+            <tr><td>풍속</td><td>0.240</td><td>모듈 냉각 효과로 약한 양의 상관</td></tr>
+            <tr><td>기온</td><td>0.174</td><td>고온에서 출력 저하로 약한 상관</td></tr>
+            <tr><td>습도</td><td>-0.365</td><td>습도 증가 → 일사량 감소 → 발전량 감소</td></tr>
+            <tr><td>운량</td><td>-0.107</td><td>일조 후 발전량과 직접 상관 낮아짐</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:var(--tm)">출처: 황주훈·김창복, Journal of KIIT Vol.22 No.12 (2024) — 영암·연성 2개 발전소 2020~2023년 데이터 기반</div>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--coral);border-radius:10px;padding:16px;margin-bottom:14px">
+      <div style="font-size:13px;font-weight:700;color:var(--tp);margin-bottom:6px">미세먼지 데이터 수집이 필요한 이유</div>
+      <div style="font-size:13px;color:var(--ts);line-height:1.8;margin-bottom:10px">PM10·PM2.5 미세먼지 농도가 높아질수록 대기 투과율이 떨어져 GHI가 감소하고 발전량이 줄어든다. 미세먼지 데이터를 입력에 포함하면 예측 정확도가 향상된다는 것이 국내 연구에서 확인됐다.</div>
+      <div class="g2" style="gap:8px">
+        <div style="background:var(--coral-bg);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--coral-t)"><strong>일반 발전소</strong><br>미세먼지 농도 상승 → GHI 감소 → 발전량 감소. 에어코리아 실측·예보 수집으로 보정 가능하다.</div>
+        <div style="background:var(--coral-bg);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--coral-t)"><strong>울산 임해공단 특성</strong><br>공업단지 특성상 미세먼지·해풍 영향이 일반 지역보다 크다. 에어코리아 PM2.5·PM10 수집이 필수적이다.</div>
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:var(--tm)">출처: PM10 미세먼지 데이터를 고려한 기계 학습 기반 태양광 발전 효율 예측 (국내 연구 — DOI 확인 중)</div>
+    </div>
+
+    <div class="insight ic">
+      <strong>울산 발전소 적용 방향:</strong> 논문 연구의 경우 변수를 제한해서 모델을 비교하지만, 실서비스로 운영하려면 더 많은 입력이 필요하다. NWP 예보에 더해 발전소 실측 lag, 설비 고유정보, 미세먼지 데이터를 함께 넣는 구성이 필요하다.
+      <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">
+        <div style="padding:8px 12px;background:var(--surface);border-radius:6px;font-size:12px;color:var(--ts);line-height:1.7"><strong style="color:var(--tp)">기본 입력:</strong> NWP 예보 (GHI·기온·운량·풍속) + 발전소 실측 lag + 설비 고유정보 (용량·경사각·방위각)</div>
+        <div style="padding:8px 12px;background:var(--coral-bg);border-radius:6px;font-size:12px;color:var(--coral-t);line-height:1.7"><strong>울산 추가 입력:</strong> 울산은 임해 공업단지 특성상 미세먼지·해풍 영향이 일반 지역보다 크다. PM2.5·PM10 실측·예보 데이터를 입력에 포함하는 것이 필요하다.</div>
+        <div style="padding:8px 12px;background:var(--gray-bg);border-radius:6px;font-size:12px;color:var(--gray-t);line-height:1.7"><strong>검증 방식:</strong> 이론으로 모델을 미리 확정하지 않고 → 1단계 XGBoost 베이스라인 → 발전소별 XGBoost / RF / LSTM 병렬 비교 → 울산 데이터로 직접 검증해서 선택한다.</div>
+      </div>
     </div>
   </div>
 
-  <div id="sec-model-mlax" class="sec-l2">
+  <!-- 08-4 단계별 적용 계획 -->
+  <div id="sec-model-plan" class="sec-l2">
     <div class="sec-l2-header">
-      <div class="sec-l2-num n-amber">B-3</div>
-      <div class="sec-l2-title">ML 관점 / AX 관점</div>
+      <div class="sec-l2-num n-teal">08-4</div>
+      <div class="sec-l2-title">단계별 적용 계획</div>
     </div>
-    <div class="g2">
-      <div class="card ca">
-        <div class="card-title">ML 관점</div>
-        <div class="card-desc">정확도, 피처 중요도, 학습 데이터량, 과적합 여부, horizon별 성능, 발전소별/통합 모델 비교를 본다. 핵심 질문은 “어떤 모델이 가장 잘 맞히는가”다.</div>
+    <div class="flow">
+      <div class="f-row">
+        <div class="f-spine"><div class="f-dot on"></div><div class="f-line"></div></div>
+        <div class="f-body">
+          <div class="f-card on">
+            <div class="f-title" style="color:var(--now-t)">1단계 — 수집 초기~6개월</div>
+            <div class="f-sub" style="color:var(--now-t);margin-bottom:6px">데이터 품질 점검, persistence/pvlib 기준모델, XGBoost·LightGBM 베이스라인 구축. 피처 중요도로 핵심 변수 확인.</div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap"><span class="tag t-teal">XGBoost</span><span class="tag t-teal">LightGBM</span><span class="tag t-teal">pvlib 기준선</span><span class="tag t-teal">피처 중요도 분석</span></div>
+            <div style="margin-top:8px;font-size:11px;color:var(--now-t);opacity:.8">근거: 데이터 적은 발전소에서 XGBoost가 딥러닝보다 안정적 <em>(이용택 외, 2021)</em></div>
+          </div>
+        </div>
       </div>
-      <div class="card ct">
-        <div class="card-title">AX 관점</div>
-        <div class="card-desc">예측 결과가 EMS·ESS·전력거래소 제출 흐름에 붙는지, 장애 시 fallback이 있는지, 왜 틀렸는지 설명 가능한지, 주기적으로 재학습 가능한지를 본다.</div>
+      <div class="f-row">
+        <div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div>
+        <div class="f-body">
+          <div class="f-card">
+            <div class="f-title">2단계 — 6~12개월</div>
+            <div class="f-sub" style="margin-bottom:6px">발전소별 모델과 통합 모델 비교. 15분→1시간 리샘플링, lag/rolling/sin-cos 피처 확정, walk-forward 검증 시작. XGBoost / RF / LSTM 세 개 동시 비교.</div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap"><span class="tag t-gray">LSTM</span><span class="tag t-gray">Random Forest</span><span class="tag t-gray">피처 엔지니어링</span><span class="tag t-gray">walk-forward</span></div>
+            <div style="margin-top:8px;font-size:11px;color:var(--tm)">근거: 피처 확장(494개)이 RMSE 0.0907 → 0.0793으로 향상 <em>(황주훈·김창복, 2024)</em></div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="insight" style="margin-top:12px;margin-bottom:0;font-size:12px">
-      <strong>결론:</strong> 운영형 태양광 예측 모델은 ML 성능만으로 선택하면 부족하다. 정확도는 XGBoost/LSTM/Transformer로 올리고, 운영 안정성은 pvlib 기준모델·품질 플래그·fallback 예측·오차 리포트로 보완해야 한다.
+      <div class="f-row">
+        <div class="f-spine"><div class="f-dot"></div><div class="f-line"></div></div>
+        <div class="f-body">
+          <div class="f-card">
+            <div class="f-title">3단계 — 12~24개월</div>
+            <div class="f-sub" style="margin-bottom:6px">사계절 1회 이상 확보 후 LSTM, CNN-LSTM, Multi Input Model 적용. 병렬 모델(DNN+BiLSTM) 검토. 미세먼지 입력 추가.</div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap"><span class="tag t-gray">CNN-LSTM</span><span class="tag t-gray">Multi Input</span><span class="tag t-gray">DNN+BiLSTM 검토</span><span class="tag t-gray">미세먼지 입력</span></div>
+            <div style="margin-top:8px;font-size:11px;color:var(--tm)">근거: DBiLSTM이 단일 BiLSTM 대비 RMSE 15~37% 향상 <em>(황주훈·김창복, 2024)</em></div>
+          </div>
+        </div>
+      </div>
+      <div class="f-row">
+        <div class="f-spine"><div class="f-dot"></div></div>
+        <div class="f-body">
+          <div class="f-card">
+            <div class="f-title">4단계 — 24개월 이후</div>
+            <div class="f-sub" style="margin-bottom:6px">위성영상, 패널 이미지, 해외 NWP를 결합한 하이브리드 모델 검토. 목표 정산기준 6% 이내 안정화. 고도화 목표 4% 이하.</div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap"><span class="tag t-gray">하이브리드</span><span class="tag t-gray">위성 영상</span><span class="tag t-gray">목표 오차율 4% 이하</span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -952,35 +1102,38 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
       <div class="sec-l2-title">성능 목표</div>
     </div>
     <div class="g3">
-      <div class="card ct"><div class="card-title">1차 운영 목표</div><div class="card-desc"><strong style="font-size:18px;color:var(--teal)">정확도 94%+</strong><br>예측오차율 6% 이내 대응</div></div>
-      <div class="card ct"><div class="card-title">고도화 목표</div><div class="card-desc"><strong style="font-size:18px;color:var(--teal)">정확도 96%+</strong><br>예측오차율 4% 이하 구간 목표</div></div>
-      <div class="card ct"><div class="card-title">평가 지표</div><div class="card-desc"><strong>정산용 예측오차율</strong><br>RMSE · MAE · MAPE는 보조 지표로 관리</div></div>
+      <div class="card ct"><div class="card-title">1차 운영 목표</div><div class="card-desc"><strong style="font-size:18px;color:var(--teal)">정확도 94%+</strong><br>예측오차율 6% 이내 대응<br><span style="font-size:10px;color:var(--tm)">KPX 제24-6차 개정 2025.06 적용</span></div></div>
+      <div class="card ct"><div class="card-title">고도화 목표</div><div class="card-desc"><strong style="font-size:18px;color:var(--teal)">정확도 96%+</strong><br>예측오차율 4% 이하 구간<br><span style="font-size:10px;color:var(--tm)">4단계 하이브리드 모델 적용 후</span></div></div>
+      <div class="card ct"><div class="card-title">평가 지표</div><div class="card-desc"><strong>정산용 예측오차율</strong><br>RMSE · MAE · MAPE는 보조 지표<br><span style="font-size:10px;color:var(--tm)">nMAE 기준 국내 논문 결과와 비교 예정</span></div></div>
     </div>
     <div class="insight" style="margin-top:12px;margin-bottom:0;font-size:12px">
       <strong>해석 기준:</strong> 정확도 94%+는 예측오차율 6% 이내를 <strong>100% − 예측오차율</strong>로 환산한 운영 목표다. 실제 모델 평가는 RMSE·MAE·MAPE를 함께 보되, 전력거래소 정산 대응은 예측오차율 기준으로 별도 산정한다.
     </div>
   </div>
 
-  <div class="ref-box">
+  <div class="ref-box" style="margin-top:14px">
     <strong>모델 방법론 근거:</strong>
-    <a href="https://pvlib-python.readthedocs.io/en/stable/" target="_blank" rel="noopener noreferrer">pvlib 공식 문서↗</a> |
-    <a href="https://arxiv.org/abs/1910.05944" target="_blank" rel="noopener noreferrer">9개 PV 발전소 기반 15분~6시간 단기 예측 연구↗</a> |
-    <a href="https://arxiv.org/abs/2405.14472" target="_blank" rel="noopener noreferrer">SolNet 전이학습 기반 PV 예측 연구↗</a> |
-    <a href="https://arxiv.org/abs/2406.03808" target="_blank" rel="noopener noreferrer">PV-Client Transformer 기반 PV 예측 연구↗</a> |
-    <a href="https://arxiv.org/abs/2207.00913" target="_blank" rel="noopener noreferrer">SKIPP’D 3년치 PV 발전량·하늘 이미지 데이터셋↗</a>
+    <a href="https://doi.org/10.7232/JKIIE.2021.47.5.444" target="_blank" rel="noopener noreferrer">이용택 외, 머신러닝을 이용한 태양광 발전량 예측 모델 비교 (고려대·한국에너지기술연구원, 2021) ↗</a> |
+    <a href="http://dx.doi.org/10.14801/jkiit.2024.22.12.9" target="_blank" rel="noopener noreferrer">황주훈·김창복, 특성 확장을 이용한 태양광 발전량 예측 딥러닝 모델 (가천대, 2024) ↗</a> |
+    <a href="https://pvlib-python.readthedocs.io/en/stable/" target="_blank" rel="noopener noreferrer">pvlib 공식 문서 ↗</a> |
+    <a href="https://arxiv.org/abs/1910.05944" target="_blank" rel="noopener noreferrer">9개 PV 발전소 기반 15분~6시간 단기 예측 ↗</a> |
+    <a href="https://arxiv.org/abs/2405.14472" target="_blank" rel="noopener noreferrer">SolNet 전이학습 기반 PV 예측 ↗</a> |
+    <a href="https://arxiv.org/abs/2406.03808" target="_blank" rel="noopener noreferrer">PV-Client Transformer 기반 PV 예측 ↗</a> |
+    <a href="https://arxiv.org/abs/2207.00913" target="_blank" rel="noopener noreferrer">SKIPP'D 3년치 PV 발전량·하늘 이미지 데이터셋 ↗</a>
   </div>
 </div>
 
 <div class="divider"></div>
+
 <!-- ════════════════════════════════════════
-  L1: 05 데이터 계층
+  09 데이터 구조 및 계층
 ════════════════════════════════════════ -->
 <div id="sec-layer" class="sec-l1">
   <div class="sec-l1-header">
-    <div class="sec-l1-num n-teal">05</div>
-    <div class="sec-l1-title">데이터 계층 구조</div>
+    <div class="sec-l1-num n-teal">09</div>
+    <div class="sec-l1-title">데이터 구조 및 계층</div>
   </div>
-  <p class="sec-l1-sub">국내 탑 플레이어들이 쓰는 데이터를 정확도 기여도 기준 3계층. 우리는 기본층 완전 확보 + 중간층 일부를 1차 목표로 한다.</p>
+  <p class="sec-l1-sub">국내 탑 플레이어들이 쓰는 데이터를 정확도 기여도 기준 3계층으로 분류했다. 우리는 기본층 완전 확보 + 중간층 일부를 1차 목표로 한다.</p>
 
   <div class="layer l-basic">
     <div class="layer-label" style="color:var(--teal-t)">기본층 — 모든 회사 공통 · 없으면 시작 불가 · 1차 목표</div>
@@ -1000,31 +1153,11 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
   </div>
 
   <div class="layer l-adv">
-    <div class="layer-label" style="color:var(--purple-t)">고급층 — 95%+ 차별화 · 2차 목표</div>
+    <div class="layer-label" style="color:var(--purple-t)">고급층 — 96%+ 고도화 · 2차 목표</div>
     <div class="g3">
       <div class="card cp"><div class="card-title">위성 영상</div><div class="card-desc">천리안 2호 실시간 위성. 구름 이동 추적으로 단기 정확도 향상.</div></div>
-      <div class="card cp"><div class="card-title">패널 이미지 (오염 탐지)</div><div class="card-desc">이미지 AI. 오염 위치 71.9%, 유형 분류 98% (국내 연구과제 기준).</div></div>
+      <div class="card cp"><div class="card-title">패널 이미지 (오염 탐지)</div><div class="card-desc">이미지 AI. 오염 위치 식별·유형 분류 가능. 2차 목표.</div></div>
       <div class="card cp"><div class="card-title">해외 NWP (ECMWF)</div><div class="card-desc">일사량 포함 48h 예보. 기상청 단기예보 일사량 미제공 보완.</div></div>
-    </div>
-  </div>
-
-  <!-- L2: 저하 요인 -->
-  <div id="sec-factor" class="sec-l2">
-    <div class="sec-l2-header">
-      <div class="sec-l2-num n-coral">5-1</div>
-      <div class="sec-l2-title">발전량 저하 요인 — 예측 오차를 만드는 것들</div>
-    </div>
-    <p class="sec-l2-sub">예측 모델이 아무리 좋아도 이 요인들이 데이터로 반영되지 않으면 오차가 생긴다.</p>
-
-    <div class="g3" style="margin-bottom:10px">
-      <div class="card cc"><div class="card-title">① 패널 오염</div><div class="card-desc">먼지·배설물·낙엽으로 출력 5~25% 저하. 이미지 AI로 위치 식별·유형 분류 가능.<div style="margin-top:8px"><span class="tag t-coral">이미지 AI</span><span class="tag t-coral">2차 목표</span></div></div></div>
-      <div class="card cc"><div class="card-title">② 음영</div><div class="card-desc">건물·나무·구조물 음영. 시간대·계절별 달라짐. 스트링 전압 이상으로 감지.<div style="margin-top:8px"><span class="tag t-coral">string_voltage</span><span class="tag t-coral">도메인 룰</span></div></div></div>
-      <div class="card cc"><div class="card-title">③ 모듈 열화</div><div class="card-desc">노후로 연 0.5~1% 출력 저하. 2년 이상 데이터로 추세 분석·보정 가능.<div style="margin-top:8px"><span class="tag t-gray">장기 트렌드</span><span class="tag t-gray">PR 성능비</span></div></div></div>
-    </div>
-    <div class="g3">
-      <div class="card ca"><div class="card-title">④ 미세먼지</div><div class="card-desc">PM2.5 증가 → 대기 투과율 저하 → GHI 감소. 에어코리아 API로 실측·예보 수집.<div style="margin-top:8px"><span class="tag t-amber">에어코리아</span><span class="tag t-amber">1차 포함</span></div></div></div>
-      <div class="card ca"><div class="card-title">⑤ 인버터 고장</div><div class="card-desc">갑작스러운 출력 0. inverter_status로 감지. 고장 구간은 is_valid 플래그로 학습 제외.<div style="margin-top:8px"><span class="tag t-amber">is_valid 플래그</span></div></div></div>
-      <div class="card ca"><div class="card-title">⑥ 기상 예보 오차</div><div class="card-desc">기상청 단기예보에 일사량 미제공. 해외 NWP(Open-Meteo)로 일사량 예보 확보 필요.<div style="margin-top:8px"><span class="tag t-amber">Open-Meteo</span><span class="tag t-amber">1차 권장</span></div></div></div>
     </div>
   </div>
 </div>
@@ -1032,11 +1165,35 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 <div class="divider"></div>
 
 <!-- ════════════════════════════════════════
-  L1: 06 원천데이터 상세
+  10 발전량 저하 요인
+════════════════════════════════════════ -->
+<div id="sec-factor" class="sec-l1">
+  <div class="sec-l1-header">
+    <div class="sec-l1-num n-coral">10</div>
+    <div class="sec-l1-title">발전량 저하 요인 — 왜 이 데이터가 필요한가</div>
+  </div>
+  <p class="sec-l1-sub">아래 요인들이 데이터로 반영되지 않으면 예측 모델의 오차가 커진다. 각 요인을 어떤 데이터로 보정하는지 확인한다.</p>
+
+  <div class="g3" style="margin-bottom:10px">
+    <div class="card cc"><div class="card-title">① 패널 오염</div><div class="card-desc">먼지·배설물·낙엽으로 출력 5~25% 저하. 이미지 AI로 위치 식별·유형 분류 가능.<div style="margin-top:8px"><span class="tag t-coral">이미지 AI</span><span class="tag t-coral">2차 목표</span></div></div></div>
+    <div class="card cc"><div class="card-title">② 음영</div><div class="card-desc">건물·나무·구조물 음영. 시간대·계절별 달라짐. 스트링 전압 이상으로 감지한다.<div style="margin-top:8px"><span class="tag t-coral">string_voltage</span><span class="tag t-coral">도메인 룰</span></div></div></div>
+    <div class="card cc"><div class="card-title">③ 모듈 열화</div><div class="card-desc">노후로 연 0.5~1% 출력 저하. 2년 이상 데이터로 추세 분석·보정 가능하다.<div style="margin-top:8px"><span class="tag t-gray">장기 트렌드</span><span class="tag t-gray">PR 성능비</span></div></div></div>
+  </div>
+  <div class="g3">
+    <div class="card ca"><div class="card-title">④ 미세먼지</div><div class="card-desc">PM2.5 증가 → 대기 투과율 저하 → GHI 감소. 에어코리아 API로 실측·예보 수집.<div style="margin-top:8px"><span class="tag t-amber">에어코리아</span><span class="tag t-amber">1차 포함</span></div></div></div>
+    <div class="card ca"><div class="card-title">⑤ 인버터 고장</div><div class="card-desc">갑작스러운 출력 0. inverter_status로 감지. 고장 구간은 is_valid 플래그로 학습 제외.<div style="margin-top:8px"><span class="tag t-amber">is_valid 플래그</span></div></div></div>
+    <div class="card ca"><div class="card-title">⑥ 기상 예보 오차</div><div class="card-desc">기상청 단기예보에 일사량 미제공. 해외 NWP(Open-Meteo)로 일사량 예보 확보 필요.<div style="margin-top:8px"><span class="tag t-amber">Open-Meteo</span><span class="tag t-amber">1차 권장</span></div></div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+  11 원천데이터 상세
 ════════════════════════════════════════ -->
 <div id="sec-raw" class="sec-l1">
   <div class="sec-l1-header">
-    <div class="sec-l1-num n-teal">06</div>
+    <div class="sec-l1-num n-teal">11</div>
     <div class="sec-l1-title">원천데이터 — 필요한 자료 상세 정의</div>
   </div>
   <p class="sec-l1-sub">현재 계획 수립 중. 원천데이터는 4가지 종류. 목표: 15개소 · 2년 · 15분 주기.</p>
@@ -1045,14 +1202,13 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
     <div class="stat-item"><div class="stat-num">1,051,200</div><div class="stat-label">발전소 실측 목표 건수</div><div class="stat-basis">15개소 × 96회/일 × 365일 × 2년</div></div>
     <div class="stat-item"><div class="stat-num">17,520</div><div class="stat-label">기상 데이터 (지점당)</div><div class="stat-basis">1시간 주기 × 24h × 365일 × 2년</div></div>
     <div class="stat-item"><div class="stat-num">미정</div><div class="stat-label">DB 테이블 수</div><div class="stat-basis">실측 + 기상 5종 + 설비정보 등</div></div>
-    <div class="stat-item"><div class="stat-num">92%+</div><div class="stat-label">목표 예측 정확도</div><div class="stat-basis">국내 연구과제 92.7% 기준</div></div>
+    <div class="stat-item"><div class="stat-num">94%+</div><div class="stat-label">1차 목표 예측 정확도</div><div class="stat-basis">2025 태양광 정산기준 6% 이내 대응</div></div>
   </div>
 
   <div class="now-block" style="margin-top:16px">
     <div class="now-header"><span>▶ 현재 계획 수립 중 — 원천데이터 종류·항목·우선순위</span></div>
     <div class="now-body">
 
-      <!-- L2: 발전소 실측 -->
       <div id="sec-raw-inv" class="sec-l2" style="margin-top:0">
         <div class="sec-l2-header">
           <div class="sec-l2-num n-teal">①</div>
@@ -1074,17 +1230,14 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
         </div>
       </div>
 
-      <!-- L2: 기상 데이터 -->
       <div id="sec-raw-wx" class="sec-l2">
         <div class="sec-l2-header">
           <div class="sec-l2-num n-blue">②</div>
           <div class="sec-l2-title">기상 데이터 — 실측(학습용) + 예보(예측용) 둘 다 필요</div>
         </div>
         <div class="insight ib" style="margin-top:0">
-          학습 시 <strong>과거 실측값(ASOS)</strong> 사용, 실제 예측 시 <strong>수치예보(NWP)</strong> 입력. 기상청 단기예보는 일사량 직접 미제공 → Open-Meteo로 보완.
+          학습 시 <strong>과거 실측값(ASOS)</strong> 사용, 실제 예측 시 <strong>수치예보(NWP)</strong> 입력. 기상청 단기예보는 일사량 직접 미제공 → Open-Meteo로 보완한다.
         </div>
-
-        <!-- L3 -->
         <div class="sec-l3">
           <div class="sec-l3-title">기상청 Open API — 관측 실측값</div>
           <div class="tw">
@@ -1099,7 +1252,6 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
             </table>
           </div>
         </div>
-
         <div class="sec-l3">
           <div class="sec-l3-title">해외 기상 API — 일사량 예보값 (핵심 보완)</div>
           <div class="tw">
@@ -1111,7 +1263,6 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
             </table>
           </div>
         </div>
-
         <div class="sec-l3">
           <div class="sec-l3-title">미세먼지 API</div>
           <div class="tw">
@@ -1124,13 +1275,11 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
             </table>
           </div>
         </div>
-
         <div class="insight ia">
-          <strong>실제 연구과제 DB 구성 (예시):</strong> weather_hour(52,157건) · pre_48hour(48,770건) · pre_sun48hour(47,758건) · dust_hour(52,157건) · pre_dust_48hour(48,694건) — 9개소·약 9개월 기준. 우리는 15개소·2년으로 확장.
+          <strong>실제 연구과제 DB 구성 (예시):</strong> weather_hour · pre_48hour · pre_sun48hour · dust_hour · pre_dust_48hour — 5종 테이블 구조. 우리는 15개소·2년으로 확장한다.
         </div>
       </div>
 
-      <!-- L2: 설비 고유정보 -->
       <div id="sec-raw-plant" class="sec-l2">
         <div class="sec-l2-header">
           <div class="sec-l2-num n-amber">③</div>
@@ -1151,7 +1300,6 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
         </div>
       </div>
 
-      <!-- L2: 천문 계산값 -->
       <div id="sec-raw-astro" class="sec-l2">
         <div class="sec-l2-header">
           <div class="sec-l2-num n-purple">④</div>
@@ -1174,13 +1322,15 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 
 <div class="divider"></div>
 
-<!-- L2: API 현황 -->
-<div id="sec-api" class="sec-l2" style="margin-top:28px">
-  <div class="sec-l2-header">
-    <div class="sec-l2-num n-blue">6-1</div>
-    <div class="sec-l2-title">API 현황 — 실제 채택 및 조사 중</div>
+<!-- ════════════════════════════════════════
+  11-1 API 현황
+════════════════════════════════════════ -->
+<div id="sec-api" class="sec-l1">
+  <div class="sec-l1-header">
+    <div class="sec-l1-num n-blue">11-1</div>
+    <div class="sec-l1-title">API 현황 — 실제 채택 및 조사 중</div>
   </div>
-  <p class="sec-l2-sub">계정 보유 여부·비용·제공 항목 기준으로 정리.</p>
+  <p class="sec-l1-sub">계정 보유 여부·비용·제공 항목 기준으로 정리했다.</p>
 
   <div class="g2" style="margin-bottom:12px">
     <div style="background:var(--teal-bg);border:1.5px solid var(--now-b);border-radius:10px;padding:16px">
@@ -1195,10 +1345,10 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
       </div>
       <div style="background:#fff;border-radius:8px;padding:12px">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-          <div style="font-size:13px;font-weight:600">날씨마루</div><span class="tag t-teal">계정 보유</span>
+          <div style="font-size:13px;font-weight:600">날씨마루</div><span class="tag t-blue">제공 항목 확인 중</span>
         </div>
         <div style="font-size:11px;color:var(--tm);margin-bottom:4px">bd.kma.go.kr · system@rmsgroup.co.kr</div>
-        <div style="font-size:12px;color:var(--ts)">시군구 단위 48h 발전량 예측 · 일사강도 포함. 우리 예측 결과 비교 베이스라인으로 활용.</div>
+        <div style="font-size:12px;color:var(--ts)">공공 기상자료 확인·비교용. 태양광 발전량 예측 및 일사강도 제공 항목은 서비스 화면/API 문서에서 추가 확인 필요.</div>
       </div>
     </div>
     <div style="background:var(--blue-bg);border:1.5px solid #bfd7ca;border-radius:10px;padding:16px">
@@ -1227,7 +1377,7 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
       <tbody>
         <tr><td><strong>기상청 ASOS</strong></td><td>GHI · 기온 · 풍속 · 전운량 · 습도</td><td>1시간</td><td>무료</td><td><span class="tag t-teal">확정</span></td></tr>
         <tr><td><strong>기상청 단기예보</strong></td><td>하늘상태 · 기온 · 강수확률 (일사량 미제공)</td><td>3시간</td><td>무료</td><td><span class="tag t-teal">확정</span></td></tr>
-        <tr><td><strong>날씨마루</strong></td><td>일사강도 포함 48h 발전량 예측</td><td>48시간</td><td>무료</td><td><span class="tag t-teal">확정</span></td></tr>
+        <tr><td><strong>날씨마루</strong></td><td>공공 기상자료 · 태양광 관련 제공 항목 확인 필요</td><td>확인 필요</td><td>무료</td><td><span class="tag t-blue">확인 중</span></td></tr>
         <tr><td><strong>Open-Meteo</strong></td><td>GHI 예보 · 기온 · 운량 · 풍속 (48h)</td><td>1시간</td><td>무료</td><td><span class="tag t-blue">테스트 중</span></td></tr>
         <tr><td><strong>에어코리아</strong></td><td>PM2.5 · PM10 실측·예보</td><td>1시간</td><td>무료</td><td><span class="tag t-blue">조사 중</span></td></tr>
         <tr><td><strong>LASEE API</strong></td><td>인버터 AC/DC · 발전량 · 상태</td><td>15분 (확인 필요)</td><td>무료</td><td><span class="tag t-teal">연동 중</span></td></tr>
@@ -1240,11 +1390,11 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 <div class="divider"></div>
 
 <!-- ════════════════════════════════════════
-  L1: 07 학습 데이터셋 구조
+  12 학습 데이터셋 구조
 ════════════════════════════════════════ -->
 <div id="sec-dataset" class="sec-l1">
   <div class="sec-l1-header">
-    <div class="sec-l1-num n-purple">07</div>
+    <div class="sec-l1-num n-purple">12</div>
     <div class="sec-l1-title">학습 데이터셋 구조</div>
   </div>
   <p class="sec-l1-sub">원천데이터 → 전처리·가공 → 학습 데이터셋 3단계.</p>
@@ -1282,7 +1432,7 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
             <span class="tag t-gray">리샘플링 15min→1h</span><span class="tag t-gray">결측치 보간</span><span class="tag t-gray">이상치 3σ</span><span class="tag t-gray">lag_1h · lag_24h</span><span class="tag t-gray">rolling_mean_6h</span><span class="tag t-gray">sin/cos 인코딩</span><span class="tag t-gray">발전량 0~1 스케일링</span>
           </div>
           <div class="insight" style="margin-top:10px;margin-bottom:0;font-size:12px">
-            <strong>발전소별 vs 통합 모델:</strong> 데이터 충분한 발전소는 맞춤형 모델이 더 정확. 신규 발전소는 0~1 스케일링 후 통합 모델 적용. <strong>VPP 운영 시 통합 모델 필수.</strong>
+            <strong>발전소별 vs 통합 모델:</strong> 데이터 충분한 발전소는 맞춤형 모델이 더 정확하다. 신규 발전소는 0~1 스케일링 후 통합 모델 적용. <strong>VPP 운영 시 통합 모델 필수.</strong>
           </div>
         </div>
       </div>
@@ -1298,7 +1448,7 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
             <div style="font-size:13px;font-weight:600;margin-bottom:3px">설비이용률(%) = 계량발전량 ÷ 설비용량 × 100</div>
             <div style="font-size:12px;color:var(--ts);margin-bottom:8px">→ 정상 범위 구간만 학습 데이터로 사용</div>
             <div style="font-size:13px;font-weight:600;margin-bottom:3px">예측오차율(%) = |예측발전량 − 실제발전량| ÷ 설비용량 × 100</div>
-            <div style="font-size:12px;color:var(--ts)">→ 목표: <strong>8% 이내</strong> · 참고: 국내 연구과제 92.7% 정확도</div>
+            <div style="font-size:12px;color:var(--ts)">→ 1차 목표: <strong>6% 이내</strong>(정확도 94%+) · 고도화 목표: <strong>4% 이하</strong>(정확도 96%+)</div>
           </div>
           <div class="g2">
             <div style="background:var(--coral-bg);border-radius:7px;padding:12px">
@@ -1317,12 +1467,13 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
 </div>
 
 <div class="divider"></div>
+
 <!-- ════════════════════════════════════════
-  L1: 08 확인사항
+  13 확인사항
 ════════════════════════════════════════ -->
 <div id="sec-check" class="sec-l1">
   <div class="sec-l1-header">
-    <div class="sec-l1-num n-coral">08</div>
+    <div class="sec-l1-num n-coral">13</div>
     <div class="sec-l1-title">확인사항</div>
   </div>
   <ul class="checklist">
@@ -1333,10 +1484,11 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
     <li><div class="check-box"></div><span><strong>에어코리아 API</strong> — 발전소 인근 측정소 지점번호 확인 및 연동 테스트</span></li>
     <li><div class="check-box"></div><span><strong>발전소 메타정보 확보</strong> — 위경도·패널 경사각·방위각·설비용량·출력온도계수 15개소 전수</span></li>
     <li><div class="check-box"></div><span><strong>데이터 확보</strong> — 수집 시작 전 과거 발전 이력 (최소 1년치)</span></li>
-    <li><div class="check-box"></div><span><strong>성능 평가 기준 확정</strong> — 설비이용률 기준치 · 오차율 목표 8%</span></li>
+    <li><div class="check-box"></div><span><strong>성능 평가 기준 확정</strong> — 설비이용률 기준치 · 1차 오차율 6% 이내 · 고도화 4% 이하</span></li>
   </ul>
 </div>
 
+</div>
 </div>
 </div>
 </div>
