@@ -309,9 +309,10 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
     <div class="meta-item"><span class="meta-label">목표 발전소</span><span class="meta-value">15개소</span></div>
   </div>
   <div style="margin-top:16px;padding:16px 20px;background:var(--gray-bg);border-radius:10px;font-size:12px;color:var(--ts);line-height:1.9">
-    <div style="font-size:11px;font-weight:700;color:var(--tm);letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px">수집 기준 근거 — 왜 2년·15분·15개소인가</div>
+    <div style="font-size:11px;font-weight:700;color:var(--tm);letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px">최소 수집 기준 근거</div>
     <p style="margin-bottom:8px"><strong style="color:var(--tp)">2년:</strong> 기상 요인(계절·일사량·운량 등)에 따른 발전량 변동성 반영 목적. 1개년 데이터는 사계절 패턴이 1회에 불과해 검증 데이터가 부족하고 학습/검증 분리가 어려움. 2개년 확보 시 1년차 학습, 2년차 검증으로 예측 모델의 일반화 성능 검증이 가능하다.</p>
     <p style="margin-bottom:8px"><strong style="color:var(--tp)">15분:</strong> 구름 이동 등으로 인한 10~30분 단위의 단기 출력 변동성 반영 목적. 급격한 변동인 램프 이벤트(Ramp Event)는 1시간 단위 분석 시 정보가 평활화(유실)됨. 스위스 국가 연구(6,434개 PV 분석, 2026)에서도 램프 이벤트 분석 및 전력시장 기준 해상도로 15분 단위를 제시했다.</p>
+    <p style="font-size:11px;color:var(--tm);margin-bottom:8px;padding:6px 10px;background:var(--gray-bg);border-radius:6px">※ 램프 이벤트(Ramp Event): 구름 유입·이탈 등으로 발전량이 10~30분 사이에 수백 kW씩 급격히 오르내리는 현상. 1시간 단위 데이터로는 평균에 묻혀 감지되지 않아 ESS 제어 및 정산 대응에 오차를 유발한다.</p>
     <p style="margin-bottom:10px"><strong style="color:var(--tp)">15개소:</strong> 사계절 반복성, 단시간 변동성, 발전소 간 다양성을 동시에 확보하기 위한 최소한의 운영형 데이터 수집 기준이다.</p>
     <div style="font-size:11px;color:var(--tm)">참고문헌: <a href="https://arxiv.org/abs/2603.26596" target="_blank" rel="noopener noreferrer" style="color:var(--blue-t)">스위스 6,434개 PV 발전소 데이터 기반 램프 이벤트 연구 (2026) ↗</a></div>
   </div>
