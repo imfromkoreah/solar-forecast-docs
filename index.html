@@ -1003,8 +1003,7 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
       </div>
       <div style="background:var(--purple-bg);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--purple-t)">
         <strong>③ 병렬 모델이 단일 모델보다 좋다</strong>
-        <div style="margin-top:4px;font-size:12px;line-height:1.7">DNN의 각 시점 특성 추출 능력과 BiLSTM의 시계열 패턴 학습 능력을 병렬로 결합한 DBiLSTM 모델이 단일 BiLSTM 대비 RMSE 기준 15~37% 향상됐다. 깊은 레이어 없이도 Vanishing Gradient 문제를 피하면서 높은 성능을 낼 수 있다. <em>(황주훈·김창복, Journal of KIIT 2024)</em></div>
-      </div>
+        <div style="margin-top:4px;font-size:12px;line-height:1.7">단일 모델보다 여러 모델의 장점을 병렬로 결합한 구조가 시계열 예측에 더 효과적인 것으로 국내 연구에서 확인됐다. DNN의 각 시점 특성 추출과 BiLSTM의 시계열 패턴 학습을 병렬로 연결하면, 깊은 레이어 없이도 Vanishing Gradient 문제를 피하면서 높은 성능을 낼 수 있다. <em>(황주훈·김창복, Journal of KIIT 2024)</em></div>
     </div>
 
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px">
@@ -1081,7 +1080,7 @@ code{font-family:'Menlo',monospace;font-size:11px;background:var(--gray-bg);padd
             <div class="f-title">3단계 — 12~24개월</div>
             <div class="f-sub" style="margin-bottom:6px">사계절 1회 이상 확보 후 LSTM, CNN-LSTM, Multi Input Model 적용. 병렬 모델(DNN+BiLSTM) 검토. 미세먼지 입력 추가.</div>
             <div style="display:flex;gap:4px;flex-wrap:wrap"><span class="tag t-gray">CNN-LSTM</span><span class="tag t-gray">Multi Input</span><span class="tag t-gray">DNN+BiLSTM 검토</span><span class="tag t-gray">미세먼지 입력</span></div>
-            <div style="margin-top:8px;font-size:11px;color:var(--tm)">근거: DBiLSTM이 단일 BiLSTM 대비 RMSE 15~37% 향상 <em>(황주훈·김창복, 2024)</em></div>
+            <div style="margin-top:8px;font-size:11px;color:var(--tm)">단일 모델 대비 성능 향상이 국내 연구에서 확인됐다<em>(황주훈·김창복 논문, 2024)</em></div>
           </div>
         </div>
       </div>
